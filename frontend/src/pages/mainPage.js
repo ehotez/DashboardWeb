@@ -37,7 +37,7 @@ export default function Mainpage() {
     return (
       <div>
         <h1>
-          Press the button
+          Press the button (Stable)
         </h1>
         <button onClick={ClickHandler}>BUTTON</button>
       </div>
