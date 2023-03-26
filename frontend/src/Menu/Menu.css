@@ -1,0 +1,51 @@
+.menu{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    transform: translateX(-120%);
+    transition: all 0.5s;
+}
+
+.menu.active{
+    transform: translateX(0);
+}
+
+.blur{
+    width: 100vw;
+    height: 100vh;
+    left: 20%;
+    backdrop-filter: blur(2px);
+    position: absolute;
+}
+
+.menu__content{
+    width: 20%;
+    height: 100%;
+    background-color: bisque;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s;
+}
+
+.menu__header{
+    font-size: 1.5em;
+    color:azure;
+}
+
+ul li a{
+    color:aqua;
+    text-decoration: none;
+    font-size: 1.3em;
+    align-items: center;
+}
+
+ul li {
+    display: flex;
+    margin: 15px;
+}
+
+.material-icons{
+    margin-left: 10px;
+}
