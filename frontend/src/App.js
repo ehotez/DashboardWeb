@@ -17,7 +17,7 @@ export default function App() {
         </div>        
       </nav>
       <main>
-        WIDGET yesyesyeysyeysrrryeysyeyseeeeeeeeeeeeeeeesaaseeeesdsadasdasdeeeeeeeeeeeeeeeeeeeeeeeeeehui
+        Stable Version
       </main>
 
     </div>
