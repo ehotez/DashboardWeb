@@ -1,12 +1,24 @@
 import '../App.css';
 import React from 'react';
 
+
+function show({text}){
+  return(
+    <>
+      <h2>{text}</h2>
+    </> 
+  );
+}
+
+
 export default function Mainpage() {
 
     async function ClickHandler(){
-      let response = await fetch('http://localhost/DashboardWeb/yii2-basic/web/source/show/?id=2');
+      let json;
+      let response = await fetch('http://localhost/yii2-basic/web/users');
       let commit = await response.json();
       //alert(commit[0].txtIUserLogin);
+      show(commit);
       console.log(commit);
     //   let res = fetch('http://localhost/yii2-basic/web/users')
     //   .then(res => {    /* IF statement checks server response: .catch() does not do this! */ 
