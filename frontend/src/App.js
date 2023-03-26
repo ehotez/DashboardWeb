@@ -17,7 +17,7 @@ export default function App() {
         </div>        
       </nav>
       <main>
-        WIDGET yesyesyeysyeysyeysyeyseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+        WIDGET yesyesyeysyeysrrryeysyeyseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
       </main>
 
     </div>
