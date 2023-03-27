@@ -6,7 +6,9 @@ export default function Mainpage() {
     async function ClickHandler(){
       let json;
       let response = await fetch('http://localhost/DashboardWeb/yii2-basic/web/source/show/?id=2');
+ 
       let commit = await response.json();
+      
       //alert(commit[0].txtIUserLogin);
       console.log(commit);
     //   let res = fetch('http://localhost/yii2-basic/web/users')
