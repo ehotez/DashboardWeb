@@ -79,8 +79,10 @@ class LoginPage extends Component {
         if (result === 'ALL GOOD') {
           alert('You are logged in.');
           //this.goToMain();
-        } else {
-          alert('Please check your login information.');
+        } else if(result === 'Incorrect login') {
+          alert('Incorrect login');
+        } else if (result === 'Incorrect password'){
+          alert('Incorrect password')
         }
       });
   }
