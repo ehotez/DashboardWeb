@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "tblUser".
  *
@@ -43,4 +41,25 @@ class User extends \yii\db\ActiveRecord
             'txtUserPassword' => 'Txt User Password',
         ];
     }
+
+    public static function findIdentity($id)
+    {
+	    return static::findOne($id);
+    }
+
+    public static function findByUsername($login)
+    {
+	    return static::findOne(['txtIUserLogin' => $login]);
+    }
+
+    public function getId()
+    {
+        return $this->intUserId;
+    }
+
+    public function validatePassword($password)
+    {
+        return $this->txtUserPassword === $password;
+    }
+
 }

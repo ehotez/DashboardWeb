@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use yii\rest\ActiveController;
 
+//ВСЕ ДЕЙСТВИЯ С ИСТОЧНИКАМИ
 class SourceController extends ActiveController
 {
     public $modelClass = 'app\models\Source';
@@ -30,6 +31,59 @@ class SourceController extends ActiveController
      * @return void
      */
     function actionGetChart($link)
+    {
+        // реализация
+    }
+
+    /**
+     * Отображает страницу со списком источников данных.
+     *
+     * @return void
+     */
+    function actionShowSourcePage()
+    {
+        // реализация
+    }
+
+    /**
+     * Отображает страницу добавления нового источника данных.
+     *
+     * @return void
+     */
+    function actionShowAddSource()
+    {
+        // реализация
+    }
+
+    /**
+     * Отображает страницу редактирования существующего источника данных.
+     *
+     * @param int $id идентификатор источника данных.
+     * @return void
+     */
+    function actionShowEditSource($id)
+    {
+        // реализация
+    }
+
+    /**
+     * Отображает страницу подтверждения удаления источника данных.
+     *
+     * @param int $id идентификатор источника данных.
+     * @return void
+     */
+    function actionShowDeleteSource($id)
+    {
+        // реализация
+    }
+    
+    /**
+     * Удаляет указанный источник данных из базы данных.
+     *
+     * @param int $id идентификатор источника данных.
+     * @return void
+     */
+    function actionDeleteSource($id)
     {
         // реализация
     }

@@ -12,6 +12,10 @@ nav{
   align-items:flex-start;
 }
 
+input{
+  width: 10;
+}
+
 main{
   padding: 100px;
 }
