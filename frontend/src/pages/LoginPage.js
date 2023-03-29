@@ -1,4 +1,5 @@
 import '../App.css';
+import '../components/Input.css';
 import React, { Component } from 'react';
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -61,7 +62,7 @@ class LoginPage extends Component {
       }),
     );
   }
-
+  
   handleFormSubmit(e) {
     e.preventDefault();
     let userData = this.state.newUser;
@@ -89,12 +90,12 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <>
+      <div className='loginform'>
         <form className='container-fluid' onSubmit={this.handleFormSubmit}>
-          <h1>LOGIN</h1>
+          <label>LOGIN</label>
           <Input
             type={"text"}
-            title={"Login"}
+            title={""}
             name={"login"}
             value={this.state.newUser.name}
             placeholder={"Enter your login"}
@@ -102,7 +103,7 @@ class LoginPage extends Component {
           />{" "}
           <Input
             inputtype={"text"}
-            title={"Password"}
+            title={""}
             name={"password"}
             value={this.state.newUser.name}
             placeholder={"Enter your password"}
@@ -114,7 +115,7 @@ class LoginPage extends Component {
             title={"Submit"}
           />{" "}
         </form>
-      </>
+      </div>
     );
   }
 }

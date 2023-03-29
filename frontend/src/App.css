@@ -21,13 +21,13 @@ main{
 }
 
 .burger-btn{
-  width: 30px;
-  height: 30px;
-  margin-left: 20px;
-  top: 50px;
-  position: relative;
-  background-color: black;
-  cursor: pointer;
+  height: 100%;
+  width: 5%;
+  background-color: bisque;
+  position: fixed;
+  z-index: 50;
+  display:flex;
+  align-items:flex-start;
 }
 
 

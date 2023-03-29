@@ -12,7 +12,7 @@ export default function AppBurger() {
     <div className='app-burger'>
       <Menu active={menuActive} setActive={setMenuActive} header={"Menu"} items={items}/>
       <nav>
-        <div className='burger-btn' onClick={() => setMenuActive(!menuActive)}>
+        <div className='burger-btn' onMouseOver={() => setMenuActive(!menuActive)}>
           <span/>
         </div>        
       </nav>
