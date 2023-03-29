@@ -1,5 +1,5 @@
-import '../App.css';
-import Menu from '../Menu/Menu';
+import '../css/App.css';
+import Menu from '../components/Menu';
 import React, {useState} from 'react';
 
 export default function AppBurger() {
@@ -12,14 +12,13 @@ export default function AppBurger() {
     <div className='app-burger'>
       <Menu active={menuActive} setActive={setMenuActive} header={"Menu"} items={items}/>
       <nav>
-        <div className='burger-btn' onMouseOver={() => setMenuActive(!menuActive)}>
+        <div className='burger-btn' onMouseEnter={() => setMenuActive(!menuActive)}>
           <span/>
-        </div>        
+        </div>      
       </nav>
       <main>
         Stable Version
       </main>
-
     </div>
   );
 }

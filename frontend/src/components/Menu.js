@@ -1,5 +1,5 @@
 import React from 'react';
-import './Menu.css'
+import '../css/Menu.css'
 
 export default function Menu({header, items, active, setActive}){
     return(

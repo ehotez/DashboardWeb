@@ -1,5 +1,5 @@
-import '../App.css';
-import '../components/Input.css';
+import '../css/App.css';
+import '../css/Input.css';
 import React, { Component } from 'react';
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -66,8 +66,8 @@ class LoginPage extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
     let userData = this.state.newUser;
-
     console.log(JSON.stringify(userData));
+    //Обратити ВНИМАНИЕ на ковычки ` `
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/login/?login=${userData.login}&password=${userData.password}`, {
       method: "POST",
       headers: {
@@ -90,9 +90,12 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className='loginform'>
-        <form className='container-fluid' onSubmit={this.handleFormSubmit}>
-          <label>LOGIN</label>
+      <div className='login'>
+        <form className='login-form' onSubmit={this.handleFormSubmit}>
+          <label className='login-label'>
+            LOG IN
+          </label>
+          <div className='login-container'>
           <Input
             type={"text"}
             title={""}
@@ -112,8 +115,9 @@ class LoginPage extends Component {
           <Button
             action={this.handleFormSubmit}
             type={"primary"}
-            title={"Submit"}
+            title={"Login"}
           />{" "}
+          </div>
         </form>
       </div>
     );
