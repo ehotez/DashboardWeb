@@ -45,7 +45,7 @@
 	margin-top: 15%;
 }
 
-button{
+.button{
     position: relative;
     right: -76px;
 	width: 60%;
@@ -61,6 +61,6 @@ button{
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-button:hover{
+.button:hover{
 	background: #6d44b8;
 }

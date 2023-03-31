@@ -1,6 +1,31 @@
 import React from "react";
-  
-const About = () => {
+import Widget from "../components/Widget";
+import '../css/Grid.css'
+
+
+class Grid extends React.Component {
+  render() {
+    return (
+      <div className="grid">
+        <Widget />
+        <Widget />
+        <Widget />
+        <Widget />
+        <Widget />
+        <Widget />
+        <Widget />
+        <Widget />
+        <Widget />
+      </div>
+    );
+  }
+}
+export default Grid;
+
+
+
+
+/*const About = () => {
   return (
     <div>
       <h1>About Page</h1>
@@ -9,7 +34,7 @@ const About = () => {
 };
 
 export default About;
-
+*/
 /* ТУТ ПРОИЗОШЕЛ ОБСЕР С RSTP ЗАПРОСОМ
 import React from 'react';
 import { View } from 'react-native';
