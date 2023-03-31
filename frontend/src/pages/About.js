@@ -6,6 +6,7 @@ import '../css/Grid.css'
 class Grid extends React.Component {
   render() {
     return (
+      <div className="grid-flex">
       <div className="grid">
         <Widget />
         <Widget />
@@ -16,6 +17,7 @@ class Grid extends React.Component {
         <Widget />
         <Widget />
         <Widget />
+      </div>
       </div>
     );
   }

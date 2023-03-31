@@ -73,7 +73,7 @@ class Widget extends Component {
       <div className="widget">
         
         {!this.state.isShowVisible &&
-        <button className='butt' onClick={this.handleButtonClick}>+</button> 
+        <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
         }
         {this.state.isPopupVisible && 
           <div className="popup"> 

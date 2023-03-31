@@ -45,7 +45,7 @@
 	margin-top: 15%;
 }
 
-.button{
+.submit-button{
     position: relative;
     right: -76px;
 	width: 60%;
@@ -61,6 +61,6 @@
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-.button:hover{
+.submit-button:hover{
 	background: #6d44b8;
 }

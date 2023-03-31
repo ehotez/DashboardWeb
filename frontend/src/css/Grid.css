@@ -5,6 +5,10 @@
     gap: 10px;
 }
   
+.grid-flex{
+    width:100%;
+    height: 100%;
+}
 .widget {
     position: relative;
     height: 300px;
@@ -26,7 +30,7 @@
     top: 5%;
     left: 85%;
 }
-.butt{
+.add-widget-button{
     position: absolute;
 	top: 0;
 	bottom: 0;
