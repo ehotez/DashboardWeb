@@ -1,0 +1,49 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+}
+  
+.grid-flex{
+    width:100%;
+    height: 100%;
+}
+.widget {
+    position: relative;
+    height: 300px;
+    background-color: #f0f0f0;
+    padding: 10px;
+}
+.popup {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 300px;
+}
+.close{
+    /*position: relative;*/
+    top: 5%;
+    left: 85%;
+}
+.add-widget-button{
+    position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+    width:100px;
+	height: 70px;
+    
+} 
+.view{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    font-size: 2.5em
+}

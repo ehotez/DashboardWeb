@@ -9,6 +9,7 @@ import {
 import MainPage from "./pages/MainPage";
 import About from "./pages/About";
 import LoginPage from "./pages/LoginPage";
+import Sources from "./pages/Sources";
   
 //В данной функции/файле у нас будут только ссылки на страницы и рендеры все, остальное делаем в специально отведенных папках
 function App() {
@@ -41,7 +42,7 @@ function App() {
       </Router>
 
       {/* Пока что тут пишем страницу вручную че хочется посмотреть */}
-      <LoginPage/>
+      <Sources/>
     </>
   );
 }
