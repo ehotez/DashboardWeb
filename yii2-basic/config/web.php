@@ -13,6 +13,12 @@ $config = [
     ],
     'components' => [
         'request' => [
+            'userController' => [
+                'class' => 'app\controllers\UserController',
+            ],
+            'sourceController' => [
+                'class' => 'app\controllers\SourceController',
+            ],
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'wCNZ9o2qFBXmRBqqspl6I2hG7nM7OR83',
 
@@ -47,16 +53,15 @@ $config = [
             ],
         ],
         'db' => $db,
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'source'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api'],
             ],
         ],
-        
+
     ],
     'params' => $params,
 ];

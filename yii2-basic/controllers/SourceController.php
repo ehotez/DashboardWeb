@@ -9,81 +9,55 @@ class SourceController extends ActiveController
 {
     public $modelClass = 'app\models\Source';
 
-    public function actionShow($id)
-    {
-        return $id;
-    }
-    /**
-     * Получает данные из источника и отображает их на странице.
-     *
-     * @param string $link ссылка на данные источника.
-     * @return void
-     **/
-    function actionGetQuery($link)
-    {
-        // реализация
-    }
-
-    /**
-     * Получает данные из источника и отображает график на странице.
-     *
-     * @param string $link ссылка на данные источника.
-     * @return void
-     */
-    function actionGetChart($link)
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу со списком источников данных.
-     *
-     * @return void
-     */
-    function actionShowSourcePage()
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу добавления нового источника данных.
-     *
-     * @return void
-     */
-    function actionShowAddSource()
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу редактирования существующего источника данных.
-     *
-     * @param int $id идентификатор источника данных.
-     * @return void
-     */
-    function actionShowEditSource($id)
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу подтверждения удаления источника данных.
-     *
-     * @param int $id идентификатор источника данных.
-     * @return void
-     */
-    function actionShowDeleteSource($id)
-    {
-        // реализация
-    }
-    
     /**
      * Удаляет указанный источник данных из базы данных.
      *
      * @param int $id идентификатор источника данных.
      * @return void
      */
-    function actionDeleteSource($id)
+    private function actionDeleteSource($source_id)
+    {
+        // реализация
+    }
+
+    /**
+     * Редактирует указанный источник данных и сохраняет в базу данных.
+     *
+     * @param int $source_id идентификатор источника данных.
+     * @param string $type тип источника: "query" | "chart" | "video"
+     * @param string $link ссылка
+     * 
+     * @return void
+     */
+    private function actionEditSource($source_id, $type, $link)
+    {
+        // реализация
+    }
+
+    /**
+     * Добавляет указанный источник данных в базу данных.
+     *
+     * @param int $source_id идентификатор источника данных.
+     * @param string $type тип источника: "query" | "chart" | "video"
+     * @param string $link ссылка
+     * 
+     * @return void
+     */
+    private function actionAddSource($source_id, $type, $link)
+    {
+        // реализация
+    }
+
+    /**
+     * Добавляет указанный источник данных в базу данных.
+     *
+     * @param int $user_id идентификатор пользователя
+     * @return array словарь источников: 
+     *  array("source_id" => array(1, 2, 3, ...), 
+     *        "source_type" => array("query", "chart", "chart", "video", ...), 
+     *        "source_link" => array("https....", "https....")) 
+     */
+    private function actionGetSourcesForUser($user_id)
     {
         // реализация
     }
