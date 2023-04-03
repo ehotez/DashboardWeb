@@ -19,7 +19,7 @@ function SourceTable() {
           <th>Id</th>
           <th>Name</th>
           <th>Type</th>
-          <th>HI HI HA HA</th>
+          <th>БАЛДЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЖ</th>
         </tr>
       </thead>
       <tbody>

@@ -42,9 +42,9 @@ function App() {
       </Router>
 
       {/* Пока что тут пишем страницу вручную че хочется посмотреть */}
-      <Sources/>
+      <About/>
     </>
   );
 }
-  
+
 export default App;
