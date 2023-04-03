@@ -13,6 +13,18 @@ class SourceController extends ActiveController
     {
         return $id;
     }
+    public function actionDelete($id)
+    {
+        $model = Source::findOne($id);
+        
+        if (!$model) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        
+        $model->delete();
+        
+        return $this->redirect(['index']);
+    }
     /**
      * Получает данные из источника и отображает их на странице.
      *
