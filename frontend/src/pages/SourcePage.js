@@ -1,7 +1,7 @@
 import React from 'react';
 import SourceTable from '../components/Table';
 
-function App() {
+function SourcePage() {
   return (
     <div>
       <h1>Source List</h1>
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App;
+export default SourcePage;
