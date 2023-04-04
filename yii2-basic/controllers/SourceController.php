@@ -25,6 +25,23 @@ class SourceController extends ActiveController
         
         return $this->redirect(['index']);
     }
+    public function actionUpdate($id, $name, $type, $link, $login, $pass, $time)
+    {
+        $model = Source::findOne($id);
+        
+        if (!$model) {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+        
+        $model->txtSourceName = $name;
+        $model->txtSourceType = $type;
+        $model->txtSourceLink = $link;
+        $model->txtSourceLogin = $login;
+        $model->txtSourcePassword = $pass;
+        $model->intTimePeriod = $time;
+        $model->save();
+        return $this->redirect(['index']);
+    }
     /**
      * Получает данные из источника и отображает их на странице.
      *
