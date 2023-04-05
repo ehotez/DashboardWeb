@@ -1,0 +1,118 @@
+.table {
+	position: fixed;
+	width: 95%;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	border: 1px solid #dddddd;
+	border-collapse: separate;
+}
+
+.table th {
+	font-weight: bold;
+	padding: 1px;
+	background: #efefef;
+	border: 1px solid #dddddd;
+}
+
+.table td {
+	border: 1px solid #dddddd;
+}
+
+.popup-delete {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border: 1px solid black;
+	padding: 10px;
+	width: 500px;
+	height: 150px;
+	z-index: 9999;
+}
+
+.popup-edit {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border: 1px solid black;
+	padding: 10px;
+	width: 500px;
+	height: 450px;
+	z-index: 9999;
+}
+
+.text {
+	position: fixed;
+	top: 5%;
+	left: 12%;
+	color: black;
+	font-size: 2.0em;
+
+}
+
+.but-delete {
+	position: fixed;
+	top: 65%;
+	left: 20%;
+	width: 100px;
+	height: 30px;
+	background-color: #4CAF50;
+	color: #fff;
+	cursor: pointer;
+}
+
+.but-update {
+	position: fixed;
+	top: 85%;
+	left: 20%;
+	width: 100px;
+	height: 30px;
+	background-color: #4CAF50;
+	color: #fff;
+	cursor: pointer;
+}
+
+.but-delete-close {
+	position: fixed;
+	top: 65%;
+	left: 60%;
+	width: 100px;
+	height: 30px;
+	background-color: #ccc;
+	color: #fff;
+	cursor: pointer;
+}
+
+.but-update-close {
+	position: fixed;
+	top: 85%;
+	left: 60%;
+	width: 100px;
+	height: 30px;
+	background-color: #ccc;
+	color: #fff;
+	cursor: pointer;
+}
+
+.view-off {
+	display: none;
+}
+
+.but-delete-close:hover {
+	background-color: #3e8e41;
+}
+
+.but-update:hover {
+	background-color: #3e8e41;
+}
+
+.but-delete-close:hover {
+	background-color: #bbb;
+}
+
+.but-update-close:hover {
+	background-color: #bbb;
+}

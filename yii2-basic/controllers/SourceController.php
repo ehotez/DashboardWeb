@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use yii\rest\ActiveController;
+use app\models\Source;
 
 //ВСЕ ДЕЙСТВИЯ С ИСТОЧНИКАМИ
 class SourceController extends ActiveController
@@ -18,19 +19,19 @@ class SourceController extends ActiveController
         $model = Source::findOne($id);
         
         if (!$model) {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return 0;
         }
         
         $model->delete();
         
-        return $this->redirect(['index']);
+        return 1;
     }
-    public function actionUpdate($id, $name, $type, $link, $login, $pass, $time)
+    public function actionUpdateSource($id, $name, $type, $link, $login, $pass, $time)
     {
         $model = Source::findOne($id);
         
         if (!$model) {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            return 0;
         }
         
         $model->txtSourceName = $name;
@@ -40,7 +41,7 @@ class SourceController extends ActiveController
         $model->txtSourcePassword = $pass;
         $model->intTimePeriod = $time;
         $model->save();
-        return $this->redirect(['index']);
+        return 1;
     }
     /**
      * Получает данные из источника и отображает их на странице.

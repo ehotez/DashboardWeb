@@ -82,7 +82,7 @@ class LoginPage extends Component {
         if (result === 'ALL GOOD') {
           //alert('You are logged in.');
           this.setState({logged: true})
-          this.setState({referrer: '/main'});
+          this.setState({referrer: '/sources'});
         } else if(result === 'Incorrect login') {
           alert('Incorrect login');
         } else if (result === 'Incorrect password'){
@@ -96,21 +96,17 @@ class LoginPage extends Component {
       <div className='login'>
         { this.state.logged &&(<Navigate to={this.state.referrer} replace={true}/>)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
-          <label className='login-label'>
-            LOG IN
-          </label>
+          <label className='login-label'>LOG IN</label>
           <div className='login-container'>
           <Input
             type={"text"}
-            title={""}
             name={"login"}
             value={this.state.newUser.name}
             placeholder={"Enter your login"}
             onChange={this.handleInput}
           />{" "}
           <Input
-            inputtype={"text"}
-            title={""}
+            type={"password"}
             name={"password"}
             value={this.state.newUser.name}
             placeholder={"Enter your password"}
