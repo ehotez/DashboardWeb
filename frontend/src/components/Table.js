@@ -50,8 +50,7 @@ class SourceTable extends React.Component {
       .catch(error => console.log(error));
   }
 
-  handleDeleteButtonClick(id) {
-    this.setState({ deleteId: id });
+  handleDeleteButtonClick() {
     this.setState({ isPopupVisible: true });
     // const source = this.state.sources.find((source) => source.intSourceId == this.state.deleteId);
     // console.log(source); //Попытки вывести название удаляемого сурса - deleteId и intSourceId почему то разные
@@ -71,6 +70,12 @@ class SourceTable extends React.Component {
 
   handleRightClick(e) {
     e.preventDefault();
+    const row = e.target.parentNode;
+    const id = row.querySelector('td:first-child').innerText;
+    const name = row.querySelector('td:nth-child(2)').innerText;
+    const type = row.querySelector('td:nth-child(3)').innerText;
+    this.setState({deleteId:id});
+    this.setState({deleteName: name});
     this.setState({ menuVisible: true });
     this.setState({ menuX: e.clientX });
     this.setState({ menuY: e.clientY });
@@ -202,7 +207,7 @@ class SourceTable extends React.Component {
                   >
                     <button onClick={this.handleUpdateButtonClick.bind(this, source.intSourceId, source.txtSourceName, source.txtSourceType, source.txtSourceLink,
                       source.txtSourceLogin, source.txtSourcePassword,source.intTimePeriod )}>Edit</button>
-                    <button onClick={this.handleDeleteButtonClick.bind(this, source.intSourceId )}>Delete</button>
+                    <button onClick={this.handleDeleteButtonClick.bind(this)}>Delete</button>
                   </td>
                 )}
               </tr>

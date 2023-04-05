@@ -26,6 +26,7 @@
   padding: 10px;
   width: 500px;
   height: 150px;
+  z-index:9999;
 }
 .popup1 {
 	position: fixed;
@@ -37,6 +38,7 @@
 	padding: 10px;
 	width: 500px;
 	height: 450px;
+	z-index:9999;
   }
 .text{
   position:fixed;
