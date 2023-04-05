@@ -1,6 +1,6 @@
 import '../css/SourceTable.css'
+import Select from 'react-select';
 import React, { } from 'react';
-
 
 class SourceTable extends React.Component {
 
@@ -8,7 +8,7 @@ class SourceTable extends React.Component {
     super(props);
     this.state = {
       sources: [],
-      menuVisible: false,
+      isMenuVisible: false,
       menuX: 0,
       menuY: 0,
       isPopupVisible: false,
@@ -21,9 +21,35 @@ class SourceTable extends React.Component {
       updateLink: '',
       updateLogin: '',
       updatePassword: '',
-      updatePeriod: 0
+      updatePeriod: 0,
+      isSelectVisible: false
     };
+    this.options = [
+      { value: 'video', label: 'Видео' },
+      { value: 'graphic', label: 'График' },
+      { value: 'text', label: 'Текст' }
+    ];
     this.menuRef = React.createRef();
+  }
+
+  //Функция чтобы отобразить label зная value
+  getLabel(value) {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].value === value) {
+        return this.options[i].label;
+      }
+    }
+    return null;
+  }
+
+  //Функция чтобы отобразить value зная label
+  getValue(label) {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].label === label) {
+        return this.options[i].value;
+      }
+    }
+    return null;
   }
 
   componentDidMount() {
@@ -38,7 +64,7 @@ class SourceTable extends React.Component {
   handleClickOutside = (event) => {
     if (this.menuRef.current && !this.menuRef.current.contains(event.target)) {
       this.setState({
-        menuVisible: false,
+        isMenuVisible: false,
       });
     }
   };
@@ -59,7 +85,8 @@ class SourceTable extends React.Component {
     const row = e.target.parentNode;
     const id = row.querySelector('td:first-child').innerText;
     const name = row.querySelector('td:nth-child(2)').innerText;
-    const type = row.querySelector('td:nth-child(3)').innerText;
+    const type_label = row.querySelector('td:nth-child(3)').innerText;
+    const type = this.getValue(type_label);
     const link = row.querySelector('td:nth-child(4)').innerText;
     const login = row.querySelector('td:nth-child(5)').innerText;
     const pass = row.querySelector('td:nth-child(6)').innerText;
@@ -74,12 +101,12 @@ class SourceTable extends React.Component {
     this.setState({ updatePassword: pass });
     this.setState({ updatePeriod: time });
 
-    this.setState({ menuVisible: true });
+    this.setState({ isMenuVisible: true });
     this.setState({ menuX: e.clientX });
     this.setState({ menuY: e.clientY });
   }
   handleMenuClick() {
-    this.setState({ menuVisible: false });
+    this.setState({ isMenuVisible: false });
   }
   handleButtonDeleteClose() {
     this.setState({ isPopupVisible: false });
@@ -89,7 +116,7 @@ class SourceTable extends React.Component {
   }
 
   nameChange = (event) => { this.setState({ updateName: event.target.value }); }
-  typeChange = (event) => { this.setState({ updateType: event.target.value }); }
+  typeChange = (event) => { this.setState({ isSelectVisible: true }); this.setState({ updateType: event.value }); }
   linkChange = (event) => { this.setState({ updateLink: event.target.value }); }
   loginChange = (event) => { this.setState({ updateLogin: event.target.value }); }
   passChange = (event) => { this.setState({ updatePassword: event.target.value }); }
@@ -124,7 +151,7 @@ class SourceTable extends React.Component {
       <div>
         {this.state.isPopupVisible &&
           <div className="popup-delete">
-            <label className='text'>Ты уверен, другалёк?<br/>
+            <label className='text'>Ты уверен, другалёк?<br />
               Удалить {this.state.deleteName}? </label>
             <button className='but-delete' onClick={this.handleButtonDelete.bind(this, this.state.deleteId)}>Да</button>
             <button className='but-delete-close' onClick={this.handleButtonDeleteClose.bind(this)}>Нет</button>
@@ -132,17 +159,23 @@ class SourceTable extends React.Component {
         }
         {this.state.isUpdateVisible &&
           <div className="popup-edit">
-            Введите имя
+            Имя источника
             <input type="text" value={this.state.updateName} onChange={this.nameChange} />
-            Введите тип
-            <input type="text" value={this.state.updateType} onChange={this.typeChange} />
-            Введите ссылку
+            Тип источника
+            <Select
+              placeholder={this.getLabel(this.state.updateType)}
+              value={this.state.updateType}
+              options={this.options}
+              onChange={this.typeChange}
+            />
+            {/* <input type="text" value={this.state.updateType} onChange={this.typeChange} /> */}
+            Ссылка на источник
             <input type="text" value={this.state.updateLink} onChange={this.linkChange} />
-            Введите логин
+            Логин (Видео)
             <input type="text" value={this.state.updateLogin} onChange={this.loginChange} />
-            Введите пароль
+            Пароль (Видео)
             <input type="text" value={this.state.updatePassword} onChange={this.passChange} />
-            Введите период обновления
+            Период обновления источника(кроме видео)
             <input type="text" value={this.state.updatePeriod} onChange={this.timeChange} />
 
             <button className='but-update' onClick={this.handleButtonUpdate.bind(this, this.state.updateId, this.state.updateName, this.state.updateType,
@@ -153,9 +186,9 @@ class SourceTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Link</th>
+              <th width='25%'>Имя источника</th>
+              <th width='10%'>Тип</th>
+              <th>Ссылка</th>
             </tr>
           </thead>
           <tbody>
@@ -163,12 +196,12 @@ class SourceTable extends React.Component {
               <tr onContextMenu={this.handleRightClick} key={source.intSourceId}>
                 <td className='view-off'>{source.intSourceId}</td>
                 <td>{source.txtSourceName}</td>
-                <td>{source.txtSourceType}</td>
+                <td>{this.getLabel(source.txtSourceType)}</td>
                 <td>{source.txtSourceLink}</td>
                 <td className='view-off'>{source.txtSourceLogin}</td>
                 <td className='view-off'>{source.txtSourcePassword}</td>
                 <td className='view-off'>{source.intTimePeriod}</td>
-                {this.state.menuVisible && (
+                {this.state.isMenuVisible && (
                   <td
                     ref={this.menuRef}
                     style={{
