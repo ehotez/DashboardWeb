@@ -2,7 +2,7 @@
 	position: fixed;
 	width: 95%;
 	margin-left: 20px;
-	margin-bottom: 10px;
+	margin-top: -25px;
 	border: 1px solid #dddddd;
 	border-collapse: separate;
 }
@@ -11,11 +11,23 @@
 	font-weight: bold;
 	padding: 1px;
 	background: #efefef;
+	vertical-align: middle;
 	border: 1px solid #dddddd;
+	position: relative;
 }
 
 .table td {
 	border: 1px solid #dddddd;
+	vertical-align: middle;
+	position: relative;
+}
+
+.table tr:hover td {
+	background: #e0c8ed50;
+}
+
+.noHover{
+    pointer-events: none;
 }
 
 .popup-delete {
@@ -58,9 +70,15 @@
 	top: 65%;
 	left: 20%;
 	width: 100px;
-	height: 30px;
-	background-color: #4CAF50;
+	height: 40px;
+	display: block;
 	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
 	cursor: pointer;
 }
 
@@ -69,9 +87,15 @@
 	top: 85%;
 	left: 20%;
 	width: 100px;
-	height: 30px;
-	background-color: #4CAF50;
+	height: 40px;
+	display: block;
 	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
 	cursor: pointer;
 }
 
@@ -80,9 +104,15 @@
 	top: 65%;
 	left: 60%;
 	width: 100px;
-	height: 30px;
-	background-color: #ccc;
+	height: 40px;
+	display: block;
 	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
 	cursor: pointer;
 }
 
@@ -91,9 +121,15 @@
 	top: 85%;
 	left: 60%;
 	width: 100px;
-	height: 30px;
-	background-color: #ccc;
+	height: 40px;
+	display: block;
 	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
 	cursor: pointer;
 }
 
@@ -101,7 +137,7 @@
 	display: none;
 }
 
-.but-delete-close:hover {
+.but-delete:hover {
 	background-color: #3e8e41;
 }
 
@@ -114,5 +150,60 @@
 }
 
 .but-update-close:hover {
+	background-color: #bbb;
+}
+
+.add-button {
+	position: relative;
+	right: -225px;
+	top: -50px;
+	width: 100px;
+	height: 30px;
+	display: block;
+	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+.delete-button{
+	position: relative;
+	display: block;
+	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+.edit-button{
+	position: relative;
+	margin-bottom: 5px;
+	display: block;
+	color: #fff;
+	background: #573b8a;
+	font-size: 1em;
+	font-weight: bold;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+}
+
+.add-button:hover {
+	background-color: #bbb;
+}
+
+.edit-button:hover {
+	background-color: #bbb;
+}
+
+.delete-button:hover {
 	background-color: #bbb;
 }

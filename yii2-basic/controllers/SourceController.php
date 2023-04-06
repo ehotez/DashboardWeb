@@ -43,6 +43,20 @@ class SourceController extends ActiveController
         $model->save();
         return 1;
     }
+
+    public function actionAddSource($name, $type, $link, $login, $pass, $time)
+    {
+        $model = new Source();
+        
+        $model->txtSourceName = $name;
+        $model->txtSourceType = $type;
+        $model->txtSourceLink = $link;
+        $model->txtSourceLogin = $login;
+        $model->txtSourcePassword = $pass;
+        $model->intTimePeriod = $time;
+        $model->save();
+        return 1;
+    }
     /**
      * Получает данные из источника и отображает их на странице.
      *

@@ -13,6 +13,7 @@ class SourceTable extends React.Component {
       menuY: 0,
       isPopupVisible: false,
       isUpdateVisible: false,
+      isAddVisible: false,
       deleteId: 0,
       deleteName: '',
       updateId: 0,
@@ -78,6 +79,11 @@ class SourceTable extends React.Component {
 
   handleDeleteButtonClick() { this.setState({ isPopupVisible: true }); }
   handleUpdateButtonClick() { this.setState({ isUpdateVisible: true }); }
+  handleAddButtonClick() { this.setState({ isAddVisible: true }); }
+
+  handleDeleteButtonClose() { this.setState({ isPopupVisible: false }); }
+  handleUpdateButtonClose() { this.setState({ isUpdateVisible: false }); }
+  handleAddButtonClose() { this.setState({ isAddVisible: false }); }
 
   //При нажатии правой кнопкой мыши по строке заполняются все данные об этой строке в state переменные
   handleRightClick(e) {
@@ -108,12 +114,6 @@ class SourceTable extends React.Component {
   handleMenuClick() {
     this.setState({ isMenuVisible: false });
   }
-  handleButtonDeleteClose() {
-    this.setState({ isPopupVisible: false });
-  }
-  handleButtonUpdateClose() {
-    this.setState({ isUpdateVisible: false });
-  }
 
   nameChange = (event) => { this.setState({ updateName: event.target.value }); }
   typeChange = (event) => { this.setState({ isSelectVisible: true }); this.setState({ updateType: event.value }); }
@@ -143,18 +143,35 @@ class SourceTable extends React.Component {
     this.setState({ isUpdateVisible: false });
   }
 
+  handleButtonAdd(name, type, link, login, pass, time) {
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/add-source/?name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
+      method: 'POST',
+    })
+      .then(() => {
+        this.fetchSources();
+      });
+      // .then((response) => response.json())
+      // .then((result) => {
+      //   if (result) {
+      //     console.log(result);
+      //   }
+      // });
+    this.setState({ isAddVisible: false });
+  }
+
   handleRightClick = this.handleRightClick.bind(this);
   handleMenuClick = this.handleMenuClick.bind(this);
 
   render() {
     return (
       <div>
+        <button className='add-button' onClick={this.handleAddButtonClick.bind(this)}>Добавить</button>
         {this.state.isPopupVisible &&
           <div className="popup-delete">
             <label className='text'>Ты уверен, другалёк?<br />
               Удалить {this.state.deleteName}? </label>
             <button className='but-delete' onClick={this.handleButtonDelete.bind(this, this.state.deleteId)}>Да</button>
-            <button className='but-delete-close' onClick={this.handleButtonDeleteClose.bind(this)}>Нет</button>
+            <button className='but-delete-close' onClick={this.handleDeleteButtonClose.bind(this)}>Нет</button>
           </div>
         }
         {this.state.isUpdateVisible &&
@@ -180,7 +197,33 @@ class SourceTable extends React.Component {
 
             <button className='but-update' onClick={this.handleButtonUpdate.bind(this, this.state.updateId, this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Сохранить</button>
-            <button className='but-update-close' onClick={this.handleButtonUpdateClose.bind(this)}>Отмена</button>
+            <button className='but-update-close' onClick={this.handleUpdateButtonClose.bind(this)}>Отмена</button>
+          </div>
+        }
+        {this.state.isAddVisible &&
+          <div className="popup-edit">
+            Имя источника
+            <input type="text" onChange={this.nameChange} />
+            Тип источника
+            <Select
+              placeholder={this.getLabel(this.state.updateType)}
+              value={this.state.updateType}
+              options={this.options}
+              onChange={this.typeChange}
+            />
+            {/* <input type="text" value={this.state.updateType} onChange={this.typeChange} /> */}
+            Ссылка на источник
+            <input type="text" onChange={this.linkChange} />
+            Логин (Видео)
+            <input type="text" onChange={this.loginChange} />
+            Пароль (Видео)
+            <input type="text" onChange={this.passChange} />
+            Период обновления источника(кроме видео)
+            <input type="text" onChange={this.timeChange} />
+
+            <button className='but-update' onClick={this.handleButtonAdd.bind(this, this.state.updateName, this.state.updateType,
+              this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Добавить</button>
+            <button className='but-update-close' onClick={this.handleAddButtonClose.bind(this)}>Отмена</button>
           </div>
         }
         <table className="table">
@@ -214,9 +257,8 @@ class SourceTable extends React.Component {
                     }}
                     onClick={this.handleMenuClick}
                   >
-                    <button onClick={this.handleUpdateButtonClick.bind(this, source.intSourceId, source.txtSourceName, source.txtSourceType, source.txtSourceLink,
-                      source.txtSourceLogin, source.txtSourcePassword, source.intTimePeriod)}>Edit</button>
-                    <button onClick={this.handleDeleteButtonClick.bind(this)}>Delete</button>
+                    <button className='edit-button' onClick={this.handleUpdateButtonClick.bind(this)}>Изменить</button>
+                    <button className='delete-button' onClick={this.handleDeleteButtonClick.bind(this)}>Удалить</button>
                   </td>
                 )}
               </tr>
