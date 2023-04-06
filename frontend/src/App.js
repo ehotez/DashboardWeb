@@ -5,12 +5,12 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-  
+
 import MainPage from "./pages/MainPage";
 import About from "./pages/About";
 import LoginPage from "./pages/LoginPage";
 import Sources from "./pages/Sources";
-  
+
 //В данной функции/файле у нас будут только ссылки на страницы и рендеры все, остальное делаем в специально отведенных папках
 function App() {
   return (
@@ -23,28 +23,28 @@ function App() {
           with exact path "/", in component props 
           we passes the imported component*/}
           {/* <Route exact path="/" element={<LoginPage/>} />  Раскомментить для тестов*/}
-            
+
           {/* This route is for about component 
           with exact path "/about", in component 
           props we passes the imported component*/}
-          <Route path="/about" element={<About/>} />
-            
+          <Route path="/about" element={<About />} />
+
           {/* This route is for contactus component
           with exact path "/contactus", in 
           component props we passes the imported component*/}
-          <Route path="/app" element={<MainPage/>} />
-            
+          <Route path="/app" element={<MainPage />} />
+
           {/* If any route mismatches the upper 
           route endpoints then, redirect triggers 
           and redirects app to home component with to="/" */}
         </Routes>
-        {/* <Navigate to="/" />  Раскомментить для тестов*/} 
+        {/* <Navigate to="/" />  Раскомментить для тестов*/}
       </Router>
 
       {/* Пока что тут пишем страницу вручную че хочется посмотреть */}
-      <Sources/>
+      <LoginPage />
     </>
   );
 }
-  
+
 export default App;
