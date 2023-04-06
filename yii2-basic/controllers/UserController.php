@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use Yii;
 use yii\rest\ActiveController;
 use app\models\User;
 
@@ -15,6 +16,8 @@ class UserController extends ActiveController
         $user = User::findByUsername($login);
         if($user){
             if($user->validatePassword($password)){
+                Yii::$app->user->login($user);
+                //$indent = Yii::$app->user->id;
                 return 'ALL GOOD';
             }
             else{
