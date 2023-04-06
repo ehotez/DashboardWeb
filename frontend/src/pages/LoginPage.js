@@ -1,5 +1,6 @@
 import '../css/App.css';
 import '../css/Input.css';
+import { Navigate } from "react-router-dom";
 import React, { Component } from 'react';
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -13,8 +14,9 @@ import Button from "../components/Button";
 class LoginPage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      logged: false,
+      referrer: "/",
       newUser: {
         login: "",
         password: ""
@@ -78,8 +80,9 @@ class LoginPage extends Component {
       .then((response) => response.json())
       .then((result) => {
         if (result === 'ALL GOOD') {
-          alert('You are logged in.');
-          //this.goToMain();
+          //alert('You are logged in.');
+          this.setState({logged: true})
+          this.setState({referrer: '/sources'});
         } else if(result === 'Incorrect login') {
           alert('Incorrect login');
         } else if (result === 'Incorrect password'){
@@ -91,31 +94,26 @@ class LoginPage extends Component {
   render() {
     return (
       <div className='login'>
+        { this.state.logged &&(<Navigate to={this.state.referrer} replace={true}/>)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
-          <label className='login-label'>
-            LOG IN
-          </label>
+          <label className='login-label'>ВХОД</label>
           <div className='login-container'>
           <Input
             type={"text"}
-            title={""}
             name={"login"}
-            value={this.state.newUser.name}
-            placeholder={"Enter your login"}
+            placeholder={"Введите логин"}
             onChange={this.handleInput}
           />{" "}
           <Input
-            inputtype={"text"}
-            title={""}
+            type={"password"}
             name={"password"}
-            value={this.state.newUser.name}
-            placeholder={"Enter your password"}
+            placeholder={"Введите пароль"}
             onChange={this.handleInput}
           />{" "}
           <Button
             action={this.handleFormSubmit}
             type={"primary"}
-            title={"Login"}
+            title={"Войти"}
           />{" "}
           </div>
         </form>

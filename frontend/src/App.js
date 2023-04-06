@@ -9,40 +9,23 @@ import {
 import MainPage from "./pages/MainPage";
 import About from "./pages/About";
 import LoginPage from "./pages/LoginPage";
-import Sources from "./pages/Sources";
+import SourcePage from "./pages/SourcePage";
 
 //В данной функции/файле у нас будут только ссылки на страницы и рендеры все, остальное делаем в специально отведенных папках
 function App() {
   return (
-    //ДАННАЯ ВЕЩЬ ПОЧТИ РАБОТАЕТ НО НЕ РАБОТАЕТ, ТРЕБУЕТСЯ РАЗБИРАТЕЛЬСТВО
+    //ДАННАЯ ВЕЩЬ ТЕПЕРЬ РАБОТАЕТ (чтобы попасть на нужную вам страницу добавляете к ссылке /path)
+    //Например localhost:3000/main чтобы попасть на MainPage
     <>
-      {/* This is the alias of BrowserRouter i.e. Router */}
       <Router>
         <Routes>
-          {/* This route is for home component 
-          with exact path "/", in component props 
-          we passes the imported component*/}
-          {/* <Route exact path="/" element={<LoginPage/>} />  Раскомментить для тестов*/}
-
-          {/* This route is for about component 
-          with exact path "/about", in component 
-          props we passes the imported component*/}
+          <Route exact path="/" element={<LoginPage />} />
           <Route path="/about" element={<About />} />
-
-          {/* This route is for contactus component
-          with exact path "/contactus", in 
-          component props we passes the imported component*/}
-          <Route path="/app" element={<MainPage />} />
-
-          {/* If any route mismatches the upper 
-          route endpoints then, redirect triggers 
-          and redirects app to home component with to="/" */}
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/sources" element={<SourcePage />} />
         </Routes>
-        {/* <Navigate to="/" />  Раскомментить для тестов*/}
+        {/* <Navigate to="/" />  */}
       </Router>
-
-      {/* Пока что тут пишем страницу вручную че хочется посмотреть */}
-      <LoginPage />
     </>
   );
 }

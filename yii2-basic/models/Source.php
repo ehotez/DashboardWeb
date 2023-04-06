@@ -32,8 +32,10 @@ class Source extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['intUserId', 'txtSourceName', 'txtSourceType', 'txtSourceLink', 'txtSourceLogin', 'txtSourcePassword', 'intTimePeriod'], 'required'],
+            [['txtSourceName', 'txtSourceType', 'txtSourceLink', 'txtSourceLogin', 'txtSourcePassword', 'intTimePeriod'], 'safe'],
+            [['txtSourceName', 'txtSourceType', 'txtSourceLink', 'txtSourceLogin', 'txtSourcePassword', 'intTimePeriod'], 'required'],
             [['intUserId', 'intTimePeriod'], 'integer'],
+            ['intUserId', 'default','value' => ' '],
             [['txtSourceName', 'txtSourceType'], 'string', 'max' => 32],
             [['txtSourceLink'], 'string', 'max' => 128],
             [['txtSourceLogin', 'txtSourcePassword'], 'string', 'max' => 64],
