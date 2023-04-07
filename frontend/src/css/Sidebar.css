@@ -1,67 +1,38 @@
 .sidebar-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color:gray;
-    justify-content: flex-start;
-  
+  width: 130px;
+  height: 100%;
+  background-color:grey;
+  position: fixed;
+  border: none;
+  display:flex;
+  flex-direction: column;
+  overflow: hidden;
   }
   
-
-  
   .sidebar-button {
-    padding: 10px;
     font-size: 15px;
+    width:100%;
     border: none;
     background-color: transparent;
     cursor: pointer;
   }
-  .sidebar-buttonlogout {
+  .sidebar-button:focus{
+    background-color: white;
+  }
+
+  .sidebar-button-logout {
     margin: 0;
     padding: 10px;
     font-size: 15px;
     border: none;
     background-color: transparent;
     cursor: pointer;
-    margin-top: 90%;
+    margin-top: 370%;
     
   }
-  
-  .barrier {
-    position: absolute;
-    background-color: #ccc;
-    width: 100%;
-    height: 5px;
-  }
-  
-  .barrier:first-child {
-    top: 0;
-    left: 0;
-  }
-  
-  .barrier:nth-child(2) {
-    top: 30px;
-    left: 0;
-  }
-  
-  .barrier:nth-child(3) {
-    top: 60px;
-    left: 0;
-  }
-  
-  .barrier:last-child {
-    bottom: 0;
-    left: 0;
-  }
-  
   .main-content {
     flex: 1;
   }
   .translate{
-    flex-direction: column;
-    transform:translateX(11%)
-  }
-
-  .flexrow{
-    flex-direction: column;
+    margin-left: 160px;
   }

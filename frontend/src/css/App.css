@@ -3,12 +3,8 @@
 }
 
  nav{
-  width: 10%;
+  width: 130px;
   height: 100%;
-  background-color: white;
-  position: fixed;
-  display:flex;
-  align-items:flex-start;
 } 
 
 input{
