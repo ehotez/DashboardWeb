@@ -7,17 +7,17 @@ class Grid extends React.Component {
   render() {
     return (
       <div className="grid-flex">
-      <div className="grid">
-        <Widget />
-        <Widget />
-        <Widget />
-        <Widget />
-        <Widget />
-        <Widget />
-        <Widget />
-        <Widget />
-        <Widget />
-      </div>
+        <div className="grid">
+          <Widget />
+          <Widget />
+          <Widget />
+          <Widget />
+          <Widget />
+          <Widget />
+          <Widget />
+          <Widget />
+          <Widget />
+        </div>
       </div>
     );
   }

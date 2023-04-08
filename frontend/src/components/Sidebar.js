@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import '../css/Sidebar.css';
-import { Navigate } from 'react-router-dom';
 import { NavLink as Link } from 'react-router-dom';
+import MaterialIcon from 'material-icons-react';
 import styled from 'styled-components';
 export const NavBtn = styled(Link)`
 font-size: 15px;
-margin: 10px 10px;
 text-align: center;
 text-decoration: none;
-border-radius:5px;
 height:10%;
-width:auto;
+width:100%;
 border: none;
-background: grey;
+background: transparent;
+line-height: 85px; 
+box-sizing: border-box; 
 cursor: pointer;
   &:hover {
     background: white;
     color: black;
   }
   &:active, &:focus{
-    background: pink;
+    background: white;
     color: black;
   }
   &:visited,&:link{
@@ -51,10 +51,10 @@ class Sidebar extends Component {
 
     return (
       <div className="sidebar-container">
-        <NavBtn to='/main'>Главная</NavBtn>
-        <NavBtn to='/about'>Сетка</NavBtn>
-        <NavBtn to='/sources'>Источники</NavBtn>
-        <NavBtn to='/'>Выйти</NavBtn>
+        <NavBtn to='/main'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
+        <NavBtn to='/about'><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
+        <NavBtn to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
+        <NavBtn to='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
       </div>
     );
   }
