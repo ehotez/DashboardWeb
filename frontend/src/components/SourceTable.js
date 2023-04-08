@@ -159,9 +159,6 @@ class SourceTable extends React.Component {
     this.setState({ isAddVisible: false });
   }
 
-  handleRightClick = this.handleRightClick.bind(this);
-  handleMenuClick = this.handleMenuClick.bind(this);
-
   render() {
     return (
       <div>
@@ -236,7 +233,7 @@ class SourceTable extends React.Component {
           </thead>
           <tbody>
             {this.state.sources.map(source => (
-              <tr onContextMenu={this.handleRightClick} key={source.intSourceId}>
+              <tr onContextMenu={this.handleRightClick.bind(this)} key={source.intSourceId}>
                 <td className='view-off'>{source.intSourceId}</td>
                 <td>{source.txtSourceName}</td>
                 <td>{this.getLabel(source.txtSourceType)}</td>
@@ -255,7 +252,7 @@ class SourceTable extends React.Component {
                       //border: '1px solid black',
                       //padding: '5px',
                     }}
-                    onClick={this.handleMenuClick}
+                    onClick={this.handleMenuClick.bind(this)}
                   >
                     <button className='edit-button' onClick={this.handleUpdateButtonClick.bind(this)}>Изменить</button>
                     <button className='delete-button' onClick={this.handleDeleteButtonClick.bind(this)}>Удалить</button>

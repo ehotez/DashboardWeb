@@ -1,9 +1,8 @@
 import '../css/App.css';
-import '../css/Input.css';
+import '../css/Login.css';
 import { Navigate } from "react-router-dom";
 import React, { Component } from 'react';
 import Input from "../components/Input";
-import Button from "../components/Button";
 
 // async function ClickHandler(){
 //   let response = await fetch('http://localhost/DashboardWeb/yii2-basic/web/user/login/?login=admin&password=admin');
@@ -39,6 +38,16 @@ class LoginPage extends Component {
         }
       }),
     );
+  }
+
+  componentDidMount(){
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        //console.log(result);
+      });
   }
 
   handleLogin(e) {
@@ -80,8 +89,8 @@ class LoginPage extends Component {
       .then((response) => response.json())
       .then((result) => {
         if (result === 'ALL GOOD') {
-          //alert('You are logged in.');
-          this.setState({logged: true})
+          console.log(result);
+          this.setState({logged: true});
           this.setState({referrer: '/sources'});
         } else if(result === 'Incorrect login') {
           alert('Incorrect login');
@@ -110,11 +119,7 @@ class LoginPage extends Component {
             placeholder={"Введите пароль"}
             onChange={this.handleInput}
           />{" "}
-          <Button
-            action={this.handleFormSubmit}
-            type={"primary"}
-            title={"Войти"}
-          />{" "}
+          <button onClick={this.handleFormSubmit} title='Войти' className='submit-button'>Войти</button>
           </div>
         </form>
       </div>

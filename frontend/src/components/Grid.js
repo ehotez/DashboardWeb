@@ -1,5 +1,5 @@
 import React from "react";
-import Widget from "../components/Widget";
+import Widget from "./Widget";
 import '../css/Grid.css'
 
 

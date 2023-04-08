@@ -32,7 +32,12 @@ class UserController extends ActiveController
 
     public function actionLogout()
     {
+        Yii::$app->user->logout();
+    }
 
+    public function actionIdentity(){
+        $id = Yii::$app->user->id;
+        return $id;
     }
 
     /**

@@ -2,19 +2,21 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 10px;
+    gap: 0px;
 }
   
 .grid-flex{
-    width:100%-100px;
+    width:100%-90px;
     height: 100%;
-    margin-left: 100px;
+    margin-left: 90px;
 }
 .widget {
     position: relative;
     height: 300px;
-    background-color: #f0f0f0;
-    padding: 10px;
+    background-color: white;  
+    border: solid 1px;
+    border-left: 0px;
+    border-top: 0px;
 }
 .popup {
     position: relative;

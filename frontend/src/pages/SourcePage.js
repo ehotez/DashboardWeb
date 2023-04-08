@@ -1,6 +1,5 @@
 import React from 'react';
 import SourceTable from '../components/SourceTable';
-import Sidebar from '../components/Sidebar';
 import '../css/Sidebar.css';
 
 class SourcePage extends React.Component {

@@ -22,39 +22,39 @@ cursor: pointer;
     background: white;
     color: black;
   }
-  &:visited,&:link{
-    text-decoration: none;
-  }
+
 `;
 class Sidebar extends Component {
   state = {
-    barrierVisible: [true, true, true, true],
-    isSource: false,
-    isMain: false,
-    isGrid: false,
-
+    //isGrid: false,
   };
 
-  handleMainClick() {
-    this.setState({ isMain: true })
+  handleLogoutClick() {
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+      });
   }
 
-  handleGridClick() {
-    this.setState({ isGrid: true })
-  }
+  // handleGridClick() {
+  //   this.setState({ isGrid: true })
+  // }
 
-  handleSourceClick() {
-    this.setState({ isSource: true })
-  }
+  // componentWillUnmount(){
+  //   this.setState({isGrid:false})
+  // }
 
   render() {
 
     return (
       <div className="sidebar-container">
         <NavBtn to='/main'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
-        <NavBtn to='/about'><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
+        <NavBtn><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
         <NavBtn to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
-        <NavBtn to='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
+        <NavBtn onClick={this.handleLogoutClick.bind(this)} to='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
       </div>
     );
   }

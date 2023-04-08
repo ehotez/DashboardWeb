@@ -2,8 +2,6 @@
   text-align: center;
 }
 
-
-
 input{
   width: 10;
 }
@@ -11,17 +9,6 @@ input{
  main{
   padding: 10px;
 } 
-
-.burger-btn{
-  height: 100%;
-  width: 5%;
-  background-color: bisque;
-  position: fixed;
-  z-index: 50;
-  display:flex;
-  align-items:flex-start;
-}
-
 
 .App-logo {
   height: 40vmin;
