@@ -4,15 +4,39 @@
     grid-template-rows: repeat(3, 1fr);
     gap: 0px;
 }
-  
+.grid2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0px;
+}
 .grid-flex{
     width:100%-90px;
     height: 100%;
     margin-left: 90px;
 }
+.widget-big {
+    position: relative;
+
+    background-color: white;  
+    border: solid 1px;
+    border-left: 0px;
+    border-top: 0px;
+    grid-row: span 2;
+    grid-column: span 2;
+  }
 .widget {
     position: relative;
     height: 300px;
+    background-color: white;  
+    border: solid 1px;
+    border-left: 0px;
+    border-top: 0px;
+}
+
+.widget1 {
+    position: relative;
+    height: 450px;
     background-color: white;  
     border: solid 1px;
     border-left: 0px;
@@ -49,6 +73,5 @@
     position: relative;
     top: 50%;
     text-align: center;
-
     font-size: 2.5em;
 }

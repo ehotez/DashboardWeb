@@ -70,10 +70,10 @@ class Widget extends Component {
     
     return (
        
-      <div className="widget">
-        
+      <>
+
         {!this.state.isShowVisible &&
-        <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
+          <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
         }
         {this.state.isPopupVisible && 
           <div className="popup"> 
@@ -87,7 +87,7 @@ class Widget extends Component {
             <button className='close' onClick={this.handleShowShow}>X</button> 
         }
         {!this.state.isPopupVisible && this.state.value && <div className='view'>{this.state.value}</div>} 
-      </div>
+      </>
     );
   }
 }

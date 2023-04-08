@@ -24,9 +24,14 @@ cursor: pointer;
   }
 
 `;
+
+window.flag = 0;
+
 class Sidebar extends Component {
+  
   state = {
-    //isGrid: false,
+    isSidebar: true,
+    isGrid: false,
   };
 
   handleLogoutClick() {
@@ -38,7 +43,29 @@ class Sidebar extends Component {
         console.log(result);
       });
   }
-
+  handleGridClick() {
+    this.setState({isGrid: true});
+    this.setState({isSidebar: false});
+    
+  }
+  handleGridClose3x3() {
+    this.setState({isGrid: false});
+    this.setState({isSidebar: true});
+    window.dispatchEvent(new CustomEvent('myGlobalVarChanged', { detail: window.flag =1}));
+    
+  }
+  handleGridClose2x2() {
+    this.setState({isGrid: false});
+    this.setState({isSidebar: true});
+    window.dispatchEvent(new CustomEvent('myGlobalVarChanged', { detail: window.flag = 2}));
+    
+  }
+  handleGridClose3x2() {
+    this.setState({isGrid: false});
+    this.setState({isSidebar: true});
+    window.dispatchEvent(new CustomEvent('myGlobalVarChanged', { detail: window.flag = 3}));
+    
+  }
   // handleGridClick() {
   //   this.setState({ isGrid: true })
   // }
@@ -48,13 +75,24 @@ class Sidebar extends Component {
   // }
 
   render() {
-
     return (
+      <div>
+      {this.state.isSidebar &&
       <div className="sidebar-container">
         <NavBtn to='/main'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
-        <NavBtn><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
+        <NavBtn onClick={this.handleGridClick.bind(this)}><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
+        
         <NavBtn to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
         <NavBtn onClick={this.handleLogoutClick.bind(this)} to='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
+      </div>
+      }
+      {this.state.isGrid &&
+          <div className='sidebar-container'>
+            <NavBtn onClick={this.handleGridClose3x3.bind(this)} to='/main'><MaterialIcon icon="grid_on" size={30} /></NavBtn>
+            <NavBtn onClick={this.handleGridClose2x2.bind(this)} to='/main'><MaterialIcon icon="window" size={30} /></NavBtn>
+            <NavBtn onClick={this.handleGridClose3x2.bind(this)} to='/main'><MaterialIcon icon="space_dashboard" size={30} /></NavBtn>
+          </div>
+      }
       </div>
     );
   }
