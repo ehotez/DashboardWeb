@@ -15,7 +15,6 @@ class LoginPage extends Component {
     super(props);
     this.state = {
       logged: false,
-      referrer: "/",
       newUser: {
         login: "",
         password: ""
@@ -40,7 +39,7 @@ class LoginPage extends Component {
     );
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
       method: "POST",
     })
@@ -73,7 +72,7 @@ class LoginPage extends Component {
       }),
     );
   }
-  
+
   handleFormSubmit(e) {
     e.preventDefault();
     let userData = this.state.newUser;
@@ -88,14 +87,14 @@ class LoginPage extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result === 'ALL GOOD') {
-          console.log(result);
-          this.setState({logged: true});
-          this.setState({referrer: '/sources'});
-        } else if(result === 'Incorrect login') {
+        if (result === 'Incorrect login') {
           alert('Incorrect login');
-        } else if (result === 'Incorrect password'){
+        } else if (result === 'Incorrect password') {
           alert('Incorrect password')
+        } else {
+          this.setState({ logged: true });
+          localStorage.setItem('auth_user', result);
+          console.log(localStorage.getItem('auth_user'));
         }
       });
   }
@@ -103,23 +102,23 @@ class LoginPage extends Component {
   render() {
     return (
       <div className='login'>
-        { this.state.logged &&(<Navigate to={this.state.referrer} replace={true}/>)}
+        {this.state.logged && (<Navigate to='/main' replace={true} />)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
           <label className='login-label'>ВХОД</label>
           <div className='login-container'>
-          <Input
-            type={"text"}
-            name={"login"}
-            placeholder={"Введите логин"}
-            onChange={this.handleInput}
-          />{" "}
-          <Input
-            type={"password"}
-            name={"password"}
-            placeholder={"Введите пароль"}
-            onChange={this.handleInput}
-          />{" "}
-          <button onClick={this.handleFormSubmit} title='Войти' className='submit-button'>Войти</button>
+            <Input
+              type={"text"}
+              name={"login"}
+              placeholder={"Введите логин"}
+              onChange={this.handleInput}
+            />{" "}
+            <Input
+              type={"password"}
+              name={"password"}
+              placeholder={"Введите пароль"}
+              onChange={this.handleInput}
+            />{" "}
+            <button onClick={this.handleFormSubmit} title='Войти' className='submit-button'>Войти</button>
           </div>
         </form>
       </div>

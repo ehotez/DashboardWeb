@@ -17,8 +17,8 @@ class UserController extends ActiveController
         if($user){
             if($user->validatePassword($password)){
                 Yii::$app->user->login($user);
-                //$indent = Yii::$app->user->id;
-                return 'ALL GOOD';
+                $indent = Yii::$app->user->id;
+                return $indent;
             }
             else{
                 return 'Incorrect password';

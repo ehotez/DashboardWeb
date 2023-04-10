@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use yii\rest\ActiveController;
 use app\models\Source;
+use Yii;
 
 //ВСЕ ДЕЙСТВИЯ С ИСТОЧНИКАМИ
 class SourceController extends ActiveController
@@ -26,6 +27,12 @@ class SourceController extends ActiveController
         
         return 1;
     }
+
+    public function actionGetSources($userId){
+        $model = Source::findAll(['intUserId'=>$userId]);
+        return $model;
+
+    }
     public function actionUpdateSource($id, $name, $type, $link, $login, $pass, $time)
     {
         $model = Source::findOne($id);
@@ -44,10 +51,11 @@ class SourceController extends ActiveController
         return 1;
     }
 
-    public function actionAddSource($name, $type, $link, $login, $pass, $time)
+    public function actionAddSource($userId, $name, $type, $link, $login, $pass, $time)
     {
         $model = new Source();
         
+        $model->intUserId = $userId;
         $model->txtSourceName = $name;
         $model->txtSourceType = $type;
         $model->txtSourceLink = $link;

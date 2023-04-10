@@ -35,13 +35,7 @@ class Sidebar extends Component {
   };
 
   handleLogoutClick() {
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      });
+    localStorage.setItem('auth_user', ' ');
   }
   handleGridClick() {
     this.setState({isGrid: true});
@@ -81,7 +75,6 @@ class Sidebar extends Component {
       <div className="sidebar-container">
         <NavBtn to='/main'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
         <NavBtn onClick={this.handleGridClick.bind(this)}><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
-        
         <NavBtn to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
         <NavBtn onClick={this.handleLogoutClick.bind(this)} to='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
       </div>
