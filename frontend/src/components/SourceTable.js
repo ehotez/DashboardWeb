@@ -28,7 +28,7 @@ class SourceTable extends React.Component {
     this.options = [
       { value: 'video', label: 'Видео' },
       { value: 'graphic', label: 'График' },
-      { value: 'text', label: 'Текст' }
+      { value: 'text', label: 'Отдельный запрос' }
     ];
     this.menuRef = React.createRef();
   }
@@ -71,10 +71,13 @@ class SourceTable extends React.Component {
   };
 
   fetchSources() {
-    fetch('http://localhost/DashboardWeb/yii2-basic/web/source/')
-      .then(response => response.json())
-      .then(data => this.setState({ sources: data }))
-      .catch(error => console.log(error));
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/get-sources/?userId=${localStorage.getItem('auth_user')}`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        this.setState({ sources: result });
+      });
   }
 
   handleDeleteButtonClick() { this.setState({ isPopupVisible: true }); }
@@ -143,24 +146,21 @@ class SourceTable extends React.Component {
     this.setState({ isUpdateVisible: false });
   }
 
-  handleButtonAdd(name, type, link, login, pass, time) {
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/add-source/?name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
+  handleButtonAdd(userId, name, type, link, login, pass, time) {
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/add-source/?userId=${userId}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
       .then(() => {
         this.fetchSources();
       });
-      // .then((response) => response.json())
-      // .then((result) => {
-      //   if (result) {
-      //     console.log(result);
-      //   }
-      // });
+    // .then((response) => response.json())
+    // .then((result) => {
+    //   if (result) {
+    //     console.log(result);
+    //   }
+    // });
     this.setState({ isAddVisible: false });
   }
-
-  handleRightClick = this.handleRightClick.bind(this);
-  handleMenuClick = this.handleMenuClick.bind(this);
 
   render() {
     return (
@@ -221,7 +221,7 @@ class SourceTable extends React.Component {
             Период обновления источника(кроме видео)
             <input type="text" onChange={this.timeChange} />
 
-            <button className='but-update' onClick={this.handleButtonAdd.bind(this, this.state.updateName, this.state.updateType,
+            <button className='but-update' onClick={this.handleButtonAdd.bind(this, localStorage.getItem('auth_user'), this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Добавить</button>
             <button className='but-update-close' onClick={this.handleAddButtonClose.bind(this)}>Отмена</button>
           </div>
@@ -236,7 +236,7 @@ class SourceTable extends React.Component {
           </thead>
           <tbody>
             {this.state.sources.map(source => (
-              <tr onContextMenu={this.handleRightClick} key={source.intSourceId}>
+              <tr onContextMenu={this.handleRightClick.bind(this)} key={source.intSourceId}>
                 <td className='view-off'>{source.intSourceId}</td>
                 <td>{source.txtSourceName}</td>
                 <td>{this.getLabel(source.txtSourceType)}</td>
@@ -255,7 +255,7 @@ class SourceTable extends React.Component {
                       //border: '1px solid black',
                       //padding: '5px',
                     }}
-                    onClick={this.handleMenuClick}
+                    onClick={this.handleMenuClick.bind(this)}
                   >
                     <button className='edit-button' onClick={this.handleUpdateButtonClick.bind(this)}>Изменить</button>
                     <button className='delete-button' onClick={this.handleDeleteButtonClick.bind(this)}>Удалить</button>

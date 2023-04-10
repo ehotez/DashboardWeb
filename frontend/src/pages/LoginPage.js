@@ -1,9 +1,8 @@
 import '../css/App.css';
-import '../css/Input.css';
+import '../css/Login.css';
 import { Navigate } from "react-router-dom";
 import React, { Component } from 'react';
 import Input from "../components/Input";
-import Button from "../components/Button";
 
 // async function ClickHandler(){
 //   let response = await fetch('http://localhost/DashboardWeb/yii2-basic/web/api/login/?login=admin&password=admin');
@@ -16,7 +15,6 @@ class LoginPage extends Component {
     super(props);
     this.state = {
       logged: false,
-      referrer: "/",
       newUser: {
         login: "",
         password: ""
@@ -39,6 +37,16 @@ class LoginPage extends Component {
         }
       }),
     );
+  }
+
+  componentDidMount() {
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        //console.log(result);
+      });
   }
 
   handleLogin(e) {
@@ -70,7 +78,7 @@ class LoginPage extends Component {
     let userData = this.state.newUser;
     console.log(JSON.stringify(userData));
     //Обратити ВНИМАНИЕ на ковычки ` `
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/api/login/?login=${userData.login}&password=${userData.password}`, {
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/login/?login=${userData.login}&password=${userData.password}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -79,14 +87,14 @@ class LoginPage extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result === 'ALL GOOD') {
-          //alert('You are logged in.');
-          this.setState({ logged: true })
-          this.setState({ referrer: '/sources' });
-        } else if (result === 'Incorrect login') {
+        if (result === 'Incorrect login') {
           alert('Incorrect login');
         } else if (result === 'Incorrect password') {
           alert('Incorrect password')
+        } else {
+          this.setState({ logged: true });
+          localStorage.setItem('auth_user', result);
+          console.log(localStorage.getItem('auth_user'));
         }
       });
   }
@@ -94,7 +102,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className='login'>
-        {this.state.logged && (<Navigate to={this.state.referrer} replace={true} />)}
+        {this.state.logged && (<Navigate to='/main' replace={true} />)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
           <label className='login-label'>ВХОД</label>
           <div className='login-container'>
@@ -110,11 +118,7 @@ class LoginPage extends Component {
               placeholder={"Введите пароль"}
               onChange={this.handleInput}
             />{" "}
-            <Button
-              action={this.handleFormSubmit}
-              type={"primary"}
-              title={"Войти"}
-            />{" "}
+            <button onClick={this.handleFormSubmit} title='Войти' className='submit-button'>Войти</button>
           </div>
         </form>
       </div>

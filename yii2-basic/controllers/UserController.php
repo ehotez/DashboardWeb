@@ -2,20 +2,31 @@
 
 namespace app\controllers;
 
-use yii\web\Controller;
+use Yii;
+use yii\rest\ActiveController;
 use app\models\User;
 
 //ВСЕ ДЕЙСТВИЯ С ПОЛЬЗОВАТЕЛЯМИ
-class UserController extends Controller
+class UserController extends ActiveController
 {
     public $modelClass = 'app\models\User';
 
-    private function actionLogin($login, $password)
+    /**
+     * Производит вход пользователя в систему
+     * 
+     * @param string $login логин пользователя 
+     * @param string $password пароль пользователя
+     * 
+     * @return int | "Incorrect password" | "Incorrect login"
+     */
+    public function actionLogin($login, $password)
     {
         $user = User::findByUsername($login);
         if ($user) {
             if ($user->validatePassword($password)) {
-                return 'ALL GOOD';
+                Yii::$app->user->login($user);
+                $indent = Yii::$app->user->id;
+                return $indent;
             } else {
                 return 'Incorrect password';
             }
@@ -24,8 +35,14 @@ class UserController extends Controller
         }
     }
 
-    private function actionLogout()
+    public function actionLogout()
     {
-        //реализация
+        Yii::$app->user->logout();
+    }
+
+    public function actionIdentity()
+    {
+        $id = Yii::$app->user->id;
+        return $id;
     }
 }

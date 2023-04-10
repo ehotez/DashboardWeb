@@ -26,6 +26,26 @@ class SourceController extends ActiveController
 
         return 1;
     }
+
+    public function actionGetSources($userId)
+    {
+        $model = Source::findAll(['intUserId' => $userId]);
+        return $model;
+    }
+
+    /**
+     * Редактирует указанный источник данных и сохраняет в базу данных.
+     *
+     * @param int $userId идентификатор пользователя.
+     * @param string $name название источника
+     * @param string $type тип источника: "query" | "chart" | "video"
+     * @param string $link ссылка
+     * @param string $login логин пользователя (только для доступа к камере!)
+     * @param string $pass пароль пользователя (только для доступа к камере!)
+     * @param int $time период обновления источника
+     * 
+     * @return 1 (НО ПОЧЕМУ ТАК, МОЖНО БЫЛО БЫ void)
+     */
     public function actionUpdateSource($id, $name, $type, $link, $login, $pass, $time)
     {
         $model = Source::findOne($id);
@@ -44,10 +64,24 @@ class SourceController extends ActiveController
         return 1;
     }
 
-    public function actionAddSource($name, $type, $link, $login, $pass, $time)
+    /**
+     * Добавляет указанный источник данных в базу данных.
+     *
+     * @param int $userId идентификатор пользователя.
+     * @param string $name название источника
+     * @param string $type тип источника: "query" | "chart" | "video"
+     * @param string $link ссылка
+     * @param string $login логин пользователя (только для доступа к камере!)
+     * @param string $pass пароль пользователя (только для доступа к камере!)
+     * @param int $time период обновления источника
+     * 
+     * @return 1 (НО ПОЧЕМУ ТАК, МОЖНО БЫЛО БЫ void)
+     */
+    public function actionAddSource($userId, $name, $type, $link, $login, $pass, $time)
     {
         $model = new Source();
 
+        $model->intUserId = $userId;
         $model->txtSourceName = $name;
         $model->txtSourceType = $type;
         $model->txtSourceLink = $link;
@@ -61,73 +95,27 @@ class SourceController extends ActiveController
      * Получает данные из источника и отображает их на странице.
      *
      * @param string $link ссылка на данные источника.
-     * @return void
+     * @return array("query_name" => "Сколько рыб в бассейне?",
+     *               "time": 1673671624,
+     *               "value": 15) | None(если данные не получены)
      **/
-    function actionGetQuery($link)
+    public function actionGetQuery($link)
     {
         // реализация
     }
 
     /**
-     * Получает данные из источника и отображает график на странице.
+     * Получает данные из источника.
      *
      * @param string $link ссылка на данные источника.
-     * @return void
+     * @return array("chart_name" => "График датчика pH",
+     *               "time" => 1673671624,
+     *               "data" => array("x_label" => "Время, с",
+     *                               "y_label" => "Кислотность, pH",
+     *                               "x_values" => array(1, 2,3, ..., n)
+     *                               "y_values" => array(123, 5, 456, ..., n))) | None(если данные не получены)           
      */
-    function actionGetChart($link)
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу со списком источников данных.
-     *
-     * @return void
-     */
-    function actionShowSourcePage()
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу добавления нового источника данных.
-     *
-     * @return void
-     */
-    function actionShowAddSource()
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу редактирования существующего источника данных.
-     *
-     * @param int $id идентификатор источника данных.
-     * @return void
-     */
-    function actionShowEditSource($id)
-    {
-        // реализация
-    }
-
-    /**
-     * Отображает страницу подтверждения удаления источника данных.
-     *
-     * @param int $id идентификатор источника данных.
-     * @return void
-     */
-    function actionShowDeleteSource($id)
-    {
-        // реализация
-    }
-
-    /**
-     * Удаляет указанный источник данных из базы данных.
-     *
-     * @param int $id идентификатор источника данных.
-     * @return void
-     */
-    function actionDeleteSource($id)
+    public function actionGetChart($link)
     {
         // реализация
     }
