@@ -17,23 +17,23 @@ class SourceController extends ActiveController
     public function actionDelete($id)
     {
         $model = Source::findOne($id);
-
+        
         if (!$model) {
             return 0;
         }
-
+        
         $model->delete();
-
+        
         return 1;
     }
     public function actionUpdateSource($id, $name, $type, $link, $login, $pass, $time)
     {
         $model = Source::findOne($id);
-
+        
         if (!$model) {
             return 0;
         }
-
+        
         $model->txtSourceName = $name;
         $model->txtSourceType = $type;
         $model->txtSourceLink = $link;
@@ -47,7 +47,7 @@ class SourceController extends ActiveController
     public function actionAddSource($name, $type, $link, $login, $pass, $time)
     {
         $model = new Source();
-
+        
         $model->txtSourceName = $name;
         $model->txtSourceType = $type;
         $model->txtSourceLink = $link;
@@ -120,7 +120,7 @@ class SourceController extends ActiveController
     {
         // реализация
     }
-
+    
     /**
      * Удаляет указанный источник данных из базы данных.
      *
