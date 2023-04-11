@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import '../css/Grid.css'
-import '../css/Sidebar.css'
-import $ from 'jquery'
 
 
 
@@ -12,12 +10,10 @@ class Widget extends Component {
     this.id = `widget-${Widget.idCounter++}`;
     this.state = {
       value: '',
-      flag1: window.flag,
       isPopupVisible: false,
       isShowVisible: false,
       isCloseVisible: false
     };
-    this.id1 = this.id+ " "+ this.state.flag1
   }
 
   handleChange = (event) => {
@@ -52,8 +48,7 @@ class Widget extends Component {
   }
 
   componentDidMount() {
-    $(".main-h").css('background', 'white');
-    const savedValue = localStorage.getItem(this.id1);
+    const savedValue = localStorage.getItem(this.id);
     if (savedValue) {
       this.setState({ value: savedValue });
       this.setState({ isShowVisible: savedValue });
@@ -69,12 +64,10 @@ class Widget extends Component {
   } 
 
   componentDidUpdate() {
-    localStorage.setItem(this.id1, this.state.value);
+    localStorage.setItem(this.id, this.state.value);
   }
   render() {
-    window.addEventListener('myGlobalVarChanged', (event) => {
-      this.setState({ flag1: event.detail });
-    });
+    
     return (
        
       <>
