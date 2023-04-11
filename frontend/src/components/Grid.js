@@ -2,8 +2,6 @@ import React from "react";
 import Widget from "./Widget";
 import '../css/Grid.css'
 
-
-
 class Grid extends React.Component {
   constructor(props) {
     super(props);

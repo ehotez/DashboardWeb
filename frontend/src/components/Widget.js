@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../css/Grid.css'
+import '../css/Sidebar.css'
+import $ from 'jquery'
 
 
 
@@ -48,6 +50,7 @@ class Widget extends Component {
   }
 
   componentDidMount() {
+    $(".main-h").css('background', 'white');
     const savedValue = localStorage.getItem(this.id);
     if (savedValue) {
       this.setState({ value: savedValue });
