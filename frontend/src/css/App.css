@@ -2,34 +2,13 @@
   text-align: center;
 }
 
-nav{
-  height: 100%;
-  width: 5%;
-  background-color: bisque;
-  position: fixed;
-  z-index: 50;
-  display:flex;
-  align-items:flex-start;
-}
-
 input{
   width: 10;
 }
 
-main{
-  padding: 100px;
-}
-
-.burger-btn{
-  height: 100%;
-  width: 5%;
-  background-color: bisque;
-  position: fixed;
-  z-index: 50;
-  display:flex;
-  align-items:flex-start;
-}
-
+ main{
+  padding: 10px;
+} 
 
 .App-logo {
   height: 40vmin;

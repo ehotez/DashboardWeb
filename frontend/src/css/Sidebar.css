@@ -1,0 +1,42 @@
+.sidebar-container {
+  width: 90px;
+  height: 100%;
+  background-color: rgb(190, 190, 190);
+  position: fixed;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.sidebar-button:focus {
+  background-color: white;
+}
+
+.sidebar-button-logout {
+  margin: 0;
+  padding: 10px;
+  font-size: 15px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 370%;
+
+}
+
+.main-content {
+  flex: 1;
+}
+
+.translate {
+  margin-left: 160px;
+}
+
+.main-h {
+  background: none;
+}
+.source-h{
+  background: none;
+}
+
