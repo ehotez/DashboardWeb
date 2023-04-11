@@ -4,12 +4,6 @@ import { Navigate } from "react-router-dom";
 import React, { Component } from 'react';
 import Input from "../components/Input";
 
-// async function ClickHandler(){
-//   let response = await fetch('http://localhost/DashboardWeb/yii2-basic/web/api/login/?login=admin&password=admin');
-//   let commit = await response.json();
-//   console.log(commit);
-// };
-
 class LoginPage extends Component {
   constructor(props) {
     super(props);

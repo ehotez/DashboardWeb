@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import '../css/Grid.css'
 
-
-
-class Widget extends Component {
+class BigWidget extends Component {
   static idCounter = 0;
   constructor(props) {
     super(props);
-    this.id = `widget-${Widget.idCounter++}`;
+    this.id = `widget-${BigWidget.idCounter++}`;
     this.state = {
       value: '',
       isPopupVisible: false,
@@ -69,9 +67,7 @@ class Widget extends Component {
   render() {
     
     return (
-       
       <>
-
         {!this.state.isShowVisible &&
           <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
         }
@@ -82,7 +78,6 @@ class Widget extends Component {
             <button onClick={this.handlePopupSave}>Save</button> 
           </div> 
         } 
-
         {this.state.isCloseVisible &&
             <button className='close' onClick={this.handleShowShow}>X</button> 
         }
@@ -92,4 +87,4 @@ class Widget extends Component {
   }
 }
 
-export default Widget;
+export default BigWidget;

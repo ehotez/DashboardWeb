@@ -1,7 +1,6 @@
 import React from "react";
 import Widget from "./Widget";
-import Widget1 from "./Widget1";
-import Widget2 from "./Widget2";
+import BigWidget from "./BigWidget";
 import '../css/Grid.css'
 
 class Grid extends React.Component {
@@ -23,7 +22,7 @@ class Grid extends React.Component {
     localStorage.setItem('111', this.state.flag1);
     
   }
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextState) {
     
     return nextState.flag1 !== this.state.flag1;
   }
@@ -33,8 +32,6 @@ class Grid extends React.Component {
       window.location.reload();
       this.setState({ flag1: event.detail });
     });
-    
-    
     
     return (
       <div>
@@ -77,16 +74,16 @@ class Grid extends React.Component {
           <div className="grid2">
             
               <div className="widget1">
-              <Widget1 />
+              <BigWidget />
               </div>
               <div className="widget1">
-              <Widget1 />
+              <BigWidget />
               </div>
               <div className="widget1">
-              <Widget1 />
+              <BigWidget />
               </div>
               <div className="widget1">
-              <Widget1 />
+              <BigWidget />
               </div>
 
           </div>

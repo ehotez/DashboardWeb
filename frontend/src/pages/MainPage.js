@@ -1,7 +1,7 @@
 import Grid from '../components/Grid';
 import '../css/App.css';
 import '../css/Sidebar.css';
-import React, { useState } from 'react';
+import React from 'react';
 import $ from 'jquery';
 
 class MainPage extends React.Component {

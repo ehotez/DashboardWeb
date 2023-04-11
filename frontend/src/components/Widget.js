@@ -3,8 +3,6 @@ import '../css/Grid.css'
 import '../css/Sidebar.css'
 import $ from 'jquery'
 
-
-
 class Widget extends Component {
   static idCounter = 0;
   constructor(props) {
@@ -76,9 +74,7 @@ class Widget extends Component {
       this.setState({ flag1: event.detail });
     });
     return (
-       
       <>
-
         {!this.state.isShowVisible &&
           <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
         }
@@ -89,7 +85,6 @@ class Widget extends Component {
             <button onClick={this.handlePopupSave}>Save</button> 
           </div> 
         } 
-
         {this.state.isCloseVisible &&
             <button className='close' onClick={this.handleShowShow}>X</button> 
         }
