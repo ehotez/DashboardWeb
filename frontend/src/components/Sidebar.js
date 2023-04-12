@@ -7,6 +7,7 @@ export const NavBtn = styled(Link)`
 font-size: 15px;
 text-align: center;
 text-decoration: none;
+position: relative;
 height:80px;
 width:100%;
 border: none;
@@ -32,7 +33,7 @@ class Sidebar extends Component {
 
 
   handleLogoutClick() {
-    localStorage.setItem('auth_user', ' ');
+    localStorage.setItem('auth_user', '');
 
   }
   handleGridClick() {
@@ -72,9 +73,9 @@ class Sidebar extends Component {
       {this.state.isSidebar &&
       <div className="sidebar-container">
         <NavBtn title='Главная' className={'main-h'} to='/main'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
-        <NavBtn title='Размер сетки' onClick={this.handleGridClick.bind(this)}><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
         <NavBtn title='Источники' className={'source-h'} to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
-        <NavBtn title='Выйти' onClick={this.handleLogoutClick.bind(this)} to ='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
+        <NavBtn title='Размер сетки' className={'grid-size'} onClick={this.handleGridClick.bind(this)}><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
+        <NavBtn title='Выйти' style={{position: 'absolute',top: '90%'}} onClick={this.handleLogoutClick.bind(this)} to ='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
       </div>
       }
       {this.state.isGrid &&

@@ -40,3 +40,9 @@
   background: none;
 }
 
+.grid-size{
+  position: absolute;
+  top: 59%;
+  display:none;
+}
+

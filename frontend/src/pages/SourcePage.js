@@ -7,6 +7,7 @@ class SourcePage extends React.Component {
   componentDidMount() {
     $(".main-h").css('background', 'none');
     $(".source-h").css('background', 'white');
+    $(".grid-size").css('display', 'none');
   }
   render() {
     return (

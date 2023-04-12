@@ -34,13 +34,9 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        //console.log(result);
-      });
+    if (localStorage.getItem('auth_user')) {
+      this.setState({ logged: true });  
+    }
   }
 
   handleLogin(e) {

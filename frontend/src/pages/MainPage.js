@@ -8,6 +8,7 @@ class MainPage extends React.Component {
   componentDidMount(){
     $(".main-h").css('background', 'white');
     $(".source-h").css('background', 'none');
+    $(".grid-size").css('display', 'block');
   }
   render() {
     return (
