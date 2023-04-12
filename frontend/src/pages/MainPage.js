@@ -9,6 +9,8 @@ class MainPage extends React.Component {
     $(".main-h").css('background', 'white');
     $(".source-h").css('background', 'none');
     $(".grid-size").css('display', 'block');
+    $(".grid-size").css('background', 'none');
+    $(".grid-popup").css('display', 'none');
   }
   render() {
     return (

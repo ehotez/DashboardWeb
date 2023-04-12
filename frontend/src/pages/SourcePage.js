@@ -8,6 +8,8 @@ class SourcePage extends React.Component {
     $(".main-h").css('background', 'none');
     $(".source-h").css('background', 'white');
     $(".grid-size").css('display', 'none');
+    $(".grid-size").css('background', 'none');
+    $(".grid-popup").css('display', 'none');
   }
   render() {
     return (
