@@ -1,8 +1,6 @@
 .table {
 	position: fixed;
-	width: 90%;
-	margin-left: 20px;
-	margin-top: -25px;
+	width: 80%;
 	border: 1px solid #dddddd;
 	border-collapse: separate;
 }
@@ -26,8 +24,8 @@
 	background: #e0c8ed50;
 }
 
-.noHover{
-    pointer-events: none;
+.noHover {
+	pointer-events: none;
 }
 
 .popup-delete {
@@ -43,6 +41,15 @@
 	z-index: 99;
 }
 
+.text {
+	position: fixed;
+	top: 5%;
+	left: 12%;
+	color: black;
+	font-size: 2.0em;
+
+}
+
 .popup-edit {
 	position: fixed;
 	top: 50%;
@@ -54,15 +61,6 @@
 	width: 500px;
 	height: 450px;
 	z-index: 99;
-}
-
-.text {
-	position: fixed;
-	top: 5%;
-	left: 12%;
-	color: black;
-	font-size: 2.0em;
-
 }
 
 .but-delete {
@@ -154,9 +152,9 @@
 }
 
 .add-button {
-	position: relative;
-	right: -225px;
-	top: -50px;
+	position: absolute;
+	left: 345px;
+	top: 38px;
 	width: 100px;
 	height: 30px;
 	display: block;
@@ -169,7 +167,50 @@
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-.delete-button{
+
+.help {
+	position: absolute;
+	left: 450px;
+	top: 39px;
+}
+
+.help-button {
+	position: absolute;
+	width: auto;
+	height: auto;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.help-button:focus {
+	background-color: transparent;
+}
+
+.help-popup {
+	background-color: #333333;
+	color: #FFFFFF;
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 400;
+	text-transform: none;
+	padding: 10px 18px 18px 10px;
+	border-radius: 10px;
+	width: 250px;
+	position: absolute;
+	top: 30px;
+	left:20px;
+	z-index: 1;
+	transform: translateX(-50%);
+	display: none;
+}
+
+.help-button:hover+.help-popup,
+.help-button:focus+.help-popup {
+	display: block;
+}
+
+.delete-button {
 	position: relative;
 	display: block;
 	color: #fff;
@@ -182,7 +223,7 @@
 	cursor: pointer;
 }
 
-.edit-button{
+.edit-button {
 	position: relative;
 	margin-bottom: 5px;
 	display: block;
@@ -198,6 +239,10 @@
 
 .add-button:hover {
 	background-color: #bbb;
+}
+
+.add-button:focus {
+	background-color: #573b8a;
 }
 
 .edit-button:hover {

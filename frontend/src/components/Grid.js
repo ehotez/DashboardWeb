@@ -1,8 +1,7 @@
 import React from "react";
 import Widget from "./Widget";
+import BigWidget from "./BigWidget";
 import '../css/Grid.css'
-
-
 
 class Grid extends React.Component {
   constructor(props) {
@@ -14,20 +13,25 @@ class Grid extends React.Component {
   componentDidMount() {
     const savedValue = localStorage.getItem('111');
     if (savedValue) {
+      
       this.setState({ flag1: savedValue });
     }
   }
 
   componentDidUpdate() {
     localStorage.setItem('111', this.state.flag1);
+    
+  }
+  shouldComponentUpdate(nextState) {
+    
+    return nextState.flag1 !== this.state.flag1;
   }
   render() {
     
     window.addEventListener('myGlobalVarChanged', (event) => {
+      window.location.reload();
       this.setState({ flag1: event.detail });
     });
-    
-    
     
     return (
       <div>
@@ -70,16 +74,16 @@ class Grid extends React.Component {
           <div className="grid2">
             
               <div className="widget1">
-              <Widget />
+              <BigWidget />
               </div>
               <div className="widget1">
-              <Widget />
+              <BigWidget />
               </div>
               <div className="widget1">
-              <Widget />
+              <BigWidget />
               </div>
               <div className="widget1">
-              <Widget />
+              <BigWidget />
               </div>
 
           </div>

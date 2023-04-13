@@ -1,39 +1,67 @@
 .sidebar-container {
   width: 90px;
   height: 100%;
-  background-color:rgb(190, 190, 190);
+  background-color: rgb(190, 190, 190);
   position: fixed;
   border: none;
-  display:flex;
+  display: flex;
   flex-direction: column;
   overflow: hidden;
-  z-index:10;
-  }
-  
-  .sidebar-button {
-    font-size: 15px;
-    width:100%;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-  .sidebar-button:focus{
-    background-color: white;
-  }
+  z-index: 10;
+}
 
-  .sidebar-button-logout {
-    margin: 0;
-    padding: 10px;
-    font-size: 15px;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    margin-top: 370%;
-    
-  }
-  .main-content {
-    flex: 1;
-  }
-  .translate{
-    margin-left: 160px;
-  }
+.sidebar-button:focus {
+  background-color: white;
+}
+
+.sidebar-button-logout {
+  margin: 0;
+  padding: 10px;
+  font-size: 15px;
+  position: fixed;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin-top: 370%;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.translate {
+  margin-left: 160px;
+}
+
+.main-h {
+  background: none;
+}
+
+.source-h {
+  background: none;
+}
+
+.grid-size {
+  background: none;
+  position: fixed;
+  top: 59%;
+  display: none;
+}
+
+.grid-popup {
+  background: white;
+  width: 300px;
+  height: 85px;
+  position: fixed;
+  margin-left: 90px;
+  margin-top: 5px;
+  top: 79%;
+  border: 3px solid;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-left: none;
+  border-color: rgb(190, 190, 190);
+  z-index: 10;
+  display: none;
+  flex-direction: row;
+}
