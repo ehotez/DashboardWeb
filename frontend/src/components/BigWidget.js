@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../css/Grid.css'
 
-class BigWidget extends Component {
+class BigWidget extends React.Component {
   static idCounter = 0;
   constructor(props) {
     super(props);

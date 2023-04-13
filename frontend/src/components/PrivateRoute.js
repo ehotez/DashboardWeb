@@ -1,19 +1,30 @@
-import { Navigate, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React from 'react';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoute = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(() => {
-        return localStorage.getItem("auth_user") !== '';
+class PrivateRoute extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAuthenticated: localStorage.getItem("auth_user") !== ''
+    };
+  }
+
+  componentDidMount() {
+    this.setState({
+      isAuthenticated: localStorage.getItem("auth_user") !== ''
     });
+  }
 
-    useEffect(() => {
-        setIsAuthenticated(localStorage.getItem("auth_user") !== '');
-    }, [setIsAuthenticated]);
+  render() {
+    const { children } = this.props;
+    const { isAuthenticated } = this.state;
 
     if (isAuthenticated) {
-        return children;
+      return children;
     }
 
     return <Navigate to="/login" />;
+  }
 }
+
 export default PrivateRoute;

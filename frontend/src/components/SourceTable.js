@@ -4,7 +4,6 @@ import React, { } from 'react';
 import MaterialIcon from 'material-icons-react';
 
 class SourceTable extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {

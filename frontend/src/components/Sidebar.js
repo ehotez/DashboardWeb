@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../css/Sidebar.css';
 import { NavLink as Link } from 'react-router-dom';
 import MaterialIcon from 'material-icons-react';
@@ -25,12 +25,11 @@ cursor: pointer;
 
 window.flag = 0;
 
-class Sidebar extends Component {
+class Sidebar extends React.Component {
 
   state = {
     isSidebar: true,
   };
-
 
   handleLogoutClick() {
     localStorage.setItem('auth_user', '');

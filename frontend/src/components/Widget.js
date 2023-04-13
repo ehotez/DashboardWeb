@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../css/Grid.css'
 import '../css/Sidebar.css'
 import $ from 'jquery'
 
-class Widget extends Component {
+class Widget extends React.Component {
   static idCounter = 0;
   constructor(props) {
     super(props);
