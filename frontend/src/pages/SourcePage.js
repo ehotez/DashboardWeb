@@ -5,7 +5,6 @@ import $ from 'jquery';
 
 class SourcePage extends React.Component {
   componentDidMount() {
-    localStorage.setItem("reload", '1')
     $(".main-h").css('background', 'none');
     $(".source-h").css('background', 'white');
     $(".grid-size").css('display', 'none');
