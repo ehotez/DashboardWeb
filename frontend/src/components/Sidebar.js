@@ -74,7 +74,7 @@ class Sidebar extends Component {
           <NavBtn title='Главная' className={'main-h'} to='/main'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
           <NavBtn title='Источники' className={'source-h'} to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
           <NavBtn title='Размер сетки' className={'grid-size'} onClick={this.handleGridClick.bind(this)}><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
-          <NavBtn title='Выйти' style={{ position: 'absolute', top: '90%' }} onClick={this.handleLogoutClick.bind(this)} to='/'><MaterialIcon icon="logout" size={30} /> </NavBtn>
+          <NavBtn title='Выйти' style={{ position: 'absolute', top: '90%' }} onClick={this.handleLogoutClick.bind(this)} to='/login'><MaterialIcon icon="logout" size={30} /> </NavBtn>
         </div>
         <div className='grid-popup'>
           <NavBtn title='3x3' onClick={this.handleGridClose3x3.bind(this)} to='/main'><MaterialIcon icon="grid_on" size={30} /></NavBtn>

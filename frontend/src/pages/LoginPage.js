@@ -35,7 +35,7 @@ class LoginPage extends Component {
 
   componentDidMount() {
     if (localStorage.getItem('auth_user')) {
-      this.setState({ logged: true });  
+      this.setState({ logged: true });
     }
   }
 
@@ -66,7 +66,7 @@ class LoginPage extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
     let userData = this.state.newUser;
-    console.log(JSON.stringify(userData));
+    // console.log(JSON.stringify(userData));
     //Обратити ВНИМАНИЕ на ковычки ` `
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/login/?login=${userData.login}&password=${userData.password}`, {
       method: "POST",
@@ -84,7 +84,7 @@ class LoginPage extends Component {
         } else {
           this.setState({ logged: true });
           localStorage.setItem('auth_user', result);
-          console.log(localStorage.getItem('auth_user'));
+          // console.log(localStorage.getItem('auth_user'));
         }
       });
   }
