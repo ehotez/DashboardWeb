@@ -64,16 +64,15 @@
 	left: 0;
 	right: 0;
 	margin: auto;
+    line-height: 50px;
+    background-color: transparent;
     width:90px;
 	height: 90px;
-    font-size: 25px;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);    
-    background-color: transparent;
+    font-size: 90px;
     opacity: 0.5;
     border:none;
-    border-radius: 50px;
-    
 } 
+
 .view{
     position: relative;
     top: 50%;

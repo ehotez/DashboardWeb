@@ -1,7 +1,7 @@
 import '../css/SourceTable.css'
 import Select from 'react-select';
 import React, { } from 'react';
-import MaterialIcon from 'material-icons-react';
+import {FiHelpCircle} from 'react-icons/fi'
 
 class SourceTable extends React.Component {
   constructor(props) {
@@ -168,7 +168,7 @@ class SourceTable extends React.Component {
         <h1>Source List</h1>
         <button className='add-button' onClick={this.handleAddButtonClick.bind(this)}>Добавить</button>
         <span className='help'>
-          <button className='help-button'><MaterialIcon icon="help" size={25} /></button>
+          <button className='help-button'><FiHelpCircle /></button>
           <span className='help-popup'>Для того чтобы удалить или изменить источник, нажмите ПКМ по соответствующей строке таблицы </span>
         </span>
         {this.state.isPopupVisible &&

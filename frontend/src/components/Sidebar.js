@@ -1,19 +1,25 @@
 import React from 'react';
 import '../css/Sidebar.css';
 import { NavLink as Link } from 'react-router-dom';
-import MaterialIcon from 'material-icons-react';
+import {CiLogout} from 'react-icons/ci';
+import {RiDashboardFill, RiDashboardLine} from 'react-icons/ri';
+import {MdSource, MdGridOn, MdOutlineSpaceDashboard, MdOutlineSource} from 'react-icons/md';
+import {BsGrid, BsGridFill} from 'react-icons/bs';
+import {RxGrid} from 'react-icons/rx';
+import {AiOutlineClose} from 'react-icons/ai';
 import styled from 'styled-components';
 import $ from 'jquery';
 export const NavBtn = styled(Link)`
-font-size: 15px;
+font-size: 30px;
 text-align: center;
 text-decoration: none;
+color:black;
 position: relative;
 height:80px;
 width:100%;
 border: none;
 background: transparent;
-line-height: 100px; 
+line-height: 90px; 
 box-sizing: border-box; 
 cursor: pointer;
   &:active, &:focus{
@@ -70,22 +76,22 @@ class Sidebar extends React.Component {
     return (
       <div>
         <div className="sidebar-container">
-          <NavBtn title='Главная' className={'main-h'} to='/'><MaterialIcon icon="dashboard" size={30} /></NavBtn>
-          <NavBtn title='Источники' className={'source-h'} to='/sources'><MaterialIcon icon="source" size={30} /></NavBtn>
-          <NavBtn title='Размер сетки' className={'grid-size'} onClick={this.handleGridClick.bind(this)}><MaterialIcon icon="dashboard_customize" size={30} /></NavBtn>
-          <NavBtn title='Выйти' style={{ position: 'sticky', top: '90%'}} onClick={this.handleLogoutClick.bind(this)} to='/login'><MaterialIcon icon="logout" size={30} /> </NavBtn>
+          <NavBtn title='Главная' className={'main-h'} to='/'><RiDashboardFill style={{display:'none'}}/> <RiDashboardLine/></NavBtn>
+          <NavBtn title='Источники' className={'source-h'} to='/sources'><MdSource style={{display:'none'}}/><MdOutlineSource/> </NavBtn>
+          <NavBtn title='Размер сетки' className={'grid-size'} onClick={this.handleGridClick.bind(this)}><BsGrid /></NavBtn>
+          <NavBtn title='Выйти' style={{ position: 'sticky', top: '90%'}} onClick={this.handleLogoutClick.bind(this)} to='/login'><CiLogout/> </NavBtn>
         </div>
         <div className='grid-popup'>
-          <NavBtn title='3x3' onClick={this.handleGridClose3x3.bind(this)} to='/'><MaterialIcon icon="grid_on" size={30} /></NavBtn>
-          <NavBtn title='2x2' onClick={this.handleGridClose2x2.bind(this)} to='/'><MaterialIcon icon="window" size={30} /></NavBtn>
-          <NavBtn title='2x3' onClick={this.handleGridClose3x2.bind(this)} to='/'><MaterialIcon icon="space_dashboard" size={30} /></NavBtn>
+          <NavBtn title='3x3' onClick={this.handleGridClose3x3.bind(this)} to='/'><MdGridOn/></NavBtn>
+          <NavBtn title='2x2' onClick={this.handleGridClose2x2.bind(this)} to='/'><BsGridFill style={{display:'none'}}/><RxGrid /></NavBtn>
+          <NavBtn title='2x3' onClick={this.handleGridClose3x2.bind(this)} to='/`'><MdOutlineSpaceDashboard/></NavBtn>
           <NavBtn title='Закрыть'
             style={{
               background: 'rgb(190, 190, 190)',
               borderTopRightRadius: '17px',
               borderBottomRightRadius: '17px'
             }}
-            onClick={this.handleGridClose.bind(this)}><MaterialIcon icon="close" size={30} /></NavBtn>
+            onClick={this.handleGridClose.bind(this)}><AiOutlineClose/></NavBtn>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Grid.css'
 import '../css/Sidebar.css'
+import {CgAddR} from 'react-icons/cg'
 import $ from 'jquery'
 
 class Widget extends React.Component {
