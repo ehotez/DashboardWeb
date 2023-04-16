@@ -1,12 +1,11 @@
 .sidebar-container {
-  width: 90px;
+  width: 80px;
   height: 100%;
   background-color: rgb(190, 190, 190);
   position: fixed;
   border: none;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   z-index: 10;
 }
 
@@ -43,8 +42,6 @@
 
 .grid-size {
   background: none;
-  position: fixed;
-  top: 59%;
   display: none;
 }
 
@@ -53,9 +50,9 @@
   width: 300px;
   height: 85px;
   position: fixed;
-  margin-left: 90px;
+  margin-left: 80px;
   margin-top: 5px;
-  top: 79%;
+  top: 152.5px;
   border: 3px solid;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;

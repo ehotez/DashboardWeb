@@ -18,18 +18,18 @@ function App() {
     <Router>
       <Sidebar />
       <Routes>
-        <Route exact path="/main" element={
+        <Route exact path="/" element={
           <PrivateRoute>
             <MainPage />
           </PrivateRoute>
         } />
-        <Route exact path="/sources" element={
+        <Route path="/sources" element={
           <PrivateRoute>
             <SourcePage />
           </PrivateRoute>
         } />
         {/* <Route exact path="/sources" element={<SourcePage />} /> */}
-        <Route exact path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );

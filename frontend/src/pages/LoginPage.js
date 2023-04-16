@@ -92,7 +92,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className='login'>
-        {this.state.logged && (<Navigate to='/main' replace={true} />)}
+        {this.state.logged && (<Navigate to='/' replace={true} />)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
           <label className='login-label'>ВХОД</label>
           <div className='login-container'>
