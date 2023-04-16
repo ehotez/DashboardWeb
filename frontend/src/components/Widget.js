@@ -3,6 +3,7 @@ import '../css/Grid.css'
 import '../css/Sidebar.css'
 import {CgAddR} from 'react-icons/cg'
 import $ from 'jquery'
+import Graphic from './Graphic';
 
 class Widget extends React.Component {
   static idCounter = 0;
@@ -152,12 +153,13 @@ class Widget extends React.Component {
         }
         {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName && 
           <>
-            <div className='viewname'>
+            {/* <div className='viewname'>
               {this.state.sourceName}
             </div>
             <div className='view'>
               {this.state.sourceLink}
-            </div>
+            </div> */}
+            <Graphic />
           </>
           } 
       </>
