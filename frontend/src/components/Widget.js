@@ -159,7 +159,9 @@ class Widget extends React.Component {
             <div className='view'>
               {this.state.sourceLink}
             </div> */}
-            <Graphic />
+            
+            <Graphic mass = {this.state.sourceName}/>
+            <button className='close' onClick={this.handleShowShow}>X</button> 
           </>
           } 
       </>

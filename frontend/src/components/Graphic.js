@@ -26,7 +26,7 @@ class Graphic extends Component {
   render() {
     const options = {
       title: {
-        text: "Dynamic Line Chart"
+        text: this.props.mass.toString()
       },
       data: [{
         type: "line",

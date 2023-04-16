@@ -84,7 +84,7 @@ class Sidebar extends React.Component {
         <div className='grid-popup'>
           <NavBtn title='3x3' onClick={this.handleGridClose3x3.bind(this)} to='/'><MdGridOn/></NavBtn>
           <NavBtn title='2x2' onClick={this.handleGridClose2x2.bind(this)} to='/'><BsGridFill style={{display:'none'}}/><RxGrid /></NavBtn>
-          <NavBtn title='2x3' onClick={this.handleGridClose3x2.bind(this)} to='/`'><MdOutlineSpaceDashboard/></NavBtn>
+          <NavBtn title='2x3' onClick={this.handleGridClose3x2.bind(this)} to='/'><MdOutlineSpaceDashboard/></NavBtn>
           <NavBtn title='Закрыть'
             style={{
               background: 'rgb(190, 190, 190)',
