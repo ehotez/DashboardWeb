@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/Grid.css'
 import '../css/Sidebar.css'
-import $ from 'jquery'
 import Graphic from './Graphic';
 
 class Widget extends React.Component {
@@ -12,17 +11,16 @@ class Widget extends React.Component {
     this.state = {
       value: '',
       sources: [],
-      flag1: window.flag,
       isPopupVisible: false,
       isShowVisible: false,
       isCloseVisible: false,
       sourceName: '',
-      sourceType:'',
-      sourceLink:'',
+      sourceType: '',
+      sourceLink: '',
       sourcePeriod: 0,
-      globalkey:''
+      globalkey: ''
     };
-    this.id1 = this.id+ " "+ this.state.flag1
+    this.gridSize = ''
   }
 
   fetchSources() {
@@ -37,7 +35,6 @@ class Widget extends React.Component {
   handleClick(e) {
     e.preventDefault();
     const row = e.target.parentNode;
-    
     const name = row.querySelector('td:nth-child(2)').innerText;
     const type_label = row.querySelector('td:nth-child(3)').innerText;
     const link = row.querySelector('td:nth-child(4)').innerText;
@@ -46,19 +43,13 @@ class Widget extends React.Component {
     this.setState({ sourceType: type_label });
     this.setState({ sourceLink: link });
     this.setState({ sourcePeriod: time });
-    this.setState({ isPopupVisible: false }); 
-    this.handleShowClose();
-    this.handleCloseShow();
+    this.setState({ isPopupVisible: false });
+    this.setState({ isShowVisible: true });
+    this.setState({ isCloseVisible: true });
   }
   handleChange = (event) => {
     this.setState({ value: event.target.value });
     this.setState({ isShowVisible: false });
-    
-  }
-  
-  deleteChange = () => {
-    this.setState({ sourceName: '' });
-    this.setState({ sourceLink: '' });
   }
 
   handleButtonClick = () => {
@@ -69,69 +60,54 @@ class Widget extends React.Component {
   handlePopupClose = () => {
     this.setState({ isPopupVisible: false });
   }
-  handleCloseShow = () => {
-    this.setState({ isCloseVisible: true });
-  }
 
-  handleShowClose = () => {
-    this.setState({ isShowVisible: true });
-  }
-
-  handleShowShow = () => {
+  handleCloseWidget = () => {
     this.setState({ isShowVisible: false });
     this.setState({ isCloseVisible: false });
-    this.deleteChange();
+    this.setState({ sourceName: '' });
+    this.setState({ sourceLink: '' });
   }
 
   componentDidMount() {
-    $(".main-h").css('background', 'white');
-    const savedValue2 = localStorage.getItem('111');
-    if (savedValue2) {
-      
-      this.setState({ flag1: savedValue2 });
+    var savedSize = localStorage.getItem('size');
+    if (savedSize) {
+      this.gridSize = savedSize;
     }
-    const savedValue = localStorage.getItem(localStorage.getItem("auth_user")+"-"+this.state.flag1+"-"+this.id);
-    console.log(savedValue)
-    if (savedValue) {
-      this.setState({ sourceLink: savedValue });
-      this.setState({ isShowVisible: savedValue });
-      this.setState({ isCloseVisible: savedValue });
-      //this.setState({ isPopupVisible: savedValue });
-    }
-    const savedValue1 = localStorage.getItem(localStorage.getItem("auth_user")+"-"+this.state.flag1+"-"+this.id+1);
-    if (savedValue1) {
-      this.setState({ sourceName: savedValue1 });
+    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
+    var savedValue = localStorage.getItem(key);
+    //console.log(savedValue);
+    if (savedValue != '-' && savedValue) {
+      var mass = savedValue.split('-');
+      //console.log(key);
+      this.setState({ sourceName: mass[0] });
+      this.setState({ sourceLink: mass[1] });
+      this.setState({ isCloseVisible: true });
     }
   }
 
-  handlePopupSave = () => { 
-    this.setState({ isPopupVisible: false }); 
+  handlePopupSave = () => {
+    this.setState({ isPopupVisible: false });
     this.handleShowClose();
     this.handleCloseShow();
-  } 
+  }
 
   componentDidUpdate() {
-    localStorage.setItem('111', this.state.flag1);
-    var key = localStorage.getItem("auth_user")+"-"+this.state.flag1+"-"+this.id;
-    //console.log(key);
-    
-    localStorage.setItem(key, this.state.sourceLink);
-    localStorage.setItem(key+1, this.state.sourceName);
+    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
+    var value = (this.state.sourceName + '-' + this.state.sourceLink).toString();
+    localStorage.setItem(key, value);
   }
   render() {
-    window.addEventListener('myGlobalVarChanged', (event) => {
-      this.setState({ flag1: event.detail });
-    });
+
     return (
       <>
         {!this.state.isShowVisible &&
-          <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
+          <button className='add-widget-button' onClick={this.handleButtonClick}>+</button>
         }
-        {this.state.isPopupVisible && 
-          <div className="popup"> 
+        {this.state.isPopupVisible &&
+          <div className="popup">
             {/* <input type="text" value={this.state.value} onChange={this.handleChange} />
             <button onClick={this.handlePopupSave}>Save</button>  */}
-            
+
             <table className="table">
               <thead>
                 <tr>
@@ -150,17 +126,16 @@ class Widget extends React.Component {
                     <td className='view-off'>{source.txtSourceLogin}</td>
                     <td className='view-off'>{source.txtSourcePassword}</td>
                     <td className='view-off'>{source.intTimePeriod}</td>
-                    
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div> 
-        } 
-        {this.state.isCloseVisible &&
-            <button className='close' onClick={this.handleShowShow}>X</button> 
+          </div>
         }
-        {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName && 
+        {this.state.isCloseVisible &&
+          <button className='close' onClick={this.handleCloseWidget}>X</button>
+        }
+        {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName &&
           <div className='graphic'>
             {/* <div className='viewname'>
               {this.state.sourceName}
@@ -168,10 +143,10 @@ class Widget extends React.Component {
             <div className='view'>
               {this.state.sourceLink}
             </div> */}
-            
-            <Graphic mass = {this.state.sourceName}  />
+
+            <Graphic mass={this.state.sourceName} />
           </div>
-          } 
+        }
       </>
     );
   }

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import CanvasJSReact from '../canvasjs.react';
 import '../css/Grid.css';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-var dps = [{ x: 1, y: 10 }, { x: 2, y: 13 }];   //dataPoints.
+var dps = [{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 3 },
+{ x: 4, y: 7 }, { x: 5, y: 11 }, { x: 6, y: 2 }, { x: 7, y: 9 }, { x: 8, y: 4 },
+{ x: 9, y: -5 }, { x: 10, y: -1 }, { x: 11, y: 2 }, { x: 12, y: 3 }, { x: 13, y: 5 }, { x: 14, y: 1 }];   //dataPoints.
 var xVal = dps.length + 1;
 var yVal = 15;
 var updateInterval = 1000;
@@ -13,14 +15,6 @@ class Graphic extends Component {
     super();
     intervalId = 0;
     this.updateChart = this.updateChart.bind(this);
-  }
-  componentDidMount() {
-    this.intervalId = setInterval(this.updateChart, updateInterval);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalId);
-    console.log('clearing');
   }
 
   updateChart() {

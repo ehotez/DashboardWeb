@@ -33,12 +33,9 @@ window.flag = 0;
 
 class Sidebar extends React.Component {
 
-  state = {
-    isSidebar: true,
-  };
-
   handleLogoutClick() {
     localStorage.setItem('auth_user', '');
+    localStorage.setItem("reload", '1')
   }
 
   handleGridClick() {
@@ -50,21 +47,24 @@ class Sidebar extends React.Component {
     this.setState({ isSidebar: true });
     $(".grid-popup").css('display', 'none');
     $(".grid-size").css('background', 'none');
-    window.dispatchEvent(new CustomEvent('myGlobalVarChanged', { detail: window.flag = 1 }));
+    localStorage.setItem('size', '3x3');
+    window.location.reload();
   }
 
   handleGridClose2x2() {
     this.setState({ isSidebar: true });
     $(".grid-popup").css('display', 'none');
     $(".grid-size").css('background', 'none');
-    window.dispatchEvent(new CustomEvent('myGlobalVarChanged', { detail: window.flag = 2 }));
+    localStorage.setItem('size', '2x2');
+    window.location.reload();
   }
 
   handleGridClose3x2() {
     this.setState({ isSidebar: true });
     $(".grid-popup").css('display', 'none');
     $(".grid-size").css('background', 'none');
-    window.dispatchEvent(new CustomEvent('myGlobalVarChanged', { detail: window.flag = 3 }));
+    localStorage.setItem('size', '2x3');
+    window.location.reload();
   }
 
   handleGridClose() {
