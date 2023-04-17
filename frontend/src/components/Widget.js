@@ -1,7 +1,6 @@
 import React from 'react';
 import '../css/Grid.css'
 import '../css/Sidebar.css'
-import {CgAddR} from 'react-icons/cg'
 import $ from 'jquery'
 import Graphic from './Graphic';
 
@@ -152,7 +151,7 @@ class Widget extends React.Component {
             <button className='close' onClick={this.handleShowShow}>X</button> 
         }
         {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName && 
-          <>
+          <div className='graphic'>
             {/* <div className='viewname'>
               {this.state.sourceName}
             </div>
@@ -160,9 +159,8 @@ class Widget extends React.Component {
               {this.state.sourceLink}
             </div> */}
             
-            <Graphic mass = {this.state.sourceName}/>
-            <button className='close' onClick={this.handleShowShow}>X</button> 
-          </>
+            <Graphic mass = {this.state.sourceName}  />
+          </div>
           } 
       </>
     );

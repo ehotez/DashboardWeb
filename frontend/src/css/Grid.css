@@ -53,9 +53,10 @@
     height: 270px;
 }
 .close{
-    /*position: relative;*/
-    top: 5%;
-    left: 85%;
+    position: relative;
+    top: 4px;
+    left: -95px;
+    z-index: 10;
 }
 .add-widget-button{
     position: absolute;
@@ -83,6 +84,12 @@
     
     text-align: center;
     font-size: 1.5em;
+}
+
+.graphic{
+    position: relative;
+    height: 33.33vh;
+    z-index: 9;
 }
 .table {
 	position: fixed;

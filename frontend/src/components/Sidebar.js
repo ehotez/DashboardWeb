@@ -43,7 +43,7 @@ class Sidebar extends React.Component {
 
   handleGridClick() {
     $(".grid-popup").css('display', 'flex');
-    $(".grid-size").css('background', 'white');
+    $(".grid-size").css('background', 'white');  
   }
 
   handleGridClose3x3() {
@@ -76,14 +76,14 @@ class Sidebar extends React.Component {
     return (
       <div>
         <div className="sidebar-container">
-          <NavBtn title='Главная' className={'main-h'} to='/'><RiDashboardFill style={{display:'none'}}/> <RiDashboardLine/></NavBtn>
-          <NavBtn title='Источники' className={'source-h'} to='/sources'><MdSource style={{display:'none'}}/><MdOutlineSource/> </NavBtn>
-          <NavBtn title='Размер сетки' className={'grid-size'} onClick={this.handleGridClick.bind(this)}><BsGrid /></NavBtn>
+          <NavBtn title='Главная' className={'main-h'} to='/'><RiDashboardFill className='main-active'/> <RiDashboardLine className='main-not-active'/></NavBtn>
+          <NavBtn title='Источники' className={'source-h'} to='/sources'><MdSource className='source-active'/><MdOutlineSource className='source-not-active' /> </NavBtn>
+          <NavBtn title='Размер сетки' className={'grid-size'} onClick={this.handleGridClick.bind(this)}><BsGridFill className='grid-active'/> <BsGrid className='grid-not-active' /></NavBtn>
           <NavBtn title='Выйти' style={{ position: 'sticky', top: '90%'}} onClick={this.handleLogoutClick.bind(this)} to='/login'><CiLogout/> </NavBtn>
         </div>
         <div className='grid-popup'>
           <NavBtn title='3x3' onClick={this.handleGridClose3x3.bind(this)} to='/'><MdGridOn/></NavBtn>
-          <NavBtn title='2x2' onClick={this.handleGridClose2x2.bind(this)} to='/'><BsGridFill style={{display:'none'}}/><RxGrid /></NavBtn>
+          <NavBtn title='2x2' onClick={this.handleGridClose2x2.bind(this)} to='/'><RxGrid /></NavBtn>
           <NavBtn title='2x3' onClick={this.handleGridClose3x2.bind(this)} to='/'><MdOutlineSpaceDashboard/></NavBtn>
           <NavBtn title='Закрыть'
             style={{

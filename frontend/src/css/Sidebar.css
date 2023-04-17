@@ -62,3 +62,27 @@
   display: none;
   flex-direction: row;
 }
+
+.source-active {
+  display: none;
+}
+
+.source-not-active {
+  display: flexbox;
+}
+
+.main-active {
+  display: none;
+}
+
+.main-not-active {
+  display: flexbox;
+}
+
+.grid-active {
+  display: none;
+}
+
+.grid-not-active {
+  display: flexbox;
+}
