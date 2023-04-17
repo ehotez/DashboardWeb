@@ -19,7 +19,8 @@ class Widget extends React.Component {
       sourceName: '',
       sourceType:'',
       sourceLink:'',
-      sourcePeriod: 0
+      sourcePeriod: 0,
+      globalkey:''
     };
     this.id1 = this.id+ " "+ this.state.flag1
   }
@@ -84,17 +85,22 @@ class Widget extends React.Component {
 
   componentDidMount() {
     $(".main-h").css('background', 'white');
-    const savedValue = localStorage.getItem(this.id1);
+    const savedValue2 = localStorage.getItem('111');
+    if (savedValue2) {
+      
+      this.setState({ flag1: savedValue2 });
+    }
+    const savedValue = localStorage.getItem(localStorage.getItem("auth_user")+"-"+this.state.flag1+"-"+this.id);
+    console.log(savedValue)
     if (savedValue) {
       this.setState({ sourceLink: savedValue });
       this.setState({ isShowVisible: savedValue });
       this.setState({ isCloseVisible: savedValue });
       //this.setState({ isPopupVisible: savedValue });
     }
-    const savedValue1 = localStorage.getItem(this.id1+1);
+    const savedValue1 = localStorage.getItem(localStorage.getItem("auth_user")+"-"+this.state.flag1+"-"+this.id+1);
     if (savedValue1) {
       this.setState({ sourceName: savedValue1 });
-      //this.setState({ isPopupVisible: savedValue });
     }
   }
 
@@ -105,8 +111,12 @@ class Widget extends React.Component {
   } 
 
   componentDidUpdate() {
-    localStorage.setItem(this.id1, this.state.sourceLink);
-    localStorage.setItem(this.id1+1, this.state.sourceName);
+    localStorage.setItem('111', this.state.flag1);
+    var key = localStorage.getItem("auth_user")+"-"+this.state.flag1+"-"+this.id;
+    //console.log(key);
+    
+    localStorage.setItem(key, this.state.sourceLink);
+    localStorage.setItem(key+1, this.state.sourceName);
   }
   render() {
     window.addEventListener('myGlobalVarChanged', (event) => {

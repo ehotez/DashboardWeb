@@ -1,6 +1,6 @@
 import React from "react";
 import Widget from "./Widget";
-import BigWidget from "./BigWidget";
+
 import '../css/Grid.css'
 
 class Grid extends React.Component {
@@ -74,16 +74,16 @@ class Grid extends React.Component {
           <div className="grid2">
             
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
 
           </div>
