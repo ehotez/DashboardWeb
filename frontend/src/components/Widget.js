@@ -78,7 +78,7 @@ class Widget extends React.Component {
     //console.log(savedValue);
     if (savedValue != '-' && savedValue) {
       var mass = savedValue.split('-');
-      //console.log(key);
+      console.log(key);
       this.setState({ sourceName: mass[0] });
       this.setState({ sourceLink: mass[1] });
       this.setState({ isCloseVisible: true });
@@ -144,7 +144,7 @@ class Widget extends React.Component {
               {this.state.sourceLink}
             </div> */}
 
-            <Graphic mass={this.state.sourceName} />
+            <Graphic widget={this.gridSize+'-'+this.id} mass={this.state.sourceName} />
           </div>
         }
       </>

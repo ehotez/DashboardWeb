@@ -17,7 +17,7 @@ class Graphic extends Component {
     super();
     intervalId = 0;
     this.updateChart = this.updateChart.bind(this);
-    
+
   }
 
   updateChart() {
@@ -47,10 +47,10 @@ class Graphic extends Component {
           snapToDataPoint: true
         }
       },
-      
+
       axisY: {
         includeZero: false,
-        
+
       },
       legend: {
         horizontalAlign: "right",
@@ -64,9 +64,20 @@ class Graphic extends Component {
         dataPoints: dps
       }]
     }
-    const containerProps = {
-      height: "calc(33.33vh)"
-    };
+    var widgetId = (this.props.widget.toString()).split('-');
+    if (widgetId[0] === '2x2') {
+      var containerProps = {
+        height: "calc(50vh)"
+      };
+    } else if (widgetId[0] === '2x3' && widgetId[2] === '1') {
+      var containerProps = {
+        height: "calc(66.66vh)"
+      };
+    } else {
+      var containerProps = {
+        height: "calc(33.33vh)"
+      };
+    }
     return (
       <div>
         <CanvasJSChart containerProps={containerProps} options={options}
