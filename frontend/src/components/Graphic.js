@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CanvasJSReact from '../canvasjs.react';
 import '../css/Grid.css';
+
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dps = [{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 3 },
 { x: 4, y: 7 }, { x: 5, y: 11 }, { x: 6, y: 2 }, { x: 7, y: 9 }, { x: 8, y: 4 },
@@ -12,9 +13,11 @@ var intervalId = 0;
 
 class Graphic extends Component {
   constructor() {
+
     super();
     intervalId = 0;
     this.updateChart = this.updateChart.bind(this);
+    
   }
 
   updateChart() {
@@ -35,9 +38,7 @@ class Graphic extends Component {
       creditText: " ",
       creditHref: " ",
       zoomEnabled: true,
-      height: 250,
       zoomType: 'x',
-
       axisX: {
         viewportMinimum: 0,
         viewportMaximum: 0,
@@ -46,8 +47,10 @@ class Graphic extends Component {
           snapToDataPoint: true
         }
       },
+      
       axisY: {
         includeZero: false,
+        
       },
       legend: {
         horizontalAlign: "right",
@@ -61,9 +64,12 @@ class Graphic extends Component {
         dataPoints: dps
       }]
     }
+    const containerProps = {
+      height: "calc(33.33vh)"
+    };
     return (
       <div>
-        <CanvasJSChart options={options}
+        <CanvasJSChart containerProps={containerProps} options={options}
           onRef={ref => this.chart = ref}
         />
         {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
