@@ -67,17 +67,17 @@ class Graphic extends Component {
     var widgetId = (this.props.widget.toString()).split('-');
     if (widgetId[0] === '2x2') {
       var containerProps = {
-        height: "calc(47vh)"
+        height: "calc(49.5vh)"
       };
     } else if (widgetId[0] === '2x3' && widgetId[2] === '1') {
       var containerProps = {
    
-        height: "calc(63vh)"
+        height: "calc(66vh)"
       };
     } else {
       var containerProps = {
 
-        height: "calc(31vh)"
+        height: "calc(33vh)"
       };
     }
     return (
