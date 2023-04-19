@@ -171,7 +171,7 @@
 .help {
 	position: absolute;
 	left: 450px;
-	top: 39px;
+	top: 36px;
 }
 
 .help-button {
@@ -181,6 +181,7 @@
 	background: none;
 	border: none;
 	cursor: pointer;
+	font-size: 25px;
 }
 
 .help-button:focus {

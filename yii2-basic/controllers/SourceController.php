@@ -96,7 +96,6 @@ class SourceController extends ActiveController
      *
      * @param string $link ссылка на данные источника.
      * @return array("query_name" => "Сколько рыб в бассейне?",
-     *               "time": 1673671624,
      *               "value": 15) | None(если данные не получены)
      **/
     public function actionGetQuery($link)
@@ -109,7 +108,6 @@ class SourceController extends ActiveController
      *
      * @param string $link ссылка на данные источника.
      * @return array("chart_name" => "График датчика pH",
-     *               "time" => 1673671624,
      *               "data" => array("x_label" => "Время, с",
      *                               "y_label" => "Кислотность, pH",
      *                               "x_values" => array(1, 2,3, ..., n)

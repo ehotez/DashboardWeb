@@ -1,94 +1,152 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../css/Grid.css'
 import '../css/Sidebar.css'
-import $ from 'jquery'
+import Graphic from './Graphic';
 
-class Widget extends Component {
+class Widget extends React.Component {
   static idCounter = 0;
   constructor(props) {
     super(props);
     this.id = `widget-${Widget.idCounter++}`;
     this.state = {
       value: '',
-      flag1: window.flag,
+      sources: [],
       isPopupVisible: false,
       isShowVisible: false,
-      isCloseVisible: false
+      isCloseVisible: false,
+      sourceName: '',
+      sourceType: '',
+      sourceLink: '',
+      sourcePeriod: 0,
+      globalkey: ''
     };
-    this.id1 = this.id+ " "+ this.state.flag1
+    this.gridSize = ''
   }
 
+  fetchSources() {
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/get-sources/?userId=${localStorage.getItem('auth_user')}`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        this.setState({ sources: result });
+      });
+  }
+  handleRowClick(e) {
+    e.preventDefault();
+    const row = e.target.parentNode;
+    const name = row.querySelector('td:nth-child(2)').innerText;
+    const type_label = row.querySelector('td:nth-child(3)').innerText;
+    const link = row.querySelector('td:nth-child(4)').innerText;
+    const time = row.querySelector('td:nth-child(7)').innerText;
+    this.setState({ sourceName: name });
+    this.setState({ sourceType: type_label });
+    this.setState({ sourceLink: link });
+    this.setState({ sourcePeriod: time });
+    this.setState({ isPopupVisible: false });
+    this.setState({ isShowVisible: true });
+    this.setState({ isCloseVisible: true });
+  }
   handleChange = (event) => {
     this.setState({ value: event.target.value });
     this.setState({ isShowVisible: false });
-    
-  }
-  
-  deleteChange = () => {
-    this.setState({ value: '' });
   }
 
-  handleButtonClick = () => {
+  handleAddClick = () => {
     this.setState({ isPopupVisible: true });
+    this.fetchSources();
   }
 
   handlePopupClose = () => {
     this.setState({ isPopupVisible: false });
   }
-  handleCloseShow = () => {
-    this.setState({ isCloseVisible: true });
-  }
 
-  handleShowClose = () => {
-    this.setState({ isShowVisible: true });
-  }
-
-  handleShowShow = () => {
+  handleCloseWidget = () => {
     this.setState({ isShowVisible: false });
     this.setState({ isCloseVisible: false });
-    this.deleteChange();
+    this.setState({ sourceName: '' });
+    this.setState({ sourceLink: '' });
   }
 
   componentDidMount() {
-    $(".main-h").css('background', 'white');
-    const savedValue = localStorage.getItem(this.id1);
-    if (savedValue) {
-      this.setState({ value: savedValue });
-      this.setState({ isShowVisible: savedValue });
-      this.setState({ isCloseVisible: savedValue });
-      //this.setState({ isPopupVisible: savedValue });
+    var savedSize = localStorage.getItem('size');
+    if (savedSize) {
+      this.gridSize = savedSize;
+    }
+    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
+    var savedValue = localStorage.getItem(key);
+    //console.log(savedValue);
+    if (savedValue != '-' && savedValue) {
+      var mass = savedValue.split('-');
+      console.log(key);
+      this.setState({ sourceName: mass[0] });
+      this.setState({ sourceLink: mass[1] });
+      this.setState({ isCloseVisible: true });
     }
   }
 
-  handlePopupSave = () => { 
-    this.setState({ isPopupVisible: false }); 
+  handlePopupSave = () => {
+    this.setState({ isPopupVisible: false });
     this.handleShowClose();
     this.handleCloseShow();
-  } 
+  }
 
   componentDidUpdate() {
-    localStorage.setItem(this.id1, this.state.value);
+    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
+    var value = (this.state.sourceName + '-' + this.state.sourceLink).toString();
+    localStorage.setItem(key, value);
   }
   render() {
-    window.addEventListener('myGlobalVarChanged', (event) => {
-      this.setState({ flag1: event.detail });
-    });
+
     return (
       <>
         {!this.state.isShowVisible &&
-          <button className='add-widget-button' onClick={this.handleButtonClick}>+</button> 
+          <button className='add-widget-button' onClick={this.handleAddClick}>+</button>
         }
-        {this.state.isPopupVisible && 
-          <div className="popup"> 
+        {this.state.isPopupVisible &&
+          <div className="popup">
+            {/* <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <button onClick={this.handlePopupSave}>Save</button>  */}
 
-            <input type="text" value={this.state.value} onChange={this.handleChange} /> 
-            <button onClick={this.handlePopupSave}>Save</button> 
-          </div> 
-        } 
-        {this.state.isCloseVisible &&
-            <button className='close' onClick={this.handleShowShow}>X</button> 
+            <table className="table">
+              <thead>
+                <tr>
+                  <th width='25%'>Имя источника</th>
+                  <th width='10%'>Тип</th>
+                  <th>Ссылка</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.sources.map(source => (
+                  <tr onClick={this.handleRowClick.bind(this)} key={source.intSourceId}>
+                    <td className='view-off'>{source.intSourceId}</td>
+                    <td>{source.txtSourceName}</td>
+                    <td>{source.txtSourceType}</td>
+                    <td>{source.txtSourceLink}</td>
+                    <td className='view-off'>{source.txtSourceLogin}</td>
+                    <td className='view-off'>{source.txtSourcePassword}</td>
+                    <td className='view-off'>{source.intTimePeriod}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         }
-        {!this.state.isPopupVisible && this.state.value && <div className='view'>{this.state.value}</div>} 
+        {this.state.isCloseVisible &&
+          <button className='close' onClick={this.handleCloseWidget}>X</button>
+        }
+        {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName &&
+          <div className='graphic'>
+            {/* <div className='viewname'>
+              {this.state.sourceName}
+            </div>
+            <div className='view'>
+              {this.state.sourceLink}
+            </div> */}
+
+            <Graphic widget={this.gridSize+'-'+this.id} mass={this.state.sourceName} />
+          </div>
+        }
       </>
     );
   }

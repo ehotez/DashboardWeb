@@ -1,41 +1,32 @@
 import React from "react";
 import Widget from "./Widget";
-import BigWidget from "./BigWidget";
+
 import '../css/Grid.css'
 
 class Grid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      flag1: window.flag
+      flag1: ''
     };
   }
+
   componentDidMount() {
-    const savedValue = localStorage.getItem('111');
+    const savedValue = localStorage.getItem('size');
     if (savedValue) {
-      
       this.setState({ flag1: savedValue });
     }
   }
 
-  componentDidUpdate() {
-    localStorage.setItem('111', this.state.flag1);
-    
+  handleStorageChange(){
+    window.location.reload();
   }
-  shouldComponentUpdate(nextState) {
-    
-    return nextState.flag1 !== this.state.flag1;
-  }
+
   render() {
-    
-    window.addEventListener('myGlobalVarChanged', (event) => {
-      window.location.reload();
-      this.setState({ flag1: event.detail });
-    });
     
     return (
       <div>
-        {(this.state.flag1 ==1 || this.state.flag1 ==0) &&
+        {(this.state.flag1 =='3x3') &&
           <div className="grid-flex">
             <div className="grid">
             <div className="widget">
@@ -69,34 +60,33 @@ class Grid extends React.Component {
             </div>
         </div>
         }
-      {this.state.flag1 ==2  &&
+      {this.state.flag1 =='2x2'  &&
         <div className="grid-flex">
           <div className="grid2">
             
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
               <div className="widget1">
-              <BigWidget />
+              <Widget />
               </div>
 
           </div>
         </div>
       }
-      {this.state.flag1 ==3  &&
+      {this.state.flag1 =='2x3'  &&
         <div className="grid-flex">
           <div className="grid">
             
               <div className=" widget-big">
               <Widget />
               </div>
-              
               <div className="widget">
               <Widget />
               </div>

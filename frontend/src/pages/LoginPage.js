@@ -34,13 +34,9 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/identity`, {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        //console.log(result);
-      });
+    if (localStorage.getItem('auth_user')) {
+      this.setState({ logged: true });
+    }
   }
 
   handleLogin(e) {
@@ -70,7 +66,7 @@ class LoginPage extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
     let userData = this.state.newUser;
-    console.log(JSON.stringify(userData));
+    // console.log(JSON.stringify(userData));
     //Обратити ВНИМАНИЕ на ковычки ` `
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/user/login/?login=${userData.login}&password=${userData.password}`, {
       method: "POST",
@@ -88,7 +84,7 @@ class LoginPage extends Component {
         } else {
           this.setState({ logged: true });
           localStorage.setItem('auth_user', result);
-          console.log(localStorage.getItem('auth_user'));
+          // console.log(localStorage.getItem('auth_user'));
         }
       });
   }
@@ -96,7 +92,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className='login'>
-        {this.state.logged && (<Navigate to='/main' replace={true} />)}
+        {this.state.logged && (<Navigate to='/' replace={true} />)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
           <label className='login-label'>ВХОД</label>
           <div className='login-container'>
