@@ -32,7 +32,7 @@ class Widget extends React.Component {
         this.setState({ sources: result });
       });
   }
-  handleClick(e) {
+  handleRowClick(e) {
     e.preventDefault();
     const row = e.target.parentNode;
     const name = row.querySelector('td:nth-child(2)').innerText;
@@ -52,7 +52,7 @@ class Widget extends React.Component {
     this.setState({ isShowVisible: false });
   }
 
-  handleButtonClick = () => {
+  handleAddClick = () => {
     this.setState({ isPopupVisible: true });
     this.fetchSources();
   }
@@ -101,7 +101,7 @@ class Widget extends React.Component {
     return (
       <>
         {!this.state.isShowVisible &&
-          <button className='add-widget-button' onClick={this.handleButtonClick}>+</button>
+          <button className='add-widget-button' onClick={this.handleAddClick}>+</button>
         }
         {this.state.isPopupVisible &&
           <div className="popup">
@@ -118,7 +118,7 @@ class Widget extends React.Component {
               </thead>
               <tbody>
                 {this.state.sources.map(source => (
-                  <tr onClick={this.handleClick.bind(this)} key={source.intSourceId}>
+                  <tr onClick={this.handleRowClick.bind(this)} key={source.intSourceId}>
                     <td className='view-off'>{source.intSourceId}</td>
                     <td>{source.txtSourceName}</td>
                     <td>{source.txtSourceType}</td>
