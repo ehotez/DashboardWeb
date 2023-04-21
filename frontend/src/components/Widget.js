@@ -79,11 +79,11 @@ class Widget extends React.Component {
     //console.log(savedValue);
     if (savedValue != '--' && savedValue) {
       var mass = savedValue.split('-');
-      console.log(key);
+      //console.log(key);
       this.setState({ sourceName: mass[0] });
       this.setState({ sourceLink: mass[1] });
       this.setState({ sourceType: mass[2] });
-      console.log(mass[1]);
+      //console.log(mass[1]);
       this.setState({ isCloseVisible: true });
       this.setState({ isShowVisible: true });
     }
