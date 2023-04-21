@@ -7,7 +7,7 @@ class Widget extends React.Component {
   static idCounter = 0;
   constructor(props) {
     super(props);
-    this.id = `widget-${Widget.idCounter++}`;
+    this.id = `widget-${this.props.widgetId}`;
     this.state = {
       value: '',
       sources: [],
@@ -76,14 +76,11 @@ class Widget extends React.Component {
     }
     var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
     var savedValue = localStorage.getItem(key);
-    //console.log(savedValue);
     if (savedValue != '--' && savedValue) {
       var mass = savedValue.split('-');
-      //console.log(key);
       this.setState({ sourceName: mass[0] });
       this.setState({ sourceLink: mass[1] });
       this.setState({ sourceType: mass[2] });
-      //console.log(mass[1]);
       this.setState({ isCloseVisible: true });
       this.setState({ isShowVisible: true });
     }
@@ -100,8 +97,8 @@ class Widget extends React.Component {
     var value = (this.state.sourceName + '-' + this.state.sourceLink + '-' + this.state.sourceType).toString();
     localStorage.setItem(key, value);
   }
-  render() {
 
+  render() {
     return (
       <>
         {!this.state.isShowVisible &&
@@ -109,9 +106,6 @@ class Widget extends React.Component {
         }
         {this.state.isPopupVisible &&
           <div className="popup">
-            {/* <input type="text" value={this.state.value} onChange={this.handleChange} />
-            <button onClick={this.handlePopupSave}>Save</button>  */}
-
             <table className="table">
               <thead>
                 <tr>
@@ -140,23 +134,23 @@ class Widget extends React.Component {
           <button className='close' onClick={this.handleCloseWidget}>X</button>
         }
         {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName &&
-        <>
-        {(this.state.sourceType=="text"|| this.state.sourceType=="video")&&
-          <div className='graphic'>
-            <div className='viewname'>
-              {this.state.sourceName}
-            </div>
-            <div className='view'>
-              {this.state.sourceLink}
-            </div>
-            </div>
-        }
-        {this.state.sourceType=="graphic" &&
-          <div className='graphic'>
-            <Graphic widget={this.gridSize+'-'+this.id} mass={this.state.sourceName} />
-          </div>
-        }
-        </>
+          <>
+            {(this.state.sourceType == "text" || this.state.sourceType == "video") &&
+              <div className='graphic'>
+                <div className='viewname'>
+                  {this.state.sourceName}
+                </div>
+                <div className='view'>
+                  {this.state.sourceLink}
+                </div>
+              </div>
+            }
+            {this.state.sourceType == "graphic" &&
+              <div className='graphic'>
+                <Graphic widget={this.gridSize + '-' + this.id} mass={this.state.sourceName} />
+              </div>
+            }
+          </>
         }
       </>
     );
