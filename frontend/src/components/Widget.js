@@ -32,7 +32,7 @@ class Widget extends React.Component {
         this.setState({ sources: result });
       });
   }
-  handleRowClick(e) {
+  handleClick(e) {
     e.preventDefault();
     const row = e.target.parentNode;
     const name = row.querySelector('td:nth-child(2)').innerText;
@@ -52,7 +52,7 @@ class Widget extends React.Component {
     this.setState({ isShowVisible: false });
   }
 
-  handleAddClick = () => {
+  handleButtonClick = () => {
     this.setState({ isPopupVisible: true });
     this.fetchSources();
   }
@@ -66,6 +66,7 @@ class Widget extends React.Component {
     this.setState({ isCloseVisible: false });
     this.setState({ sourceName: '' });
     this.setState({ sourceLink: '' });
+    this.setState({ sourceType: '' });
   }
 
   componentDidMount() {
@@ -76,12 +77,15 @@ class Widget extends React.Component {
     var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
     var savedValue = localStorage.getItem(key);
     //console.log(savedValue);
-    if (savedValue != '-' && savedValue) {
+    if (savedValue != '--' && savedValue) {
       var mass = savedValue.split('-');
       console.log(key);
       this.setState({ sourceName: mass[0] });
       this.setState({ sourceLink: mass[1] });
+      this.setState({ sourceType: mass[2] });
+      console.log(mass[1]);
       this.setState({ isCloseVisible: true });
+      this.setState({ isShowVisible: true });
     }
   }
 
@@ -93,7 +97,7 @@ class Widget extends React.Component {
 
   componentDidUpdate() {
     var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
-    var value = (this.state.sourceName + '-' + this.state.sourceLink).toString();
+    var value = (this.state.sourceName + '-' + this.state.sourceLink + '-' + this.state.sourceType).toString();
     localStorage.setItem(key, value);
   }
   render() {
@@ -101,7 +105,7 @@ class Widget extends React.Component {
     return (
       <>
         {!this.state.isShowVisible &&
-          <button className='add-widget-button' onClick={this.handleAddClick}>+</button>
+          <button className='add-widget-button' onClick={this.handleButtonClick}>+</button>
         }
         {this.state.isPopupVisible &&
           <div className="popup">
@@ -118,7 +122,7 @@ class Widget extends React.Component {
               </thead>
               <tbody>
                 {this.state.sources.map(source => (
-                  <tr onClick={this.handleRowClick.bind(this)} key={source.intSourceId}>
+                  <tr onClick={this.handleClick.bind(this)} key={source.intSourceId}>
                     <td className='view-off'>{source.intSourceId}</td>
                     <td>{source.txtSourceName}</td>
                     <td>{source.txtSourceType}</td>
@@ -136,16 +140,23 @@ class Widget extends React.Component {
           <button className='close' onClick={this.handleCloseWidget}>X</button>
         }
         {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName &&
+        <>
+        {(this.state.sourceType=="text"|| this.state.sourceType=="video")&&
           <div className='graphic'>
-            {/* <div className='viewname'>
+            <div className='viewname'>
               {this.state.sourceName}
             </div>
             <div className='view'>
               {this.state.sourceLink}
-            </div> */}
-
+            </div>
+            </div>
+        }
+        {this.state.sourceType=="graphic" &&
+          <div className='graphic'>
             <Graphic widget={this.gridSize+'-'+this.id} mass={this.state.sourceName} />
           </div>
+        }
+        </>
         }
       </>
     );
