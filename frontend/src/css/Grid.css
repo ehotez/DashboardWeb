@@ -32,6 +32,12 @@
     border-left: 0px;
     border-top: 0px;
 }
+.video {
+    position: relative;
+  
+    background-color: white;  
+    
+}
 
 .widget1 {
     position: relative;

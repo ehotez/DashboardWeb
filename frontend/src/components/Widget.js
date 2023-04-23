@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Grid.css'
 import '../css/Sidebar.css'
 import Graphic from './Graphic';
-
+import Video from './Video';
 class Widget extends React.Component {
   static idCounter = 0;
   constructor(props) {
@@ -135,7 +135,7 @@ class Widget extends React.Component {
         }
         {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName &&
           <>
-            {(this.state.sourceType == "text" || this.state.sourceType == "video") &&
+            {this.state.sourceType == "text"  &&
               <div className='graphic'>
                 <div className='viewname'>
                   {this.state.sourceName}
@@ -144,6 +144,11 @@ class Widget extends React.Component {
                   {this.state.sourceLink}
                 </div>
               </div>
+            }
+            {this.state.sourceType == "video" &&
+              <>
+                <Video/>
+              </>
             }
             {this.state.sourceType == "graphic" &&
               <div className='graphic'>
