@@ -147,7 +147,7 @@ class Widget extends React.Component {
             }
             {this.state.sourceType == "video" &&
               <>
-                <Video/>
+                <Video link = {this.state.sourceLink}/>
               </>
             }
             {this.state.sourceType == "graphic" &&

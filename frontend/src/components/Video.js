@@ -7,7 +7,7 @@ class Video extends Component {
   constructor(props) {
     super(props);
     this.playerRef = React.createRef();
-    this.source = "https://apptrailers.itunes.apple.com/itunes-assets/PurpleVideo114/v4/be/64/3f/be643f42-0b0b-fa18-6e5a-288af1309d85/P240983652_default.m3u8";
+    this.source = this.props.link.toString();
   }
 
   render() {
