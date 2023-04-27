@@ -106,7 +106,8 @@ class Widget extends React.Component {
         }
         {this.state.isPopupVisible &&
           <div className="popup">
-            <table className="table">
+            
+            <table className="gridtable">
               <thead>
                 <tr>
                   <th width='25%'>Имя источника</th>

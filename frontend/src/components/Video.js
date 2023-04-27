@@ -20,7 +20,7 @@ class Video extends Component {
           autoPlay={true}
           controls={true}
           width="100%"
-          height="300vh;"
+          height="calc(100vh);"
           hlsConfig={{
             autoStartLoad: true,
             startPosition: -1,
