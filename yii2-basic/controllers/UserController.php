@@ -28,10 +28,10 @@ class UserController extends ActiveController
                 $indent = Yii::$app->user->id;
                 return $indent;
             } else {
-                return 'Incorrect password';
+                return 'Incorrect login or password';
             }
         } else {
-            return 'Incorrect login';
+            return 'Incorrect login or password';
         }
     }
 

@@ -2,7 +2,7 @@ import '../css/App.css';
 import '../css/Login.css';
 import { Navigate } from "react-router-dom";
 import React, { Component } from 'react';
-import Input from "../components/Input";
+import $ from 'jquery';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -77,12 +77,11 @@ class LoginPage extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        if (result === 'Incorrect login') {
-          alert('Incorrect login');
-        } else if (result === 'Incorrect password') {
-          alert('Incorrect password')
+        if (result === 'Incorrect login or password') {
+          $('.error-message').css('display', 'block');
         } else {
           this.setState({ logged: true });
+          $('.error-message').css('display', 'none');
           localStorage.setItem('auth_user', result);
           // console.log(localStorage.getItem('auth_user'));
         }
@@ -96,18 +95,13 @@ class LoginPage extends Component {
         <form className='login-form' onSubmit={this.handleFormSubmit}>
           <label className='login-label'>ВХОД</label>
           <div className='login-container'>
-            <Input
-              type={"text"}
-              name={"login"}
-              placeholder={"Введите логин"}
-              onChange={this.handleInput}
-            />{" "}
-            <Input
-              type={"password"}
-              name={"password"}
-              placeholder={"Введите пароль"}
-              onChange={this.handleInput}
-            />{" "}
+            <div className="form-group">
+              <input className="form-control" type='text' name='login' placeholder='Введите логин' onChange={this.handleInput}></input>
+            </div>
+            <div className="form-group">
+              <input className="form-control" type='password' name='password' placeholder='Введите пароль' onChange={this.handleInput}></input>
+            </div>
+            <text className='error-message'>Неправильный логин или пароль</text>
             <button onClick={this.handleFormSubmit} title='Войти' className='submit-button'>Войти</button>
           </div>
         </form>

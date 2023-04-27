@@ -33,7 +33,7 @@ class Source extends \yii\db\ActiveRecord
     {
         return [
             [['txtSourceName', 'txtSourceType', 'txtSourceLink', 'txtSourceLogin', 'txtSourcePassword', 'intTimePeriod'], 'safe'],
-            [['txtSourceName', 'txtSourceType', 'txtSourceLink', 'txtSourceLogin', 'txtSourcePassword', 'intTimePeriod'], 'required'],
+            [['txtSourceName', 'txtSourceType', 'txtSourceLink'], 'required'],
             [['intUserId', 'intTimePeriod'], 'integer'],
             ['intUserId', 'default','value' => ' '],
             [['txtSourceName', 'txtSourceType'], 'string', 'max' => 32],

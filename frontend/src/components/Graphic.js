@@ -69,14 +69,12 @@ class Graphic extends Component {
       var containerProps = {
         height: "calc(49.5vh)"
       };
-    } else if (widgetId[0] === '2x3' && widgetId[2] === '1') {
+    } else if (widgetId[0] === '2x3' && widgetId[2] === '0') {
       var containerProps = {
-   
         height: "calc(66vh)"
       };
     } else {
       var containerProps = {
-
         height: "calc(33vh)"
       };
     }

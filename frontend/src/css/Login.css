@@ -1,7 +1,7 @@
 .form-group{
     width: 71%;
 	height: 50px;
-	background: #e0dede;
+	background: #ffffff;
 	justify-content: center;
 	display: flex;
 	margin: 20px auto;
@@ -34,7 +34,7 @@
 }
 
 .login-label{
-	color: #fff;
+	color: #fcfcfc;
 	font-size: 2.3em;
 	justify-content: center;
 	display: flex;
@@ -57,7 +57,7 @@
 	background: #573b8a;
 	font-size: 1em;
 	font-weight: bold;
-	margin-top: 50px;
+	margin-top: 40px;
 	border: none;
 	border-radius: 5px;
 	transition: .2s ease-in;
@@ -65,4 +65,12 @@
 }
 .submit-button:hover{
 	background: #6d44b8;
+}
+
+.error-message{
+	z-index: 11;
+	color:red;
+	display: none;
+	margin-left: 60px;
+	margin-bottom: -20px;
 }

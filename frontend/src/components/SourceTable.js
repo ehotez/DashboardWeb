@@ -1,7 +1,8 @@
 import '../css/SourceTable.css'
 import Select from 'react-select';
 import React, { } from 'react';
-import {FiHelpCircle} from 'react-icons/fi'
+import { FiHelpCircle } from 'react-icons/fi'
+import $ from 'jquery';
 
 class SourceTable extends React.Component {
   constructor(props) {
@@ -118,8 +119,20 @@ class SourceTable extends React.Component {
     this.setState({ isMenuVisible: false });
   }
 
+  typeChange = (event) => {
+    this.setState({ isSelectVisible: true });
+    this.setState({ updateType: event.value });
+    if (event.value === 'video') {
+      $('.s-login').css('display', 'inline-block');
+      $('.s-pass').css('display', 'inline-block');
+      $('.s-period').css('display', 'none');
+    } else {
+      $('.s-login').css('display', 'none');
+      $('.s-pass').css('display', 'none');
+      $('.s-period').css('display', 'block');
+    }
+  }
   nameChange = (event) => { this.setState({ updateName: event.target.value }); }
-  typeChange = (event) => { this.setState({ isSelectVisible: true }); this.setState({ updateType: event.value }); }
   linkChange = (event) => { this.setState({ updateLink: event.target.value }); }
   loginChange = (event) => { this.setState({ updateLogin: event.target.value }); }
   passChange = (event) => { this.setState({ updatePassword: event.target.value }); }
@@ -165,7 +178,7 @@ class SourceTable extends React.Component {
   render() {
     return (
       <div>
-        <h1>Source List</h1>
+        <h1>Источники</h1>
         <button className='add-button' onClick={this.handleAddButtonClick.bind(this)}>Добавить</button>
         <span className='help'>
           <button className='help-button'><FiHelpCircle /></button>
@@ -173,7 +186,7 @@ class SourceTable extends React.Component {
         </span>
         {this.state.isPopupVisible &&
           <div className="popup-delete">
-            <label className='text'>Ты уверен, другалёк?<br />
+            <label className='text'>Подтвердите удаление.<br />
               Удалить {this.state.deleteName}? </label>
             <button className='but-delete' onClick={this.handleButtonDelete.bind(this, this.state.deleteId)}>Да</button>
             <button className='but-delete-close' onClick={this.handleDeleteButtonClose.bind(this)}>Нет</button>
@@ -181,24 +194,40 @@ class SourceTable extends React.Component {
         }
         {this.state.isUpdateVisible &&
           <div className="popup-edit">
-            Имя источника
-            <input type="text" value={this.state.updateName} onChange={this.nameChange} />
-            Тип источника
+            Имя источника:
+            <div className='input-setting' style={{ width: '60%' }}>
+              <input type="text" value={this.state.updateName} onChange={this.nameChange} />
+            </div>
+            Тип источника:
             <Select
+              className='input-select'
               placeholder={this.getLabel(this.state.updateType)}
               value={this.state.updateType}
               options={this.options}
               onChange={this.typeChange}
             />
-            {/* <input type="text" value={this.state.updateType} onChange={this.typeChange} /> */}
-            Ссылка на источник
-            <input type="text" value={this.state.updateLink} onChange={this.linkChange} />
-            Логин (Видео)
-            <input type="text" value={this.state.updateLogin} onChange={this.loginChange} />
-            Пароль (Видео)
-            <input type="text" value={this.state.updatePassword} onChange={this.passChange} />
-            Период обновления источника(кроме видео)
-            <input type="text" value={this.state.updatePeriod} onChange={this.timeChange} />
+            Ссылка на источник:
+            <div className='input-setting' style={{ width: '90%' }}>
+              <input type="text" value={this.state.updateLink} onChange={this.linkChange} />
+            </div>
+            <div className='s-login'>
+              Логин:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="text" value={this.state.updateLogin} onChange={this.loginChange} />
+              </div>
+            </div>
+            <div className='s-pass'>
+              Пароль:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="password" value={this.state.updatePassword} onChange={this.passChange} />
+              </div>
+            </div>
+            <div className='s-period'>
+              Период обновления источника (сек):
+              <div className='input-setting' style={{ width: '15%' }}>
+                <input type="number" value={this.state.updatePeriod} onChange={this.timeChange} />
+              </div>
+            </div>
 
             <button className='but-update' onClick={this.handleButtonUpdate.bind(this, this.state.updateId, this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Сохранить</button>
@@ -207,24 +236,40 @@ class SourceTable extends React.Component {
         }
         {this.state.isAddVisible &&
           <div className="popup-edit">
-            Имя источника
-            <input type="text" onChange={this.nameChange} />
-            Тип источника
+            Имя источника:
+            <div className='input-setting' style={{ width: '60%' }}>
+              <input type="text" onChange={this.nameChange} />
+            </div>
+            Тип источника:
             <Select
+              className='input-select'
               placeholder={this.getLabel(this.state.updateType)}
               value={this.state.updateType}
               options={this.options}
               onChange={this.typeChange}
             />
-            {/* <input type="text" value={this.state.updateType} onChange={this.typeChange} /> */}
-            Ссылка на источник
-            <input type="text" onChange={this.linkChange} />
-            Логин (Видео)
-            <input type="text" onChange={this.loginChange} />
-            Пароль (Видео)
-            <input type="text" onChange={this.passChange} />
-            Период обновления источника(кроме видео)
-            <input type="text" onChange={this.timeChange} />
+            Ссылка на источник:
+            <div className='input-setting' style={{ width: '90%' }}>
+              <input type="text" onChange={this.linkChange} />
+            </div>
+            <div className='s-login'>
+              Логин:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="text" onChange={this.loginChange} />
+              </div>
+            </div>
+            <div className='s-pass'>
+              Пароль:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="password" onChange={this.passChange} />
+              </div>
+            </div>
+            <div className='s-period'>
+              Период обновления источника (сек):
+              <div className='input-setting' style={{ width: '15%' }}>
+                <input type="number" onChange={this.timeChange} />
+              </div>
+            </div>
 
             <button className='but-update' onClick={this.handleButtonAdd.bind(this, localStorage.getItem('auth_user'), this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Добавить</button>
@@ -270,7 +315,7 @@ class SourceTable extends React.Component {
             ))}
           </tbody>
         </table>
-      </div>
+      </div >
     );
   }
 }

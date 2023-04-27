@@ -44,10 +44,10 @@
 .text {
 	position: fixed;
 	top: 5%;
-	left: 12%;
+	left: 25%;
 	color: black;
-	font-size: 2.0em;
-
+	font-size: 1.5em;
+	text-align: center;
 }
 
 .popup-edit {
@@ -57,10 +57,11 @@
 	transform: translate(-50%, -50%);
 	background-color: white;
 	border: 1px solid black;
-	padding: 10px;
+	border-radius: 8px;
+	padding: 20px;
 	width: 500px;
-	height: 450px;
-	z-index: 99;
+	height: 500px;
+	z-index: 11;
 }
 
 .but-delete {
@@ -252,4 +253,39 @@
 
 .delete-button:hover {
 	background-color: #bbb;
+}
+
+.s-pass{
+	display: none;
+}
+
+.s-login{
+	display: none;
+}
+
+.s-period{
+	display: none;
+}
+
+.input-setting{
+	width: 71%;
+	height: 50px;
+	background: #ffffff;
+	justify-content: center;
+	display: flex;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid;
+	border-color: black;
+	border-radius: 8px;
+}
+
+.input-select{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 40%;
+	border: 1px solid;
+	border-color: black;
+	border-radius: 5px;
 }
