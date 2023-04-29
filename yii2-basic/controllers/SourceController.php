@@ -61,7 +61,10 @@ class SourceController extends ActiveController
         $model->txtSourcePassword = $pass;
         $model->intTimePeriod = $time;
         $model->save();
-        return 1;
+        if($model->save())
+            return 1;
+        else
+            return 'error';
     }
 
     /**
@@ -89,7 +92,10 @@ class SourceController extends ActiveController
         $model->txtSourcePassword = $pass;
         $model->intTimePeriod = $time;
         $model->save();
-        return 1;
+        if($model->save())
+            return 1;
+        else
+            return 'error';
     }
     /**
      * Получает данные из источника и отображает их на странице.

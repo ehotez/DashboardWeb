@@ -93,13 +93,14 @@ class LoginPage extends Component {
       <div className='login'>
         {this.state.logged && (<Navigate to='/' replace={true} />)}
         <form className='login-form' onSubmit={this.handleFormSubmit}>
+          <embed src="logo.svg" className='login-pic' />
           <label className='login-label'>ВХОД</label>
           <div className='login-container'>
             <div className="form-group">
-              <input className="form-control" type='text' name='login' placeholder='Введите логин' onChange={this.handleInput}></input>
+              <input type='text' name='login' placeholder='Введите логин' onChange={this.handleInput}></input>
             </div>
             <div className="form-group">
-              <input className="form-control" type='password' name='password' placeholder='Введите пароль' onChange={this.handleInput}></input>
+              <input type='password' name='password' placeholder='Введите пароль' onChange={this.handleInput}></input>
             </div>
             <text className='error-message'>Неправильный логин или пароль</text>
             <button onClick={this.handleFormSubmit} title='Войти' className='submit-button'>Войти</button>

@@ -23,7 +23,7 @@ class SourceTable extends React.Component {
       updateLink: '',
       updateLogin: '',
       updatePassword: '',
-      updatePeriod: null
+      updatePeriod: 60
     };
     this.options = [
       { value: 'video', label: 'Видео' },
@@ -83,22 +83,22 @@ class SourceTable extends React.Component {
 
   handleDeleteButtonClick() { this.setState({ isPopupVisible: true }); }
   handleUpdateButtonClick() { this.setState({ isUpdateVisible: true }); }
-  handleAddButtonClick() { this.setState({ isAddVisible: true }); this.clearStates();}
+  handleAddButtonClick() { this.setState({ isAddVisible: true }); this.clearStates(); }
 
   handleDeleteButtonClose() { this.setState({ isPopupVisible: false }); }
   handleUpdateButtonClose() { this.setState({ isUpdateVisible: false }); }
   handleAddButtonClose() { this.setState({ isAddVisible: false }); }
 
-  clearStates(){
-    this.setState({deleteId: 0});
-    this.setState({deleteName: ''});
-    this.setState({updateId: 0});
-    this.setState({updateName: ''});
-    this.setState({updateType: ''});
-    this.setState({updateLink: ''});
-    this.setState({updateLogin: ''});
-    this.setState({updatePassword: ''});
-    this.setState({updatePeriod: 0});
+  clearStates() {
+    this.setState({ deleteId: 0 });
+    this.setState({ deleteName: '' });
+    this.setState({ updateId: 0 });
+    this.setState({ updateName: '' });
+    this.setState({ updateType: '' });
+    this.setState({ updateLink: '' });
+    this.setState({ updateLogin: '' });
+    this.setState({ updatePassword: '' });
+    this.setState({ updatePeriod: 60 });
   }
 
   //При нажатии правой кнопкой мыши по строке заполняются все данные об этой строке в state переменные
@@ -145,13 +145,13 @@ class SourceTable extends React.Component {
     }
   }
 
-  showInput(event){
+  showInput() {
 
     if (this.state.updateType === 'video') {
       $('.s-login').css('display', 'inline-block');
       $('.s-pass').css('display', 'inline-block');
       $('.s-period').css('display', 'none');
-    } else if(this.state.updateType === 'graphic' || this.state.updateType === 'text'){
+    } else if (this.state.updateType === 'graphic' || this.state.updateType === 'text') {
       $('.s-login').css('display', 'none');
       $('.s-pass').css('display', 'none');
       $('.s-period').css('display', 'block');
@@ -178,26 +178,41 @@ class SourceTable extends React.Component {
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/update-source/?id=${id}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
-      .then(() => {
-        this.fetchSources();
+      // .then(() => {
+      //   this.fetchSources();
+      // });
+      .then((response) => response.json())
+      .then((result) => {
+        if (result === 1) {
+          console.log(result);
+          this.fetchSources();
+          this.setState({ isUpdateVisible: false });
+          $('.error-input').css('display', 'none')
+        } else if (result === 'error') {
+          $('.error-input').css('display', 'block');
+        }
       });
-    this.setState({ isUpdateVisible: false });
+
   }
 
   handleButtonAdd(userId, name, type, link, login, pass, time) {
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/add-source/?userId=${userId}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
-      .then(() => {
-        this.fetchSources();
+      // .then(() => {
+      //   this.fetchSources();
+      // });
+      .then((response) => response.json())
+      .then((result) => {
+        if (result === 1) {
+          console.log(result);
+          this.fetchSources();
+          this.setState({ isAddVisible: false });
+          $('.error-input').css('display', 'none')
+        } else if (result === 'error') {
+          $('.error-input').css('display', 'block');
+        }
       });
-    // .then((response) => response.json())
-    // .then((result) => {
-    //   if (result) {
-    //     console.log(result);
-    //   }
-    // });
-    this.setState({ isAddVisible: false });
   }
 
   render() {
@@ -219,11 +234,11 @@ class SourceTable extends React.Component {
         }
         {this.state.isUpdateVisible &&
           <div className="popup-edit">
-            Имя источника:
+            Имя источника* :
             <div className='input-setting' style={{ width: '60%' }}>
               <input type="text" value={this.state.updateName} onChange={this.nameChange} />
             </div>
-            Тип источника:
+            Тип источника* :
             <Select
               className='input-select'
               placeholder={this.getLabel(this.state.updateType)}
@@ -233,7 +248,7 @@ class SourceTable extends React.Component {
               onFocus={this.showInput}
               autoFocus
             />
-            Ссылка на источник:
+            Ссылка на источник* :
             <div className='input-setting' style={{ width: '90%' }}>
               <input type="text" value={this.state.updateLink} onChange={this.linkChange} />
             </div>
@@ -252,10 +267,10 @@ class SourceTable extends React.Component {
             <div className='s-period'>
               Период обновления источника (сек):
               <div className='input-setting' style={{ width: '15%' }}>
-                <input type="number" min = '1' value={this.state.updatePeriod} onChange={this.timeChange} />
+                <input type="number" min='1' value={this.state.updatePeriod} onChange={this.timeChange} />
               </div>
             </div>
-
+            <div className='error-input'>Заполните обязательные поля</div>
             <button className='but-update' onClick={this.handleButtonUpdate.bind(this, this.state.updateId, this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Сохранить</button>
             <button className='but-update-close' onClick={this.handleUpdateButtonClose.bind(this)}>Отмена</button>
@@ -263,11 +278,11 @@ class SourceTable extends React.Component {
         }
         {this.state.isAddVisible &&
           <div className="popup-edit">
-            Имя источника:
+            Имя источника* :
             <div className='input-setting' style={{ width: '60%' }}>
               <input type="text" required minLength="6" onChange={this.nameChange} />
             </div>
-            Тип источника:
+            Тип источника* :
             <Select
               className='input-select'
               placeholder={this.getLabel(this.state.updateType)}
@@ -275,7 +290,7 @@ class SourceTable extends React.Component {
               options={this.options}
               onChange={this.typeChange}
             />
-            Ссылка на источник:
+            Ссылка на источник* :
             <div className='input-setting' style={{ width: '90%' }}>
               <input type="text" onChange={this.linkChange} />
             </div>
@@ -297,7 +312,7 @@ class SourceTable extends React.Component {
                 <input type="number" min='1' onChange={this.timeChange} />
               </div>
             </div>
-
+            <div className='error-input'>Заполните обязательные поля</div>
             <button className='but-update' onClick={this.handleButtonAdd.bind(this, localStorage.getItem('auth_user'), this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Добавить</button>
             <button className='but-update-close' onClick={this.handleAddButtonClose.bind(this)}>Отмена</button>

@@ -1,15 +1,16 @@
 import '../css/App.css';
 import React from 'react'
 import { NavBtn } from '../components/Sidebar';
+import '../css/App.css'
 
 class NotFoundPage extends React.Component {
     render() {
         return (
             <div style={{ height: '100%', width: '100%', backgroundColor: 'white', position: 'absolute', zIndex: 10 }}>
-                <text style={{ left: '36%', top: '35%', font: 'message-box', fontSize: '2.5em', position: 'absolute' }}>
+                <div className='center'>
                     404 PAGE NOT FOUND
-                </text>
-                <NavBtn style={{ position: 'absolute', left: '39%', top: '40%', width: '20vw', color: 'darkblue' }} to='/'>
+                </div>
+                <NavBtn className='center'style={{marginLeft:'-80px', top:'43%'}} to='/'>
                     На главную
                 </NavBtn>
             </div>
