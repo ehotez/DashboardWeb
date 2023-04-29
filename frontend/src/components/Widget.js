@@ -14,6 +14,7 @@ class Widget extends React.Component {
       isPopupVisible: false,
       isShowVisible: false,
       isCloseVisible: false,
+      isClosePopupVisible: false,
       sourceName: '',
       sourceType: '',
       sourceLink: '',
@@ -54,6 +55,7 @@ class Widget extends React.Component {
 
   handleButtonClick = () => {
     this.setState({ isPopupVisible: true });
+    this.setState({ isClosePopupVisible: true });
     this.fetchSources();
   }
 
@@ -105,14 +107,16 @@ class Widget extends React.Component {
           <button className='add-widget-button' onClick={this.handleButtonClick}>+</button>
         }
         {this.state.isPopupVisible &&
-          <div className="popup">
-            
+          <>
+            {this.state.isClosePopupVisible &&
+              <button className='close' style={{ left: '-20px' }} onClick={this.handlePopupClose}>X</button>
+            }
             <table className="gridtable">
               <thead>
                 <tr>
-                  <th width='25%'>Имя источника</th>
+                  <th width='45%'>Имя источника</th>
                   <th width='10%'>Тип</th>
-                  <th>Ссылка</th>
+                  <th width='45%'>Ссылка</th>
                 </tr>
               </thead>
               <tbody>
@@ -129,15 +133,15 @@ class Widget extends React.Component {
                 ))}
               </tbody>
             </table>
-          </div>
-        }
-        {this.state.isCloseVisible &&
-          <button className='close' onClick={this.handleCloseWidget}>X</button>
+          </>
         }
         {!this.state.isPopupVisible && this.state.sourceLink && this.state.sourceName &&
           <>
-            {this.state.sourceType == "text"  &&
+            {this.state.sourceType == "text" &&
               <div className='graphic'>
+                {this.state.isCloseVisible &&
+                  <button className='close' onClick={this.handleCloseWidget}>X</button>
+                }
                 <div className='viewname'>
                   {this.state.sourceName}
                 </div>
@@ -148,11 +152,17 @@ class Widget extends React.Component {
             }
             {this.state.sourceType == "video" &&
               <>
-                <Video link = {this.state.sourceLink}/>
+                {this.state.isCloseVisible &&
+                  <button className='close' onClick={this.handleCloseWidget}>X</button>
+                }
+                <Video link={this.state.sourceLink} />
               </>
             }
             {this.state.sourceType == "graphic" &&
               <div className='graphic'>
+                {this.state.isCloseVisible &&
+                  <button className='close' style={{left:'-95px'}} onClick={this.handleCloseWidget}>X</button>
+                }
                 <Graphic widget={this.gridSize + '-' + this.id} mass={this.state.sourceName} />
               </div>
             }

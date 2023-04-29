@@ -23,14 +23,14 @@ class SourceTable extends React.Component {
       updateLink: '',
       updateLogin: '',
       updatePassword: '',
-      updatePeriod: 0,
-      isSelectVisible: false
+      updatePeriod: null
     };
     this.options = [
       { value: 'video', label: 'Видео' },
       { value: 'graphic', label: 'График' },
       { value: 'text', label: 'Отдельный запрос' }
     ];
+    this.showInput = this.showInput.bind(this);
     this.menuRef = React.createRef();
   }
 
@@ -83,14 +83,27 @@ class SourceTable extends React.Component {
 
   handleDeleteButtonClick() { this.setState({ isPopupVisible: true }); }
   handleUpdateButtonClick() { this.setState({ isUpdateVisible: true }); }
-  handleAddButtonClick() { this.setState({ isAddVisible: true }); }
+  handleAddButtonClick() { this.setState({ isAddVisible: true }); this.clearStates();}
 
   handleDeleteButtonClose() { this.setState({ isPopupVisible: false }); }
   handleUpdateButtonClose() { this.setState({ isUpdateVisible: false }); }
   handleAddButtonClose() { this.setState({ isAddVisible: false }); }
 
+  clearStates(){
+    this.setState({deleteId: 0});
+    this.setState({deleteName: ''});
+    this.setState({updateId: 0});
+    this.setState({updateName: ''});
+    this.setState({updateType: ''});
+    this.setState({updateLink: ''});
+    this.setState({updateLogin: ''});
+    this.setState({updatePassword: ''});
+    this.setState({updatePeriod: 0});
+  }
+
   //При нажатии правой кнопкой мыши по строке заполняются все данные об этой строке в state переменные
   handleRightClick(e) {
+    this.clearStates();
     e.preventDefault();
     const row = e.target.parentNode;
     const id = row.querySelector('td:first-child').innerText;
@@ -120,13 +133,25 @@ class SourceTable extends React.Component {
   }
 
   typeChange = (event) => {
-    this.setState({ isSelectVisible: true });
     this.setState({ updateType: event.value });
     if (event.value === 'video') {
       $('.s-login').css('display', 'inline-block');
       $('.s-pass').css('display', 'inline-block');
       $('.s-period').css('display', 'none');
     } else {
+      $('.s-login').css('display', 'none');
+      $('.s-pass').css('display', 'none');
+      $('.s-period').css('display', 'block');
+    }
+  }
+
+  showInput(event){
+
+    if (this.state.updateType === 'video') {
+      $('.s-login').css('display', 'inline-block');
+      $('.s-pass').css('display', 'inline-block');
+      $('.s-period').css('display', 'none');
+    } else if(this.state.updateType === 'graphic' || this.state.updateType === 'text'){
       $('.s-login').css('display', 'none');
       $('.s-pass').css('display', 'none');
       $('.s-period').css('display', 'block');
@@ -205,6 +230,8 @@ class SourceTable extends React.Component {
               value={this.state.updateType}
               options={this.options}
               onChange={this.typeChange}
+              onFocus={this.showInput}
+              autoFocus
             />
             Ссылка на источник:
             <div className='input-setting' style={{ width: '90%' }}>
@@ -219,13 +246,13 @@ class SourceTable extends React.Component {
             <div className='s-pass'>
               Пароль:
               <div className='input-setting' style={{ width: '70%' }}>
-                <input type="password" value={this.state.updatePassword} onChange={this.passChange} />
+                <input type="password" autoComplete='new-password' value={this.state.updatePassword} onChange={this.passChange} />
               </div>
             </div>
             <div className='s-period'>
               Период обновления источника (сек):
               <div className='input-setting' style={{ width: '15%' }}>
-                <input type="number" value={this.state.updatePeriod} onChange={this.timeChange} />
+                <input type="number" min = '1' value={this.state.updatePeriod} onChange={this.timeChange} />
               </div>
             </div>
 
@@ -238,7 +265,7 @@ class SourceTable extends React.Component {
           <div className="popup-edit">
             Имя источника:
             <div className='input-setting' style={{ width: '60%' }}>
-              <input type="text" onChange={this.nameChange} />
+              <input type="text" required minLength="6" onChange={this.nameChange} />
             </div>
             Тип источника:
             <Select
@@ -261,13 +288,13 @@ class SourceTable extends React.Component {
             <div className='s-pass'>
               Пароль:
               <div className='input-setting' style={{ width: '70%' }}>
-                <input type="password" onChange={this.passChange} />
+                <input type="password" autoComplete='new-password' onChange={this.passChange} />
               </div>
             </div>
             <div className='s-period'>
               Период обновления источника (сек):
               <div className='input-setting' style={{ width: '15%' }}>
-                <input type="number" onChange={this.timeChange} />
+                <input type="number" min='1' onChange={this.timeChange} />
               </div>
             </div>
 

@@ -1,8 +1,12 @@
 .table {
-	position: fixed;
+	position: absolute;
 	width: 80%;
+	height: 80%;
 	border: 1px solid #dddddd;
 	border-collapse: separate;
+	overflow-y: scroll;
+	overflow-x: scroll;
+	padding-bottom: 20px;
 }
 
 .table th {

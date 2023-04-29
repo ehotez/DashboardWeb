@@ -58,12 +58,12 @@
     padding: 10px;
     width: 100%;
     height: 100%;
-    overflow-y: scroll;
 }
+
 .close{
     position: relative;
-    top: 4px;
-    left: -95px;
+    top: 3px;
+    left: -5px;
     z-index: 10;
 }
 .add-widget-button{
@@ -100,12 +100,15 @@
     z-index: 9;
 }
 .gridtable {
-	position: relative;
-	width: 100%;
+	position: absolute;
+    width: 100%;
+    height: 100%;
 	border: 1px solid #dddddd;
 	border-collapse: separate;
     display: block;
-    padding-right: 10px;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: scroll;
 
 }
 .gridtable th {
@@ -114,15 +117,14 @@
 	background: #efefef;
 	vertical-align: middle;
 	border: 1px solid #dddddd;
-	position: relative;
-    display: fixed;
+    position: relative;
 }
 
 .gridtable td {
-	border: 1px solid #dddddd;
+    border: 1px solid #dddddd;
 	vertical-align: middle;
 	position: relative;
-    display: fixed;
+    padding: 5px;
 
 }
 
