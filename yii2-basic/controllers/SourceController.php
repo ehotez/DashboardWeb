@@ -10,11 +10,23 @@ class SourceController extends ActiveController
 {
     public $modelClass = 'app\models\Source';
 
-    public function actionShow($id)
+    public function actionGetVideo($link, $name)
     {
-        return $id;
+        $command = "ffmpeg -i $link -c:v libx264 -preset veryfast -c:a aac -f hls -hls_time 2 -hls_list_size 10 ../../frontend/src/video/$name.m3u8 &";
+        exec($command,$output,$var);
+        $php_pid = getmypid();
+        //$child_pid = exec("pgrep -P $php_pid");
+        return 1;
     }
-    public function actionDelete($id)
+
+    public function actionStopVideo($pid){
+        $command = "taskkill /IM ffmpeg.exe /F";
+        //$command = "taskkill /PID $pid /f";
+        exec($command);
+        return 1;
+    }
+
+    public function actionDeleteSource($id)
     {
         $model = Source::findOne($id);
 
@@ -23,7 +35,6 @@ class SourceController extends ActiveController
         }
 
         $model->delete();
-
         return 1;
     }
 
@@ -44,7 +55,7 @@ class SourceController extends ActiveController
      * @param string $pass пароль пользователя (только для доступа к камере!)
      * @param int $time период обновления источника
      * 
-     * @return 1 (НО ПОЧЕМУ ТАК, МОЖНО БЫЛО БЫ void)
+     * @return 1
      */
     public function actionUpdateSource($id, $name, $type, $link, $login, $pass, $time)
     {
@@ -78,7 +89,7 @@ class SourceController extends ActiveController
      * @param string $pass пароль пользователя (только для доступа к камере!)
      * @param int $time период обновления источника
      * 
-     * @return 1 (НО ПОЧЕМУ ТАК, МОЖНО БЫЛО БЫ void)
+     * @return 1
      */
     public function actionAddSource($userId, $name, $type, $link, $login, $pass, $time)
     {

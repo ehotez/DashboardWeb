@@ -155,13 +155,13 @@ class Widget extends React.Component {
                 {this.state.isCloseVisible &&
                   <button className='close' onClick={this.handleCloseWidget}>X</button>
                 }
-                <Video link={this.state.sourceLink} />
+                <Video link={this.state.sourceLink} name={this.state.sourceName} />
               </>
             }
             {this.state.sourceType == "graphic" &&
               <div className='graphic'>
                 {this.state.isCloseVisible &&
-                  <button className='close' style={{left:'-95px'}} onClick={this.handleCloseWidget}>X</button>
+                  <button className='close' style={{ left: '-95px' }} onClick={this.handleCloseWidget}>X</button>
                 }
                 <Graphic widget={this.gridSize + '-' + this.id} mass={this.state.sourceName} />
               </div>

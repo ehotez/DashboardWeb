@@ -164,8 +164,8 @@ class SourceTable extends React.Component {
   timeChange = (event) => { this.setState({ updatePeriod: event.target.value }); }
 
   handleButtonDelete(id) {
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/delete/?id=${id}`, {
-      method: 'DELETE'
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/delete-source/?id=${id}`, {
+      method: 'POST'
     })
       .then(() => {
         this.fetchSources();
