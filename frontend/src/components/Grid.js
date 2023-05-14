@@ -55,10 +55,6 @@ class Grid extends React.Component {
       this.setState({ widgets2x3: saved2x3 });
     }
   }
-
-  handleStorageChange = () => {
-    window.location.reload();
-  }
   handleDragStart = (e, index) => {
     e.dataTransfer.setData("index", index);
   }

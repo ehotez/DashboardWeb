@@ -155,7 +155,7 @@ class Widget extends React.Component {
                 {this.state.isCloseVisible &&
                   <button className='close' onClick={this.handleCloseWidget}>X</button>
                 }
-                <Video link={this.state.sourceLink} name={this.state.sourceName} />
+                <Video link={this.state.sourceLink} name={this.state.sourceName} id= {this.id}/>
               </>
             }
             {this.state.sourceType == "graphic" &&

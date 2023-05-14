@@ -9,11 +9,12 @@ class Video extends Component {
     this.name = this.props.name;
     this.rtsp_link = this.props.link.toString();
     this.pid = -1;
-    this.flag = true;
+    this.id = this.props.id;
     this.link = `http://localhost/DashboardWeb/frontend/src/video/${this.name}.m3u8`;
   }
 
   componentDidMount() {
+    if (localStorage.getItem((localStorage.getItem("auth_user") + "-" + localStorage.getItem('size') + "-" + this.id + 'v')) === '1') {
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/get-video/?link=${this.rtsp_link}&name=${this.name}`, {
       method: "POST",
     })
@@ -22,7 +23,9 @@ class Video extends Component {
         console.log(result)
         this.setState({ pid: result })
       });
-    //console.log(this.pid)
+    }
+    localStorage.setItem((localStorage.getItem("auth_user") + "-" + localStorage.getItem('size') + "-" + this.id + 'v'),'2')
+    console.log(localStorage.getItem((localStorage.getItem("auth_user") + "-" + localStorage.getItem('size') + "-" + this.id + 'v')))
   }
 
   componentWillUnmount() {
@@ -32,8 +35,9 @@ class Video extends Component {
       .then((response) => response.json())
       .then((result) => {
         //this.setState({ pid: -1 })
-        console.log('stop video');
+        console.log(result);
       });
+      localStorage.setItem((localStorage.getItem("auth_user") + "-" + localStorage.getItem('size') + "-" + this.id + 'v'),'1')
     console.log('unmount')
   }
 

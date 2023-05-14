@@ -12,18 +12,18 @@ class SourceController extends ActiveController
 
     public function actionGetVideo($link, $name)
     {
-        $command = "ffmpeg -i $link -c:v libx264 -preset veryfast -c:a aac -f hls -hls_time 2 -hls_list_size 10 ../../frontend/src/video/$name.m3u8 &";
-        exec($command,$output,$var);
-        $php_pid = getmypid();
-        //$child_pid = exec("pgrep -P $php_pid");
-        return 1;
+        $command = "ffmpeg -i $link -c:v libx264 -preset veryfast -c:a aac -f hls -hls_time 2 -hls_list_size 10 ../../frontend/src/video/$name.m3u8";
+        exec($command); // here we go
+        //$pid = getmypid();
+        //json_encode($output, JSON_INVALID_UTF8_IGNORE);
+        return 'see';
     }
 
     public function actionStopVideo($pid){
         $command = "taskkill /IM ffmpeg.exe /F";
         //$command = "taskkill /PID $pid /f";
         exec($command);
-        return 1;
+        return $pid;
     }
 
     public function actionDeleteSource($id)

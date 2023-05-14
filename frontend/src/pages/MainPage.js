@@ -8,7 +8,7 @@ import $ from 'jquery';
 class MainPage extends React.Component {
   componentDidMount(){
     if (localStorage.getItem("reload") ==="1"){
-      window.location.reload();
+      //window.location.reload();
       localStorage.setItem("reload", '0')
     }
     $(".main-h").css('background', 'white');
