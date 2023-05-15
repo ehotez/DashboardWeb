@@ -22,7 +22,33 @@ class Widget extends React.Component {
       globalkey: ''
     };
     this.gridSize = ''
+    this.options = [
+      { value: 'video', label: 'Видео' },
+      { value: 'graphic', label: 'График' },
+      { value: 'text', label: 'Отдельный запрос' }
+    ];
   }
+
+   //Функция чтобы отобразить label зная value
+   getLabel(value) {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].value === value) {
+        return this.options[i].label;
+      }
+    }
+    return null;
+  }
+
+  //Функция чтобы отобразить value зная label
+  getValue(label) {
+    for (let i = 0; i < this.options.length; i++) {
+      if (this.options[i].label === label) {
+        return this.options[i].value;
+      }
+    }
+    return null;
+  }
+
 
   fetchSources() {
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/get-sources/?userId=${localStorage.getItem('auth_user')}`, {
@@ -38,10 +64,11 @@ class Widget extends React.Component {
     const row = e.target.parentNode;
     const name = row.querySelector('td:nth-child(2)').innerText;
     const type_label = row.querySelector('td:nth-child(3)').innerText;
+    const type = this.getValue(type_label);
     const link = row.querySelector('td:nth-child(4)').innerText;
     const time = row.querySelector('td:nth-child(7)').innerText;
     this.setState({ sourceName: name });
-    this.setState({ sourceType: type_label });
+    this.setState({ sourceType: type });
     this.setState({ sourceLink: link });
     this.setState({ sourcePeriod: time });
     this.setState({ isPopupVisible: false });
@@ -124,7 +151,7 @@ class Widget extends React.Component {
                   <tr onClick={this.handleClick.bind(this)} key={source.intSourceId}>
                     <td className='view-off'>{source.intSourceId}</td>
                     <td>{source.txtSourceName}</td>
-                    <td>{source.txtSourceType}</td>
+                    <td>{this.getLabel(source.txtSourceType)}</td>
                     <td>{source.txtSourceLink}</td>
                     <td className='view-off'>{source.txtSourceLogin}</td>
                     <td className='view-off'>{source.txtSourcePassword}</td>
