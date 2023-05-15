@@ -3,9 +3,7 @@ import CanvasJSReact from '../canvasjs.react';
 import '../css/Grid.css';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-var dps = [{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 3 },
-{ x: 4, y: 7 }, { x: 5, y: 11 }, { x: 6, y: 2 }, { x: 7, y: 9 }, { x: 8, y: 4 },
-{ x: 9, y: -5 }, { x: 10, y: -1 }, { x: 11, y: 2 }, { x: 12, y: 3 }, { x: 13, y: 5 }, { x: 14, y: 1 }];   //dataPoints.
+var dps = [];   //dataPoints.
 var xVal = dps.length + 1;
 var yVal = 15;
 var updateInterval = 1000;
@@ -13,24 +11,35 @@ var intervalId = 0;
 
 class Graphic extends Component {
   constructor() {
-
     super();
+    this.chart = null;
     intervalId = 0;
-    this.updateChart = this.updateChart.bind(this);
+    this.fetchData = this.fetchData.bind(this);
 
   }
+  fetchData() {
+    fetch("http://172.20.6.171:9988")
+      .then((response) => response.json())
+      .then((data) => {
+        // Обновление данных графика
+        dps = data[0].data.x_values.map((item, index) => ({ x: item, y: data[0].data.y_values[index] }));
+        this.chart.options.data[0].dataPoints = dps;
+        // Перерисовка графика
+        this.chart.render();
+      })
+      .catch((error) => {
+        console.error('Ошибка при получении данных:', error);
+      });
+  }
 
-  updateChart() {
-    yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
-    dps.push({ x: xVal, y: yVal });
-    xVal++;
-    // if (dps.length > 15) {
-    //   dps.shift();
-    // }
-    this.chart.options.axisX.viewportMinimum = xVal - 20;
-    this.chart.options.axisX.viewportMaximum = xVal;
+  componentDidMount() {
+    // Запуск функции fetchData с интервалом 10 секунд
+    intervalId = setInterval(this.fetchData, 1000);
+  }
 
-    this.chart.render();
+  componentWillUnmount() {
+    // Очистка интервала перед размонтированием компонента
+    clearInterval(intervalId);
   }
 
   render() {
