@@ -29,8 +29,8 @@ class Widget extends React.Component {
     ];
   }
 
-   //Функция чтобы отобразить label зная value
-   getLabel(value) {
+  //Функция чтобы отобразить label зная value
+  getLabel(value) {
     for (let i = 0; i < this.options.length; i++) {
       if (this.options[i].value === value) {
         return this.options[i].label;
@@ -182,7 +182,7 @@ class Widget extends React.Component {
                 {this.state.isCloseVisible &&
                   <button className='close' onClick={this.handleCloseWidget}>X</button>
                 }
-                <Video link={this.state.sourceLink} name={this.state.sourceName} id= {this.id}/>
+                <Video link={this.state.sourceLink} name={this.state.sourceName} id={this.id} />
               </>
             }
             {this.state.sourceType == "graphic" &&
@@ -190,7 +190,10 @@ class Widget extends React.Component {
                 {this.state.isCloseVisible &&
                   <button className='close' style={{ left: '-95px' }} onClick={this.handleCloseWidget}>X</button>
                 }
-                <Graphic widget={this.gridSize + '-' + this.id} mass={this.state.sourceName} />
+                <Graphic widget={this.gridSize + '-' + this.id}
+                  name={this.state.sourceName}
+                  link={this.state.sourceLink}
+                  time={this.state.sourcePeriod} />
               </div>
             }
           </>
