@@ -83,6 +83,7 @@ class LoginPage extends Component {
           this.setState({ logged: true });
           $('.error-message').css('display', 'none');
           localStorage.setItem('auth_user', result);
+          localStorage.setItem('size', '3x3');
           // console.log(localStorage.getItem('auth_user'));
         }
       });

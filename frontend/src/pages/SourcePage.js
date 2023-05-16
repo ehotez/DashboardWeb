@@ -23,7 +23,6 @@ class SourcePage extends React.Component {
     for(var i in this.sizes){
       for(var j in this.widgets){
         localStorage.setItem(localStorage.getItem('auth_user') + '-' + this.sizes[i] + '-widget-' + j+'v', '1')
-        console.log(localStorage.getItem(localStorage.getItem('auth_user') + '-' + this.sizes[i] + '-widget-' + j+'v'))
       }
     }
     localStorage.setItem("reload", '1')
