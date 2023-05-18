@@ -26,6 +26,27 @@ class SourceController extends ActiveController
         return $pid;
     }
 
+    public function actionDeleteOldFiles(){
+        $dir = '../../frontend/src/video';
+        $extension = '.ts';
+        $secondsOld = 60;
+
+        $files = glob($dir . '/*' . $extension);
+        $currentTime = time();
+
+        foreach ($files as $file) {
+            if (is_file($file)) {
+                $fileCreationTime = filemtime($file);
+                $timeDifference = $currentTime - $fileCreationTime;
+
+                if ($timeDifference >= $secondsOld) {
+                    unlink($file);
+                }
+            }
+        }
+        return 1;
+    }
+
     public function actionDeleteSource($id)
     {
         $model = Source::findOne($id);

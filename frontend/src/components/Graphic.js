@@ -4,21 +4,20 @@ import '../css/Grid.css';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 var dps = [];   //dataPoints.
-var xVal = dps.length + 1;
-var yVal = 15;
-var updateInterval = 1000;
 var intervalId = 0;
 
 class Graphic extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.chart = null;
     intervalId = 0;
     this.fetchData = this.fetchData.bind(this);
-
+    this.time = Number(this.props.time)
+    this.link = this.props.link
   }
+  
   fetchData() {
-    fetch("http://172.20.6.171:9988")
+    fetch(this.link)
       .then((response) => response.json())
       .then((data) => {
         // Обновление данных графика
@@ -34,7 +33,12 @@ class Graphic extends Component {
 
   componentDidMount() {
     // Запуск функции fetchData с интервалом 10 секунд
-    intervalId = setInterval(this.fetchData, 1000);
+    if(this.time === 0){
+      console.log('no time')
+      intervalId = setInterval(this.fetchData, 10*1000);
+    }else{
+      intervalId = setInterval(this.fetchData, this.time*1000);
+    }
   }
 
   componentWillUnmount() {
@@ -66,14 +70,14 @@ class Graphic extends Component {
         verticalAlign: "center"
       },
       title: {
-        text: this.props.mass.toString()
+        text: this.props.name
       },
       data: [{
         type: "line",
         dataPoints: dps
       }]
     }
-    var widgetId = (this.props.widget.toString()).split('-');
+    var widgetId = (this.props.widget).split('-');
     if (widgetId[0] === '2x2') {
       var containerProps = {
         height: "calc(49.5vh)"

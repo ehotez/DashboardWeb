@@ -19,10 +19,13 @@ class Video extends Component {
   }
 
   componentDidMount() {
+    if (localStorage.getItem('deleteOn') === '0') {
+      localStorage.setItem('reload', '1')
+    }
+
     if (localStorage.getItem('size') === '3x3') {
       this.setState({ multiplier: 0.329 })
     } else if (localStorage.getItem('size') === '2x2') {
-      console.log(localStorage.getItem('size'))
       this.setState({ multiplier: 0.50 })
       console.log(this.id)
     } else if (localStorage.getItem('size') === '2x3' && this.id === 'widget-0') {
@@ -35,7 +38,6 @@ class Video extends Component {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result)
           this.setState({ pid: result })
         });
     }
@@ -44,16 +46,15 @@ class Video extends Component {
   }
 
   componentWillUnmount() {
+
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/stop-video/?pid=${this.pid}`, {
       method: "POST",
     })
       .then((response) => response.json())
       .then((result) => {
         //this.setState({ pid: -1 })
-        console.log(result);
       });
     localStorage.setItem((localStorage.getItem("auth_user") + "-" + localStorage.getItem('size') + "-" + this.id + 'v'), '1')
-    console.log('unmount')
   }
 
   render() {
