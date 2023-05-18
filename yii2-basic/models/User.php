@@ -62,7 +62,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function validatePassword($password)
     {
-        return $this->txtUserPassword === $password;
+        return $this->txtUserPassword === md5($password);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)
