@@ -321,9 +321,9 @@ class SourceTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th width='25%'>Имя источника</th>
+              <th >Имя источника</th>
               <th width='10%'>Тип</th>
-              <th>Ссылка</th>
+              <th >Ссылка</th>
             </tr>
           </thead>
           <tbody>
@@ -344,8 +344,9 @@ class SourceTable extends React.Component {
                       left: this.state.menuX,
                       top: this.state.menuY,
                       backgroundColor: 'white',
+                      borderRadius: '10px',
                       //border: '1px solid black',
-                      //padding: '5px',
+                      padding: '5px',
                     }}
                     onClick={this.handleMenuClick.bind(this)}
                   >

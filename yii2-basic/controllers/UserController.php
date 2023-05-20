@@ -22,7 +22,7 @@ class UserController extends ActiveController
     public function actionLogin($login, $password)
     {
         $user = User::findByUsername($login);
-        if ($user) {
+        if ($user != null) {
             if ($user->validatePassword($password)) {
                 Yii::$app->user->login($user);
                 $indent = Yii::$app->user->id;
