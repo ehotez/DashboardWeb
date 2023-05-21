@@ -3,6 +3,7 @@ import '../css/Grid.css'
 import '../css/Sidebar.css'
 import Graphic from './Graphic';
 import Video from './Video';
+import Query from './Query';
 class Widget extends React.Component {
   static idCounter = 0;
   constructor(props) {
@@ -18,7 +19,7 @@ class Widget extends React.Component {
       sourceName: '',
       sourceType: '',
       sourceLink: '',
-      sourcePeriod: 0,
+      sourcePeriod: '',
       globalkey: ''
     };
     this.gridSize = ''
@@ -96,6 +97,7 @@ class Widget extends React.Component {
     this.setState({ sourceName: '' });
     this.setState({ sourceLink: '' });
     this.setState({ sourceType: '' });
+    this.setState({ sourcePeriod: '' })
   }
 
   componentDidMount() {
@@ -103,13 +105,14 @@ class Widget extends React.Component {
     if (savedSize) {
       this.gridSize = savedSize;
     }
-    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
+    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id);
     var savedValue = localStorage.getItem(key);
-    if (savedValue != '--' && savedValue) {
+    if (savedValue != '---' && savedValue) {
       var mass = savedValue.split('-');
       this.setState({ sourceName: mass[0] });
       this.setState({ sourceLink: mass[1] });
       this.setState({ sourceType: mass[2] });
+      this.setState({ sourcePeriod: mass[3] });
       this.setState({ isCloseVisible: true });
       this.setState({ isShowVisible: true });
     }
@@ -122,14 +125,15 @@ class Widget extends React.Component {
   }
 
   componentDidUpdate() {
-    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id).toString();
-    var value = (this.state.sourceName + '-' + this.state.sourceLink + '-' + this.state.sourceType).toString();
+    var key = (localStorage.getItem("auth_user") + "-" + this.gridSize + "-" + this.id);
+    var value = (this.state.sourceName + '-' + this.state.sourceLink + '-' + this.state.sourceType + '-' + this.state.sourcePeriod);
     localStorage.setItem(key, value);
   }
 
   render() {
     return (
       <>
+      
         {!this.state.isShowVisible &&
           <button className='add-widget-button' onClick={this.handleButtonClick}>+</button>
         }
@@ -169,12 +173,10 @@ class Widget extends React.Component {
                 {this.state.isCloseVisible &&
                   <button className='close' onClick={this.handleCloseWidget}>X</button>
                 }
-                <div className='viewname'>
-                  {this.state.sourceName}
-                </div>
-                <div className='view'>
-                  {this.state.sourceLink}
-                </div>
+                <Query widget={this.gridSize + '-' + this.id}
+                  name={this.state.sourceName}
+                  link={this.state.sourceLink}
+                  time={this.state.sourcePeriod} />
               </div>
             }
             {this.state.sourceType == "video" &&

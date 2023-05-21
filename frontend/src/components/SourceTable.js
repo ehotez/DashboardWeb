@@ -175,12 +175,16 @@ class SourceTable extends React.Component {
   }
 
   handleButtonUpdate(id, name, type, link, login, pass, time) {
+    //Проверяем на спецсимволы
+    if (name.indexOf('-') > -1 || link.indexOf('-') > -1 ||
+      name.indexOf('&') > -1 || link.indexOf('&') > -1) {
+      $('.error-input').css('display', 'block');
+      return;
+    }
+
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/update-source/?id=${id}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
-      // .then(() => {
-      //   this.fetchSources();
-      // });
       .then((response) => response.json())
       .then((result) => {
         if (result === 1) {
@@ -190,27 +194,37 @@ class SourceTable extends React.Component {
           $('.error-input').css('display', 'none')
         } else if (result === 'error') {
           $('.error-input').css('display', 'block');
+        } else if (result === 'dublicate') {
+          $('.dublicate-input').css('display', 'block');
         }
-      });
+      })
 
   }
 
   handleButtonAdd(userId, name, type, link, login, pass, time) {
+    //Проверяем на спецсимволы
+    if (name.indexOf('-') > -1 || link.indexOf('-') > -1 ||
+      name.indexOf('&') > -1 || link.indexOf('&') > -1) {
+      $('.error-input').css('display', 'block');
+      return;
+    }
+
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/add-source/?userId=${userId}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
-      // .then(() => {
-      //   this.fetchSources();
-      // });
       .then((response) => response.json())
       .then((result) => {
+        console.log(result)
         if (result === 1) {
           console.log(result);
           this.fetchSources();
           this.setState({ isAddVisible: false });
           $('.error-input').css('display', 'none')
+          $('.dublicate-input').css('display', 'none');
         } else if (result === 'error') {
           $('.error-input').css('display', 'block');
+        } else if (result === 'dublicate') {
+          $('.dublicate-input').css('display', 'block');
         }
       });
   }
@@ -238,6 +252,7 @@ class SourceTable extends React.Component {
             <div className='input-setting' style={{ width: '60%' }}>
               <input type="text" value={this.state.updateName} onChange={this.nameChange} />
             </div>
+            <div className='dublicate-input'>Источник с таким именем уже существует</div>
             Тип источника* :
             <Select
               className='input-select'
@@ -270,7 +285,7 @@ class SourceTable extends React.Component {
                 <input type="number" min='1' value={this.state.updatePeriod} onChange={this.timeChange} />
               </div>
             </div>
-            <div className='error-input'>Заполните обязательные поля</div>
+            <div className='error-input'>Заполните обязательные поля (не используйте '-', '&')</div>
             <button className='but-update' onClick={this.handleButtonUpdate.bind(this, this.state.updateId, this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Сохранить</button>
             <button className='but-update-close' onClick={this.handleUpdateButtonClose.bind(this)}>Отмена</button>
@@ -282,6 +297,7 @@ class SourceTable extends React.Component {
             <div className='input-setting' style={{ width: '60%' }}>
               <input type="text" required minLength="6" onChange={this.nameChange} />
             </div>
+            <div className='dublicate-input'>Источник с таким именем уже существует</div>
             Тип источника* :
             <Select
               className='input-select'
@@ -345,7 +361,6 @@ class SourceTable extends React.Component {
                       top: this.state.menuY,
                       backgroundColor: 'white',
                       borderRadius: '10px',
-                      //border: '1px solid black',
                       padding: '5px',
                     }}
                     onClick={this.handleMenuClick.bind(this)}

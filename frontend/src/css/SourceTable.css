@@ -296,5 +296,8 @@
 .error-input{
 	display: none;
 	color: red;
-
+}
+.dublicate-input{
+	display: none;
+	color: red;
 }

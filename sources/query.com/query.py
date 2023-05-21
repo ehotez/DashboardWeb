@@ -28,4 +28,4 @@ def get_query():
 
 
 if __name__ == '__main__':
-    app.run(host='query.com', port=9988)
+    app.run(host='localhost', port=9989)

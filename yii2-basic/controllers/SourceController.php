@@ -86,6 +86,11 @@ class SourceController extends ActiveController
             return 0;
         }
 
+        if(Source::find()->where(['txtSourceName'=>$name])->exists() &&
+            $model->txtSourceName != $name){
+                return 'dublicate';
+            }
+
         $model->txtSourceName = $name;
         $model->txtSourceType = $type;
         $model->txtSourceLink = $link;
@@ -114,6 +119,10 @@ class SourceController extends ActiveController
      */
     public function actionAddSource($userId, $name, $type, $link, $login, $pass, $time)
     {
+        if(Source::find()->where(['txtSourceName'=>$name])->exists()){
+            return 'dublicate';
+        }
+
         $model = new Source();
 
         $model->intUserId = $userId;
@@ -124,35 +133,10 @@ class SourceController extends ActiveController
         $model->txtSourcePassword = $pass;
         $model->intTimePeriod = $time;
         $model->save();
+
         if($model->save())
             return 1;
         else
             return 'error';
-    }
-    /**
-     * Получает данные из источника и отображает их на странице.
-     *
-     * @param string $link ссылка на данные источника.
-     * @return array("query_name" => "Сколько рыб в бассейне?",
-     *               "value": 15) | None(если данные не получены)
-     **/
-    public function actionGetQuery($link)
-    {
-        // реализация
-    }
-
-    /**
-     * Получает данные из источника.
-     *
-     * @param string $link ссылка на данные источника.
-     * @return array("chart_name" => "График датчика pH",
-     *               "data" => array("x_label" => "Время, с",
-     *                               "y_label" => "Кислотность, pH",
-     *                               "x_values" => array(1, 2,3, ..., n)
-     *                               "y_values" => array(123, 5, 456, ..., n))) | None(если данные не получены)           
-     */
-    public function actionGetChart($link)
-    {
-        // реализация
     }
 }

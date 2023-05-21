@@ -82,7 +82,7 @@
 
 .view{
     position: relative;
-    top: 50%;
+    margin-top: 30%;
     text-align: center;
     font-size: 2.5em;
 }

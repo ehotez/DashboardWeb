@@ -59,4 +59,4 @@ def get_chart_data():
 
 
 if __name__ == '__main__':
-    app.run(host='chart.com', port=9988)
+    app.run(host='localhost', port=9988)
