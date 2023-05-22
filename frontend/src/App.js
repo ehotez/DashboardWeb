@@ -7,6 +7,7 @@ import {
 import PrivateRoute from './components/PrivateRoute';
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import SourcePage from "./pages/SourcePage";
 import Sidebar from "./components/Sidebar";
 
@@ -30,6 +31,7 @@ function App() {
         } />
         {/* <Route exact path="/sources" element={<SourcePage />} /> */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

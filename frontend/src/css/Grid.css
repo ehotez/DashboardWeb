@@ -32,6 +32,10 @@
     border-left: 0px;
     border-top: 0px;
 }
+.video {
+    position: absolute;
+    background-color: white;    
+}
 
 .widget1 {
     position: relative;
@@ -42,6 +46,7 @@
     border-top: 0px;
 }
 .popup {
+    display: grid;
     position: relative;
     top: 50%;
     left: 50%;
@@ -49,13 +54,14 @@
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 10px;
-    width: 300px;
-    height: 270px;
+    width: 100%;
+    height: 100%;
 }
+
 .close{
     position: relative;
-    top: 4px;
-    left: -95px;
+    top: 3px;
+    left: -5px;
     z-index: 10;
 }
 .add-widget-button{
@@ -76,7 +82,7 @@
 
 .view{
     position: relative;
-    top: 50%;
+    margin-top: 30%;
     text-align: center;
     font-size: 2.5em;
 }
@@ -91,12 +97,35 @@
     height: 33.33vh;
     z-index: 9;
 }
-.table {
-	position: fixed;
-	width: 100%;
+.gridtable {
+	position: absolute;
+    width: 100%;
+    height: 100%;
 	border: 1px solid #dddddd;
 	border-collapse: separate;
-    /*overflow: scroll;
-    white-space: nowrap;
-    display: block;*/
+    display: block;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: scroll;
+
+}
+.gridtable th {
+	font-weight: bold;
+	padding: 1px;
+	background: #efefef;
+	vertical-align: middle;
+	border: 1px solid #dddddd;
+    position: relative;
+}
+
+.gridtable td {
+    border: 1px solid #dddddd;
+	vertical-align: middle;
+	position: relative;
+    padding: 5px;
+
+}
+
+.gridtable tr:hover td {
+	background: #22bbea36;
 }

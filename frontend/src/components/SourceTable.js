@@ -1,7 +1,8 @@
 import '../css/SourceTable.css'
 import Select from 'react-select';
 import React, { } from 'react';
-import {FiHelpCircle} from 'react-icons/fi'
+import { FiHelpCircle } from 'react-icons/fi'
+import $ from 'jquery';
 
 class SourceTable extends React.Component {
   constructor(props) {
@@ -22,14 +23,14 @@ class SourceTable extends React.Component {
       updateLink: '',
       updateLogin: '',
       updatePassword: '',
-      updatePeriod: 0,
-      isSelectVisible: false
+      updatePeriod: 60
     };
     this.options = [
       { value: 'video', label: 'Видео' },
       { value: 'graphic', label: 'График' },
       { value: 'text', label: 'Отдельный запрос' }
     ];
+    this.showInput = this.showInput.bind(this);
     this.menuRef = React.createRef();
   }
 
@@ -82,14 +83,27 @@ class SourceTable extends React.Component {
 
   handleDeleteButtonClick() { this.setState({ isPopupVisible: true }); }
   handleUpdateButtonClick() { this.setState({ isUpdateVisible: true }); }
-  handleAddButtonClick() { this.setState({ isAddVisible: true }); }
+  handleAddButtonClick() { this.setState({ isAddVisible: true }); this.clearStates(); }
 
   handleDeleteButtonClose() { this.setState({ isPopupVisible: false }); }
   handleUpdateButtonClose() { this.setState({ isUpdateVisible: false }); }
   handleAddButtonClose() { this.setState({ isAddVisible: false }); }
 
+  clearStates() {
+    this.setState({ deleteId: 0 });
+    this.setState({ deleteName: '' });
+    this.setState({ updateId: 0 });
+    this.setState({ updateName: '' });
+    this.setState({ updateType: '' });
+    this.setState({ updateLink: '' });
+    this.setState({ updateLogin: '' });
+    this.setState({ updatePassword: '' });
+    this.setState({ updatePeriod: 60 });
+  }
+
   //При нажатии правой кнопкой мыши по строке заполняются все данные об этой строке в state переменные
   handleRightClick(e) {
+    this.clearStates();
     e.preventDefault();
     const row = e.target.parentNode;
     const id = row.querySelector('td:first-child').innerText;
@@ -118,16 +132,40 @@ class SourceTable extends React.Component {
     this.setState({ isMenuVisible: false });
   }
 
+  typeChange = (event) => {
+    this.setState({ updateType: event.value });
+    if (event.value === 'video') {
+      $('.s-login').css('display', 'inline-block');
+      $('.s-pass').css('display', 'inline-block');
+      $('.s-period').css('display', 'none');
+    } else {
+      $('.s-login').css('display', 'none');
+      $('.s-pass').css('display', 'none');
+      $('.s-period').css('display', 'block');
+    }
+  }
+
+  showInput() {
+
+    if (this.state.updateType === 'video') {
+      $('.s-login').css('display', 'inline-block');
+      $('.s-pass').css('display', 'inline-block');
+      $('.s-period').css('display', 'none');
+    } else if (this.state.updateType === 'graphic' || this.state.updateType === 'text') {
+      $('.s-login').css('display', 'none');
+      $('.s-pass').css('display', 'none');
+      $('.s-period').css('display', 'block');
+    }
+  }
   nameChange = (event) => { this.setState({ updateName: event.target.value }); }
-  typeChange = (event) => { this.setState({ isSelectVisible: true }); this.setState({ updateType: event.value }); }
   linkChange = (event) => { this.setState({ updateLink: event.target.value }); }
   loginChange = (event) => { this.setState({ updateLogin: event.target.value }); }
   passChange = (event) => { this.setState({ updatePassword: event.target.value }); }
   timeChange = (event) => { this.setState({ updatePeriod: event.target.value }); }
 
   handleButtonDelete(id) {
-    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/delete/?id=${id}`, {
-      method: 'DELETE'
+    fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/delete-source/?id=${id}`, {
+      method: 'POST'
     })
       .then(() => {
         this.fetchSources();
@@ -137,35 +175,64 @@ class SourceTable extends React.Component {
   }
 
   handleButtonUpdate(id, name, type, link, login, pass, time) {
+    //Проверяем на спецсимволы
+    if (name.indexOf('-') > -1 || link.indexOf('-') > -1 ||
+      name.indexOf('&') > -1 || link.indexOf('&') > -1) {
+      $('.error-input').css('display', 'block');
+      return;
+    }
+
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/update-source/?id=${id}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
-      .then(() => {
-        this.fetchSources();
-      });
-    this.setState({ isUpdateVisible: false });
+      .then((response) => response.json())
+      .then((result) => {
+        if (result === 1) {
+          console.log(result);
+          this.fetchSources();
+          this.setState({ isUpdateVisible: false });
+          $('.error-input').css('display', 'none')
+        } else if (result === 'error') {
+          $('.error-input').css('display', 'block');
+        } else if (result === 'dublicate') {
+          $('.dublicate-input').css('display', 'block');
+        }
+      })
+
   }
 
   handleButtonAdd(userId, name, type, link, login, pass, time) {
+    //Проверяем на спецсимволы
+    if (name.indexOf('-') > -1 || link.indexOf('-') > -1 ||
+      name.indexOf('&') > -1 || link.indexOf('&') > -1) {
+      $('.error-input').css('display', 'block');
+      return;
+    }
+
     fetch(`http://localhost/DashboardWeb/yii2-basic/web/source/add-source/?userId=${userId}&name=${name}&type=${type}&link=${link}&login=${login}&pass=${pass}&time=${time}`, {
       method: 'POST',
     })
-      .then(() => {
-        this.fetchSources();
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result)
+        if (result === 1) {
+          console.log(result);
+          this.fetchSources();
+          this.setState({ isAddVisible: false });
+          $('.error-input').css('display', 'none')
+          $('.dublicate-input').css('display', 'none');
+        } else if (result === 'error') {
+          $('.error-input').css('display', 'block');
+        } else if (result === 'dublicate') {
+          $('.dublicate-input').css('display', 'block');
+        }
       });
-    // .then((response) => response.json())
-    // .then((result) => {
-    //   if (result) {
-    //     console.log(result);
-    //   }
-    // });
-    this.setState({ isAddVisible: false });
   }
 
   render() {
     return (
       <div>
-        <h1>Source List</h1>
+        <h1>Источники</h1>
         <button className='add-button' onClick={this.handleAddButtonClick.bind(this)}>Добавить</button>
         <span className='help'>
           <button className='help-button'><FiHelpCircle /></button>
@@ -173,7 +240,7 @@ class SourceTable extends React.Component {
         </span>
         {this.state.isPopupVisible &&
           <div className="popup-delete">
-            <label className='text'>Ты уверен, другалёк?<br />
+            <label className='text'>Подтвердите удаление.<br />
               Удалить {this.state.deleteName}? </label>
             <button className='but-delete' onClick={this.handleButtonDelete.bind(this, this.state.deleteId)}>Да</button>
             <button className='but-delete-close' onClick={this.handleDeleteButtonClose.bind(this)}>Нет</button>
@@ -181,25 +248,44 @@ class SourceTable extends React.Component {
         }
         {this.state.isUpdateVisible &&
           <div className="popup-edit">
-            Имя источника
-            <input type="text" value={this.state.updateName} onChange={this.nameChange} />
-            Тип источника
+            Имя источника* :
+            <div className='input-setting' style={{ width: '60%' }}>
+              <input type="text" value={this.state.updateName} onChange={this.nameChange} />
+            </div>
+            <div className='dublicate-input'>Источник с таким именем уже существует</div>
+            Тип источника* :
             <Select
+              className='input-select'
               placeholder={this.getLabel(this.state.updateType)}
               value={this.state.updateType}
               options={this.options}
               onChange={this.typeChange}
+              onFocus={this.showInput}
+              autoFocus
             />
-            {/* <input type="text" value={this.state.updateType} onChange={this.typeChange} /> */}
-            Ссылка на источник
-            <input type="text" value={this.state.updateLink} onChange={this.linkChange} />
-            Логин (Видео)
-            <input type="text" value={this.state.updateLogin} onChange={this.loginChange} />
-            Пароль (Видео)
-            <input type="text" value={this.state.updatePassword} onChange={this.passChange} />
-            Период обновления источника(кроме видео)
-            <input type="text" value={this.state.updatePeriod} onChange={this.timeChange} />
-
+            Ссылка на источник* :
+            <div className='input-setting' style={{ width: '90%' }}>
+              <input type="text" value={this.state.updateLink} onChange={this.linkChange} />
+            </div>
+            <div className='s-login'>
+              Логин:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="text" value={this.state.updateLogin} onChange={this.loginChange} />
+              </div>
+            </div>
+            <div className='s-pass'>
+              Пароль:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="password" autoComplete='new-password' value={this.state.updatePassword} onChange={this.passChange} />
+              </div>
+            </div>
+            <div className='s-period'>
+              Период обновления источника (сек):
+              <div className='input-setting' style={{ width: '15%' }}>
+                <input type="number" min='1' value={this.state.updatePeriod} onChange={this.timeChange} />
+              </div>
+            </div>
+            <div className='error-input'>Заполните обязательные поля (не используйте '-', '&')</div>
             <button className='but-update' onClick={this.handleButtonUpdate.bind(this, this.state.updateId, this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Сохранить</button>
             <button className='but-update-close' onClick={this.handleUpdateButtonClose.bind(this)}>Отмена</button>
@@ -207,25 +293,42 @@ class SourceTable extends React.Component {
         }
         {this.state.isAddVisible &&
           <div className="popup-edit">
-            Имя источника
-            <input type="text" onChange={this.nameChange} />
-            Тип источника
+            Имя источника* :
+            <div className='input-setting' style={{ width: '60%' }}>
+              <input type="text" required minLength="6" onChange={this.nameChange} />
+            </div>
+            <div className='dublicate-input'>Источник с таким именем уже существует</div>
+            Тип источника* :
             <Select
+              className='input-select'
               placeholder={this.getLabel(this.state.updateType)}
               value={this.state.updateType}
               options={this.options}
               onChange={this.typeChange}
             />
-            {/* <input type="text" value={this.state.updateType} onChange={this.typeChange} /> */}
-            Ссылка на источник
-            <input type="text" onChange={this.linkChange} />
-            Логин (Видео)
-            <input type="text" onChange={this.loginChange} />
-            Пароль (Видео)
-            <input type="text" onChange={this.passChange} />
-            Период обновления источника(кроме видео)
-            <input type="text" onChange={this.timeChange} />
-
+            Ссылка на источник* :
+            <div className='input-setting' style={{ width: '90%' }}>
+              <input type="text" onChange={this.linkChange} />
+            </div>
+            <div className='s-login'>
+              Логин:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="text" onChange={this.loginChange} />
+              </div>
+            </div>
+            <div className='s-pass'>
+              Пароль:
+              <div className='input-setting' style={{ width: '70%' }}>
+                <input type="password" autoComplete='new-password' onChange={this.passChange} />
+              </div>
+            </div>
+            <div className='s-period'>
+              Период обновления источника (сек):
+              <div className='input-setting' style={{ width: '15%' }}>
+                <input type="number" min='1' onChange={this.timeChange} />
+              </div>
+            </div>
+            <div className='error-input'>Заполните обязательные поля</div>
             <button className='but-update' onClick={this.handleButtonAdd.bind(this, localStorage.getItem('auth_user'), this.state.updateName, this.state.updateType,
               this.state.updateLink, this.state.updateLogin, this.state.updatePassword, this.state.updatePeriod)}>Добавить</button>
             <button className='but-update-close' onClick={this.handleAddButtonClose.bind(this)}>Отмена</button>
@@ -234,9 +337,9 @@ class SourceTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th width='25%'>Имя источника</th>
+              <th >Имя источника</th>
               <th width='10%'>Тип</th>
-              <th>Ссылка</th>
+              <th >Ссылка</th>
             </tr>
           </thead>
           <tbody>
@@ -257,8 +360,8 @@ class SourceTable extends React.Component {
                       left: this.state.menuX,
                       top: this.state.menuY,
                       backgroundColor: 'white',
-                      //border: '1px solid black',
-                      //padding: '5px',
+                      borderRadius: '10px',
+                      padding: '5px',
                     }}
                     onClick={this.handleMenuClick.bind(this)}
                   >
@@ -270,7 +373,7 @@ class SourceTable extends React.Component {
             ))}
           </tbody>
         </table>
-      </div>
+      </div >
     );
   }
 }

@@ -3,34 +3,47 @@ import CanvasJSReact from '../canvasjs.react';
 import '../css/Grid.css';
 
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-var dps = [{ x: 1, y: 10 }, { x: 2, y: 5 }, { x: 3, y: 3 },
-{ x: 4, y: 7 }, { x: 5, y: 11 }, { x: 6, y: 2 }, { x: 7, y: 9 }, { x: 8, y: 4 },
-{ x: 9, y: -5 }, { x: 10, y: -1 }, { x: 11, y: 2 }, { x: 12, y: 3 }, { x: 13, y: 5 }, { x: 14, y: 1 }];   //dataPoints.
-var xVal = dps.length + 1;
-var yVal = 15;
-var updateInterval = 1000;
+var dps = [];   //dataPoints.
 var intervalId = 0;
 
 class Graphic extends Component {
-  constructor() {
-
-    super();
+  constructor(props) {
+    super(props);
+    this.chart = null;
     intervalId = 0;
-    this.updateChart = this.updateChart.bind(this);
-
+    this.fetchData = this.fetchData.bind(this);
+    this.time = Number(this.props.time)
+    this.link = this.props.link
+  }
+  
+  fetchData() {
+    fetch(this.link)
+      .then((response) => response.json())
+      .then((data) => {
+        // Обновление данных графика
+        dps = data[0].data.x_values.map((item, index) => ({ x: item, y: data[0].data.y_values[index] }));
+        this.chart.options.data[0].dataPoints = dps;
+        // Перерисовка графика
+        this.chart.render();
+      })
+      .catch((error) => {
+        console.error('Ошибка при получении данных:', error);
+      });
   }
 
-  updateChart() {
-    yVal = yVal + Math.round(5 + Math.random() * (-5 - 5));
-    dps.push({ x: xVal, y: yVal });
-    xVal++;
-    // if (dps.length > 15) {
-    //   dps.shift();
-    // }
-    this.chart.options.axisX.viewportMinimum = xVal - 20;
-    this.chart.options.axisX.viewportMaximum = xVal;
+  componentDidMount() {
+    // Запуск функции fetchData с интервалом 10 секунд
+    if(this.time === 0){
+      console.log('no time')
+      intervalId = setInterval(this.fetchData, 10*1000);
+    }else{
+      intervalId = setInterval(this.fetchData, this.time*1000);
+    }
+  }
 
-    this.chart.render();
+  componentWillUnmount() {
+    // Очистка интервала перед размонтированием компонента
+    clearInterval(intervalId);
   }
 
   render() {
@@ -57,26 +70,24 @@ class Graphic extends Component {
         verticalAlign: "center"
       },
       title: {
-        text: this.props.mass.toString()
+        text: this.props.name
       },
       data: [{
         type: "line",
         dataPoints: dps
       }]
     }
-    var widgetId = (this.props.widget.toString()).split('-');
+    var widgetId = (this.props.widget).split('-');
     if (widgetId[0] === '2x2') {
       var containerProps = {
         height: "calc(49.5vh)"
       };
-    } else if (widgetId[0] === '2x3' && widgetId[2] === '1') {
+    } else if (widgetId[0] === '2x3' && widgetId[2] === '0') {
       var containerProps = {
-   
         height: "calc(66vh)"
       };
     } else {
       var containerProps = {
-
         height: "calc(33vh)"
       };
     }

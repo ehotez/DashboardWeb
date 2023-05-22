@@ -1,8 +1,8 @@
-.form-group{
-    width: 71%;
+.form-group {
+	position: relative;
+	width: 71%;
 	height: 50px;
-	background: #e0dede;
-	justify-content: center;
+	background: #ffffff;
 	display: flex;
 	margin: 20px auto;
 	padding: 10px;
@@ -11,58 +11,75 @@
 	border-radius: 10px;
 }
 
-.login{
+.login {
 	position: relative;
 	min-height: 100vh;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	background: linear-gradient(to bottom, #1d7ed8, #ffffff, #1d7ed8);
 	z-index: 10;
 }
 
-.login-form{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    width: 380px;
+.login-form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+	width: 380px;
 	height: 500px;
 	overflow: hidden;
-		background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	background: linear-gradient(to bottom, #133f69, #4ba5f4, #0c2d4b);
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
 }
 
-.login-label{
-	color: #fff;
-	font-size: 2.3em;
+.login-label {
+	color: #fcfcfc;
+	font-size: 2.0em;
 	justify-content: center;
 	display: flex;
-	margin-top: 15%;
+	margin-top: 30%;
+	margin-bottom: -10%;
 	font-weight: bold;
 	cursor: pointer;
 }
 
-.login-container{
+.login-container {
 	margin-top: 15%;
 }
 
-.submit-button{
-    position: relative;
-    right: -76px;
+.submit-button {
+	position: relative;
+	right: -76px;
 	width: 60%;
 	height: 50px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
-	margin-top: 50px;
+	margin-top: 20%;
 	border: none;
 	border-radius: 5px;
 	transition: .2s ease-in;
 	cursor: pointer;
 }
-.submit-button:hover{
-	background: #6d44b8;
+
+.submit-button:hover {
+	background: #45b1ec;
+}
+
+.error-message {
+	z-index: 11;
+	color: rgb(41, 13, 13);
+	display: none;
+	margin-left: 60px;
+	margin-bottom: -20px;
+}
+
+.login-pic {
+	position: absolute;
+	left: 35%;
+	height:100px;
+	width:180px;
 }

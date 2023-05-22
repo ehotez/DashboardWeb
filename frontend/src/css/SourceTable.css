@@ -1,8 +1,10 @@
 .table {
-	position: fixed;
-	width: 80%;
+	width: 90%;
+	height: 90%;
 	border: 1px solid #dddddd;
 	border-collapse: separate;
+	overflow-y: scroll;
+	padding-bottom:0px;
 }
 
 .table th {
@@ -21,7 +23,7 @@
 }
 
 .table tr:hover td {
-	background: #e0c8ed50;
+	background: #22bbea36;
 }
 
 .noHover {
@@ -35,6 +37,7 @@
 	transform: translate(-50%, -50%);
 	background-color: white;
 	border: 1px solid black;
+	border-radius: 8px;
 	padding: 10px;
 	width: 500px;
 	height: 150px;
@@ -44,10 +47,10 @@
 .text {
 	position: fixed;
 	top: 5%;
-	left: 12%;
+	left: 25%;
 	color: black;
-	font-size: 2.0em;
-
+	font-size: 1.5em;
+	text-align: center;
 }
 
 .popup-edit {
@@ -57,10 +60,11 @@
 	transform: translate(-50%, -50%);
 	background-color: white;
 	border: 1px solid black;
-	padding: 10px;
+	border-radius: 8px;
+	padding: 20px;
 	width: 500px;
-	height: 450px;
-	z-index: 99;
+	height: 500px;
+	z-index: 11;
 }
 
 .but-delete {
@@ -71,7 +75,7 @@
 	height: 40px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -88,7 +92,7 @@
 	height: 40px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -105,7 +109,7 @@
 	height: 40px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -122,7 +126,7 @@
 	height: 40px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -159,7 +163,7 @@
 	height: 30px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -215,7 +219,7 @@
 	position: relative;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -229,7 +233,7 @@
 	margin-bottom: 5px;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #22bbea;
 	font-size: 1em;
 	font-weight: bold;
 	border: none;
@@ -243,7 +247,7 @@
 }
 
 .add-button:focus {
-	background-color: #573b8a;
+	background-color: #22bbea;
 }
 
 .edit-button:hover {
@@ -252,4 +256,48 @@
 
 .delete-button:hover {
 	background-color: #bbb;
+}
+
+.s-pass{
+	display: none;
+}
+
+.s-login{
+	display: none;
+}
+
+.s-period{
+	display: none;
+}
+
+.input-setting{
+	width: 71%;
+	height: 50px;
+	background: #ffffff;
+	justify-content: center;
+	display: flex;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 1px solid;
+	border-color: black;
+	border-radius: 8px;
+}
+
+.input-select{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 40%;
+	border: 1px solid;
+	border-color: black;
+	border-radius: 5px;
+}
+
+.error-input{
+	display: none;
+	color: red;
+}
+.dublicate-input{
+	display: none;
+	color: red;
 }
